@@ -71,6 +71,8 @@
   --interactive-muted: #827868;
   --mention-foreground: var(--gr-gold-bright);
   --mention-background: var(--gr-selected);
+  --message-highlight-background-default: var(--gr-selected);
+  --message-highlight-background-hover: color-mix(in srgb, var(--gr-gold) 28%, transparent);
 
   --user-profile-border: var(--gr-line);
   --user-profile-overlay-background: var(--gr-card-bg);

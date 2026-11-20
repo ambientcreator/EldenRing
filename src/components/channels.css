@@ -10,26 +10,40 @@
 .sidebarList_pog62O {
   background: var(--gr-channels-bg);
   border-color: var(--gr-line);
-  border-inline-end: var(--gr-border-width) solid var(--gr-line);
-  border-radius: var(--gr-radius) 0 0 0;
+}
+
+/* Discord paints the DM scroller and the channel scroller over the sidebar. */
+.sidebarList_pog62O :is([class^="scroller_"], [class*=" scroller_"]) {
+  background: transparent;
 }
 
 .sidebarList_pog62O [data-list-item-id^="channels___"],
 .privateChannels_u88IQl .interactive_zln_tS {
-  min-block-size: var(--gr-channel-row-height);
+  background-color: color-mix(in srgb, var(--gr-reading-bg) 45%, transparent);
   border-radius: var(--gr-radius);
   transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
 }
 
+@container style(--gr-channel-row-height) {
+  .sidebarList_pog62O [data-list-item-id^="channels___"],
+  .privateChannels_u88IQl .interactive_zln_tS {
+    min-block-size: var(--gr-channel-row-height);
+  }
+}
+
 .sidebarList_pog62O [data-list-item-id^="channels___"]:hover,
 .privateChannels_u88IQl .interactive_zln_tS:hover {
-  background-color: var(--gr-hover);
+  background-color: color-mix(in srgb, var(--gr-gold) 8%, var(--gr-reading-bg));
+}
+
+.privateChannels_u88IQl .tabHoverGradient_zln_tS {
+  visibility: hidden;
 }
 
 .sidebarList_pog62O [data-list-item-id^="channels___"]:is([aria-selected="true"], [aria-current="page"]),
 .sidebarList_pog62O :is([class^="modeSelected_"], [class*=" modeSelected_"]) [data-list-item-id^="channels___"],
 .privateChannels_u88IQl .interactiveSelected_zln_tS {
-  background: var(--gr-selection-fill);
+  background: var(--gr-selection-fill) var(--gr-reading-bg);
   box-shadow: inset 2px 0 var(--gr-gold);
   color: var(--gr-gold-bright);
 }
@@ -39,9 +53,19 @@
   color: var(--gr-text);
 }
 
-.sidebarList_pog62O :is([class^="unread_"], [class*=" unread_"]),
 .privateChannels_u88IQl .unreadPill_zln_tS {
   background-color: var(--gr-gold);
+}
+
+.sidebarList_pog62O .bar_oJAkDB:is(.unread_oJAkDB, .mention_oJAkDB) {
+  background-color: var(--gr-popout-bg);
+  border-color: var(--gr-line);
+  color: var(--gr-text);
+}
+
+.sidebarList_pog62O .bar_oJAkDB.mention_oJAkDB {
+  border-color: var(--gr-line-strong);
+  color: var(--gr-gold-bright);
 }
 
 .sidebarList_pog62O :is([class^="name_"], [class*=" name_"])[class*="header"],
@@ -60,6 +84,5 @@
 
 .panels_pog62O {
   background: var(--gr-card-bg);
-  border: var(--gr-border-width) solid var(--gr-line-strong);
-  border-radius: var(--gr-radius);
+  border-color: var(--gr-line);
 }

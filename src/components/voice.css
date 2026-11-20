@@ -1,11 +1,14 @@
-.panels_pog62O .wrapper_9U6LUN {
+.panels_pog62O {
   --control-primary-background-default: var(--gr-control-bg);
   --control-primary-background-hover: var(--gr-selected);
   --control-primary-background-active: var(--gr-hover);
   --control-primary-text-default: var(--gr-text);
   --control-primary-text-hover: var(--gr-gold-bright);
   --control-primary-text-active: var(--gr-gold-bright);
-  border-block-end: var(--gr-border-width) solid var(--gr-line);
+}
+
+.panels_pog62O .wrapper_9U6LUN {
+  box-shadow: inset 0 -1px var(--gr-line);
 }
 
 .panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:not(.buttonActive_9U6LUN, .greyButtonActive_9U6LUN) {
@@ -30,6 +33,17 @@
   background: var(--gr-popout-bg);
   border: var(--gr-border-width) solid var(--gr-line);
   border-radius: var(--gr-radius);
+}
+
+/* The call wrapper and call container have two native opaque backgrounds. */
+.wrapper_hbKzX7,
+.wrapper_hbKzX7.minimum_hbKzX7 {
+  background: transparent;
+}
+
+.callContainer_hbKzX7,
+.wrapper_hbKzX7.minimum_hbKzX7 .callContainer_hbKzX7 {
+  background: var(--gr-voice-bg);
 }
 
 .tileContainer_4cz-WN {

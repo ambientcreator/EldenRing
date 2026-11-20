@@ -4,8 +4,8 @@
 }
 
 .container_ybUK7Z.themed_ybUK7Z {
-  --__header-bar-background: var(--gr-channels-bg);
-  background: var(--gr-channels-bg);
+  --__header-bar-background: var(--gr-card-bg);
+  background: var(--gr-card-bg);
   border-block-end: var(--gr-border-width) solid var(--gr-line-strong);
 }
 
@@ -38,6 +38,6 @@
 .searchBar_i16Ad0:focus-within,
 .searchBar_u88IQl .searchBarComponent_u88IQl:focus-visible {
   outline: 1px solid var(--gr-gold);
-  outline-offset: 0;
+  outline-offset: -1px;
   box-shadow: var(--gr-focus-glow);
 }

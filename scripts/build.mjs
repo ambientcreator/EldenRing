@@ -16,7 +16,7 @@ const mimeTypes = {
 const header = `/**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.2.0
+ * @version 0.3.0
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */

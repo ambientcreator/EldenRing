@@ -1,18 +1,18 @@
-/* One fixed image, behind the existing app and its layers. */
-:is(#app-mount, [id^="app-mount_"]) {
+/* The call becomes a separate painting layer in native fullscreen. */
+:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen) {
   isolation: isolate;
   background-color: var(--gr-bg-base);
 }
 
-:is(#app-mount, [id^="app-mount_"])::before,
-:is(#app-mount, [id^="app-mount_"])::after {
+:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before,
+:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
 }
 
-:is(#app-mount, [id^="app-mount_"])::before {
+:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before {
   z-index: -2;
   background-color: var(--gr-bg-base);
   background-image: url("../assets/golden-ruins.webp"), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
@@ -23,12 +23,12 @@
 
 /* Chromium caps CSS variable values at 2 MiB. Keep the lossless default as a literal URL. */
 @container style(--gr-wallpaper) {
-  :is(#app-mount, [id^="app-mount_"])::before {
+  :is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before {
     background-image: var(--gr-wallpaper), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
   }
 }
 
-:is(#app-mount, [id^="app-mount_"])::after {
+:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::after {
   z-index: -1;
   background-image:
     radial-gradient(ellipse at 69% 38%, transparent 25%, rgb(9 8 6 / var(--gr-vignette)) 100%),

@@ -10,6 +10,7 @@
   --background-modifier-selected: var(--gr-selected);
   --background-mentioned: color-mix(in srgb, var(--gr-gold) 12%, transparent);
   --background-mentioned-hover: var(--gr-selected);
+  --background-message-highlight: var(--gr-selected);
   --header-primary: var(--gr-text);
   --header-secondary: var(--gr-text-muted);
   --text-normal: var(--gr-text);

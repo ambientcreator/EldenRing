@@ -3,6 +3,7 @@
 }
 
 .recentsPopoutContainer_iar92T,
+.searchHeader_DAJqRF,
 .searchHeader_rfDq2B,
 .header_LSviKk,
 .bannerForumChannel_gmkdZC,
@@ -18,6 +19,11 @@
     [class^="threadSidebar_"], [class*=" threadSidebar_"]) {
   background: var(--gr-popout-bg);
   border-color: var(--gr-line);
+}
+
+.searchResultsWrap_QHVbp3 mark {
+  background-color: var(--gr-selected);
+  color: var(--gr-gold-bright);
 }
 
 .inboxTitle_LSviKk,

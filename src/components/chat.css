@@ -7,6 +7,11 @@
   background: var(--gr-chat-bg);
 }
 
+.chatContent_z_gUBg :is(.messageListItem_SY_P2T, li[id^="chat-messages-"]) {
+  /* Keep the native mention, reply and search flash background colors underneath. */
+  background-image: linear-gradient(var(--gr-reading-bg), var(--gr-reading-bg));
+}
+
 .chatContent_z_gUBg :where([data-list-id="chat-messages"], [class^="messagesWrapper_"]) {
   background-color: transparent;
 }
@@ -26,6 +31,16 @@
   color: var(--gr-link);
   text-decoration: underline;
   text-underline-offset: 0.15em;
+}
+
+.wrapper_NDaLCQ {
+  --brand-05a: var(--gr-hover);
+  --brand-300: var(--gr-gold-bright);
+}
+
+:is(.wrapper_NDaLCQ, .mention).interactive:is(:hover, :focus-visible) {
+  background-color: color-mix(in srgb, var(--gr-gold) 29%, var(--gr-control-bg));
+  color: var(--gr-gold-bright);
 }
 
 .chatContent_z_gUBg .markup_ku1OHH :is(pre, code) {

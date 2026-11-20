@@ -120,12 +120,11 @@ svg:not(.icons) {
 .guild:hover, .active-guild { border-color: var(--gr-gold-dim); background-color: var(--gr-surface-raised); }
 .active-guild { background-image: radial-gradient(ellipse, var(--gr-selected), transparent 85%); }
 .guild .childWrapper_JJ-hgR { display: grid; place-items: center; width: 100%; height: 100%; border-radius: inherit; }
-.guild .homeIcon_1IyMuq { width: 26px; height: 26px; }
 .pill_nFH31_ { position: absolute; inset-inline-start: -13px; }
 .pill_nFH31_ .item_6zZYhF { display: block; width: 3px; height: 21px; border-radius: 0 2px 2px 0; }
 .rail-divider { width: 33px; height: 1px; background: var(--gr-line); }
 
-.preview-channels { display: flex; flex-direction: column; min-height: 0; }
+.preview-channels { display: flex; flex-direction: column; min-height: 0; box-shadow: inset -1px 0 var(--gr-line); }
 
 .server-heading {
   display: grid;
@@ -156,7 +155,7 @@ svg:not(.icons) {
 
 .channel-list button svg { width: 15px; height: 15px; }
 .channel-list .unread_oJAkDB { width: 5px; height: 5px; margin-inline-start: auto; border-radius: 50%; }
-.preview-account { margin: 8px; padding: 8px; }
+.preview-account { margin: 8px; padding: 8px; border: var(--gr-border-width) solid var(--gr-line); border-radius: var(--gr-radius); }
 .account-row { display: flex; align-items: center; gap: 6px; }
 .account-trigger { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; text-align: start; }
 .account-trigger > span:last-child { min-width: 0; }

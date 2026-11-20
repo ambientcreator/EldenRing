@@ -32,10 +32,11 @@
 }
 
 .members_86es0b .memberInner_Iy0c7A {
+  background-color: var(--gr-reading-bg);
   border-radius: var(--gr-radius);
   transition: background-color var(--gr-hover-time);
 }
 
 .members_86es0b .member_86es0b:hover .memberInner_Iy0c7A {
-  background-color: var(--gr-hover);
+  background-color: color-mix(in srgb, var(--gr-gold) 12%, var(--gr-reading-bg));
 }

@@ -166,7 +166,7 @@ document.querySelector('.preview-form').addEventListener('submit', event => {
   if (!text) return;
 
   const message = document.createElement('article');
-  message.className = 'sample-message';
+  message.className = 'sample-message messageListItem_SY_P2T';
   message.dataset.room = room;
   const avatar = document.createElement('span');
   avatar.className = 'avatar avatar-olive';

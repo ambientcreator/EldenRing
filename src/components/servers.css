@@ -39,14 +39,33 @@
 }
 
 @supports (mask-image: none) {
-  /* Paint within the existing icon box so the Home button keeps its label and hit area. */
-  :is(.guilds_pog62O, [class^="guilds_"], [class*=" guilds_"]) svg:is([class^="homeIcon_"], [class*=" homeIcon_"]) {
-    background-color: currentColor;
-    mask: var(--gr-home-rings) center / contain no-repeat;
-  }
+  /* The Home button can contain a Clyde SVG without a class or a custom icon image. */
+  :is([data-guilds-bar-home], [data-list-item-id="guildsnav___home"], .tutorialContainer_1IyMuq)
+    :is([class^="childWrapper_"], [class*=" childWrapper_"]) {
+    position: relative;
 
-  :is(.guilds_pog62O, [class^="guilds_"], [class*=" guilds_"]) svg:is([class^="homeIcon_"], [class*=" homeIcon_"]) > :not(title, desc) {
-    visibility: hidden;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      inline-size: 66%;
+      block-size: 66%;
+      background-color: currentColor;
+      mask: var(--gr-home-rings) center / contain no-repeat;
+      pointer-events: none;
+    }
+
+    & > * {
+      visibility: hidden;
+    }
+
+    @media (forced-colors: active) {
+      &::after {
+        forced-color-adjust: none;
+        background-color: ButtonText;
+      }
+    }
   }
 }
 
