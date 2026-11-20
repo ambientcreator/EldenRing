@@ -3,7 +3,6 @@
   [data-mana-component="button"], .button_F7qvhY, .toggleButton_9EByBZ, .button_9OQtot,
   .colorable_K9Xq13, .buttonColor_9U6LUN,
   .overlayButton_7NOr2f:where(button, [role="button"]), .videoControlsBtnCont_hFq1lM[role="button"],
-  .circleIconButton_g8YUxD, .circleIconButton_1czW-w,
   .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
   .button_2x8-Qn, .attachButton_2x8-Qn,
   .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
@@ -13,11 +12,11 @@
     [class^="actionButton_"], [class*=" actionButton_"], [class$="-button"], [class*="-button "]
   ),
   button:not([class]), input:is([type="button"], [type="submit"], [type="reset"])
-) {
+):not(:where(.guilds_pog62O foreignObject[mask] *)) {
   --font-primary: var(--gr-font-heading);
   --gr-button-tone: var(--gr-button-highlight);
   --gr-button-label: var(--gr-text);
-  --gr-button-edge-strength: 40%;
+  --gr-button-edge-strength: 32%;
   --gr-button-tint: 0%;
   --gr-button-glow: transparent;
   --gr-button-edge: color-mix(in srgb, var(--gr-button-tone) var(--gr-button-edge-strength), transparent);
@@ -29,7 +28,7 @@
   border-radius: var(--gr-radius);
   box-shadow:
     inset 0 0 0 var(--gr-border-width) var(--gr-button-edge),
-    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 8%),
+    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 5%),
     inset 0 0 5px var(--gr-button-glow),
     0 0 5px var(--gr-button-glow);
   color: var(--gr-button-label);
@@ -41,7 +40,7 @@
     opacity var(--gr-hover-time);
 
   &:is(.primary_F7qvhY, .colorBrand_9OQtot, .addFriend_zrUwGA, .sourceOverlayCTA_4HfQya, .ctaButton_RmOtW7) {
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 4%;
   }
 
@@ -52,11 +51,11 @@
   ) {
     --gr-button-tone: var(--gr-danger);
     --gr-button-label: var(--gr-danger);
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 8%;
   }
 
-  &:is(.premiumOption_IeXlUE, .circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
+  &.premiumOption_IeXlUE {
     --gr-button-label: var(--gr-gold-bright);
   }
 
@@ -71,7 +70,7 @@
   ) {
     --gr-button-tone: var(--gr-success);
     --gr-button-label: var(--gr-success);
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 8%;
   }
 
@@ -80,7 +79,7 @@
     .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
     .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
   ) {
-    --gr-button-edge-strength: 76%;
+    --gr-button-edge-strength: 64%;
     --gr-button-tint: 16%;
   }
 
@@ -88,13 +87,13 @@
     :hover, :focus-visible, [data-hovered],
     :where(.source_4HfQya:is(:hover, :focus-visible) .sourceOverlayCTA_4HfQya)
   ) {
-    --gr-button-edge-strength: 96%;
+    --gr-button-edge-strength: 78%;
     --gr-button-tint: 11%;
-    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 90%), transparent);
+    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 70%), transparent);
   }
 
   &:is(:active, [data-pressed]) {
-    --gr-button-edge-strength: 100%;
+    --gr-button-edge-strength: 86%;
     --gr-button-tint: 22%;
   }
 
@@ -102,7 +101,7 @@
     :disabled, [aria-disabled="true"], [data-disabled], .fauxDisabled_9U6LUN,
     .disabled_K9Xq13, .disabled_g8YUxD, .disabled_I4ubrz
   ) {
-    --gr-button-edge-strength: 25%;
+    --gr-button-edge-strength: 20%;
     --gr-button-tint: 0%;
     --gr-button-glow: transparent;
 

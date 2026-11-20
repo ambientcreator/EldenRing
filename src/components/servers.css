@@ -9,6 +9,32 @@
   border-radius: var(--gr-radius);
 }
 
+/* Discord's SVG mask defines the silhouette of these actions. */
+:is(#app-mount, [id^="app-mount_"]) .circleIconButton_g8YUxD {
+  background-color: var(--gr-button-bg);
+  color: var(--gr-gold-bright);
+  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
+
+  &:is(:hover, :focus-visible, .selected_g8YUxD):not(.disabled_g8YUxD, [aria-disabled="true"]) {
+    background-color: var(--gr-button-hover-bg);
+  }
+}
+
+.keyboard-mode :is(#app-mount, [id^="app-mount_"])
+  .wrapper_hqZPsU:has(.circleIconButton_g8YUxD):has(.focusStroke_hqZPsU) {
+  & .circleIconButton_g8YUxD:focus-visible {
+    outline: none;
+  }
+
+  & .focusStroke_hqZPsU {
+    stroke: var(--gr-gold-bright);
+
+    @media (forced-colors: active) {
+      stroke: Highlight;
+    }
+  }
+}
+
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w)
   :where(.circleIcon_g8YUxD, .discoveryIcon_5dqHTG) {
   color: inherit;

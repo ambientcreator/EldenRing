@@ -33,6 +33,11 @@
     background-color: transparent;
   }
 
+  /* The inline speaking shadow follows this token and keeps its volume-based animation. */
+  & .border_7NOr2f {
+    --status-speaking: var(--gr-gold);
+  }
+
   /* The call controls reveal independently of their full-width scrim. */
   & .gradientContainer_rTsZa_ {
     background: none;

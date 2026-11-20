@@ -1,7 +1,7 @@
 /**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.6.0
+ * @version 0.6.1
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */
@@ -82,9 +82,9 @@
   --gr-text-shadow: 0 1px 2px rgb(10 8 5 / 90%);
   --gr-line: color-mix(in srgb, var(--gr-bronze) 75%, transparent);
   --gr-line-strong: color-mix(in srgb, var(--gr-gold-dim) 85%, transparent);
-  --gr-button-bg: color-mix(in srgb, var(--gr-bg-base) 82%, transparent);
+  --gr-button-bg: color-mix(in srgb, var(--gr-bg-base) 74%, transparent);
   --gr-button-highlight: color-mix(in srgb, var(--gr-text) 88%, var(--gr-gold-bright));
-  --gr-button-border: color-mix(in srgb, var(--gr-button-highlight) 40%, transparent);
+  --gr-button-border: color-mix(in srgb, var(--gr-button-highlight) 32%, transparent);
   --gr-button-hover-bg: color-mix(in srgb, var(--gr-button-highlight) 11%, var(--gr-button-bg));
   --gr-button-active-bg: color-mix(in srgb, var(--gr-button-highlight) 22%, var(--gr-button-bg));
   --gr-hover: color-mix(in srgb, var(--gr-gold) 12%, transparent);
@@ -342,6 +342,32 @@ body {
 :is(#app-mount, [id^="app-mount_"]) .folderGroup_RTMSuZ
   :is(.folderHeader_RTMSuZ, .folderPreviewGuildIcon_RTMSuZ) {
   border-radius: var(--gr-radius);
+}
+
+/* Discord's SVG mask defines the silhouette of these actions. */
+:is(#app-mount, [id^="app-mount_"]) .circleIconButton_g8YUxD {
+  background-color: var(--gr-button-bg);
+  color: var(--gr-gold-bright);
+  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
+
+  &:is(:hover, :focus-visible, .selected_g8YUxD):not(.disabled_g8YUxD, [aria-disabled="true"]) {
+    background-color: var(--gr-button-hover-bg);
+  }
+}
+
+.keyboard-mode :is(#app-mount, [id^="app-mount_"])
+  .wrapper_hqZPsU:has(.circleIconButton_g8YUxD):has(.focusStroke_hqZPsU) {
+  & .circleIconButton_g8YUxD:focus-visible {
+    outline: none;
+  }
+
+  & .focusStroke_hqZPsU {
+    stroke: var(--gr-gold-bright);
+
+    @media (forced-colors: active) {
+      stroke: Highlight;
+    }
+  }
 }
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w)
@@ -1064,6 +1090,11 @@ body {
     background-color: transparent;
   }
 
+  /* The inline speaking shadow follows this token and keeps its volume-based animation. */
+  & .border_7NOr2f {
+    --status-speaking: var(--gr-gold);
+  }
+
   /* The call controls reveal independently of their full-width scrim. */
   & .gradientContainer_rTsZa_ {
     background: none;
@@ -1209,7 +1240,6 @@ body {
   [data-mana-component="button"], .button_F7qvhY, .toggleButton_9EByBZ, .button_9OQtot,
   .colorable_K9Xq13, .buttonColor_9U6LUN,
   .overlayButton_7NOr2f:where(button, [role="button"]), .videoControlsBtnCont_hFq1lM[role="button"],
-  .circleIconButton_g8YUxD, .circleIconButton_1czW-w,
   .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
   .button_2x8-Qn, .attachButton_2x8-Qn,
   .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
@@ -1219,11 +1249,11 @@ body {
     [class^="actionButton_"], [class*=" actionButton_"], [class$="-button"], [class*="-button "]
   ),
   button:not([class]), input:is([type="button"], [type="submit"], [type="reset"])
-) {
+):not(:where(.guilds_pog62O foreignObject[mask] *)) {
   --font-primary: var(--gr-font-heading);
   --gr-button-tone: var(--gr-button-highlight);
   --gr-button-label: var(--gr-text);
-  --gr-button-edge-strength: 40%;
+  --gr-button-edge-strength: 32%;
   --gr-button-tint: 0%;
   --gr-button-glow: transparent;
   --gr-button-edge: color-mix(in srgb, var(--gr-button-tone) var(--gr-button-edge-strength), transparent);
@@ -1235,7 +1265,7 @@ body {
   border-radius: var(--gr-radius);
   box-shadow:
     inset 0 0 0 var(--gr-border-width) var(--gr-button-edge),
-    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 8%),
+    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 5%),
     inset 0 0 5px var(--gr-button-glow),
     0 0 5px var(--gr-button-glow);
   color: var(--gr-button-label);
@@ -1247,7 +1277,7 @@ body {
     opacity var(--gr-hover-time);
 
   &:is(.primary_F7qvhY, .colorBrand_9OQtot, .addFriend_zrUwGA, .sourceOverlayCTA_4HfQya, .ctaButton_RmOtW7) {
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 4%;
   }
 
@@ -1258,11 +1288,11 @@ body {
   ) {
     --gr-button-tone: var(--gr-danger);
     --gr-button-label: var(--gr-danger);
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 8%;
   }
 
-  &:is(.premiumOption_IeXlUE, .circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
+  &.premiumOption_IeXlUE {
     --gr-button-label: var(--gr-gold-bright);
   }
 
@@ -1277,7 +1307,7 @@ body {
   ) {
     --gr-button-tone: var(--gr-success);
     --gr-button-label: var(--gr-success);
-    --gr-button-edge-strength: 68%;
+    --gr-button-edge-strength: 56%;
     --gr-button-tint: 8%;
   }
 
@@ -1286,7 +1316,7 @@ body {
     .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
     .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
   ) {
-    --gr-button-edge-strength: 76%;
+    --gr-button-edge-strength: 64%;
     --gr-button-tint: 16%;
   }
 
@@ -1294,13 +1324,13 @@ body {
     :hover, :focus-visible, [data-hovered],
     :where(.source_4HfQya:is(:hover, :focus-visible) .sourceOverlayCTA_4HfQya)
   ) {
-    --gr-button-edge-strength: 96%;
+    --gr-button-edge-strength: 78%;
     --gr-button-tint: 11%;
-    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 90%), transparent);
+    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 70%), transparent);
   }
 
   &:is(:active, [data-pressed]) {
-    --gr-button-edge-strength: 100%;
+    --gr-button-edge-strength: 86%;
     --gr-button-tint: 22%;
   }
 
@@ -1308,7 +1338,7 @@ body {
     :disabled, [aria-disabled="true"], [data-disabled], .fauxDisabled_9U6LUN,
     .disabled_K9Xq13, .disabled_g8YUxD, .disabled_I4ubrz
   ) {
-    --gr-button-edge-strength: 25%;
+    --gr-button-edge-strength: 20%;
     --gr-button-tint: 0%;
     --gr-button-glow: transparent;
 

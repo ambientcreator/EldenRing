@@ -20,6 +20,7 @@ const fixture = `
       --message-highlight-background-default: rgb(88 101 242 / 20%);
       --brand-500: #5865f2;
       --white: #fff;
+      --status-speaking: #248046;
     }
     .guilds_pog62O { display: flex; }
     .childWrapper_JJ-hgR { display: grid; place-items: center; width: 40px; height: 40px; }
@@ -45,6 +46,16 @@ const fixture = `
         </button>
       </div>
       <button aria-label="Сервер"><span class="childWrapper_JJ-hgR"><svg width="24" height="24"></svg></span></button>
+      <div class="wrapper_hqZPsU">
+        <svg width="48" height="48" viewBox="-4 -4 48 48">
+          <defs><mask id="guild-action-mask"><rect width="40" height="40" rx="12" fill="white"/></mask></defs>
+          <g class="focusStroke_hqZPsU"><rect width="40" height="40" rx="12" fill="none"/></g>
+          <foreignObject width="40" height="40" mask="url(#guild-action-mask)">
+            <div class="circleIconButton_g8YUxD button_fixture" role="button" tabindex="0" aria-label="Добавить сервер">+</div>
+          </foreignObject>
+        </svg>
+      </div>
+      <div class="circleIconButton_1czW-w" id="masked-guild-wrapper"><svg width="40" height="40"></svg></div>
     </nav>
     <aside class="sidebarList_pog62O">
       <div class="container_H5ozaj"><nav id="channels">Список каналов сервера</nav></div>
@@ -74,8 +85,9 @@ const fixture = `
           <div class="gradientBottom_rTsZa_ gradientContainer_rTsZa_"></div>
           <div class="tile_7NOr2f" style="background-color: #d6c0c0">
             <div class="content_7NOr2f" style="background: linear-gradient(#4a3d32, #282527)">Участник</div>
+            <div class="border_7NOr2f" id="speaking-tile-border" style="box-shadow: 0 0 0 0 var(--status-speaking), inset 0 0 0 2px var(--status-speaking), inset 0 0 0 3px var(--background-base-lower)"></div>
           </div>
-          <div class="videoWrapper_7NOr2f"><video></video></div>
+          <div class="videoWrapper_7NOr2f"><video></video><div class="border_7NOr2f" id="idle-tile-border"></div></div>
           <div class="bottomControls_rTsZa_ controlSection_rTsZa_">
             <div class="buttonSection_9bvEB0">
               <button class="button_F7qvhY critical_9EByBZ toggleButton_9EByBZ" aria-pressed="true">Микрофон</button>
@@ -91,6 +103,7 @@ const fixture = `
       <div class="voiceButtonsContainer_9U6LUN">
         <button class="button_9U6LUN buttonColor_9U6LUN buttonActive_9U6LUN">Трансляция включена</button>
         <button class="button_9U6LUN buttonColor_9U6LUN fauxDisabled_9U6LUN" aria-disabled="true">Камера</button>
+        <button class="button_9U6LUN buttonColor_9U6LUN" id="voice-effects">Эффекты</button>
       </div>
     </div>
   </div>
@@ -116,6 +129,9 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       .colorable_K9Xq13.disconnect_K9Xq13 { background: red; }
       .colorable_K9Xq13.disconnect_K9Xq13 .centerIcon_K9Xq13 { color: white; }
       .button_9U6LUN.buttonColor_9U6LUN.buttonActive_9U6LUN { background: green; color: white; }
+      .circleIconButton_g8YUxD { width: 40px; height: 40px; background: var(--background-mod-subtle); }
+      .circleIconButton_g8YUxD:hover { background: var(--background-brand); }
+      .keyboard-mode .focusStroke_hqZPsU { stroke: #5865f2; stroke-width: 8px; }
     ` });
 
     const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
@@ -131,6 +147,19 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     const after = await page.getByRole('button', { name: 'Главная' }).boundingBox();
     assert.deepEqual([after.width, after.height], [before.width, before.height]);
     await page.getByRole('button', { name: 'Главная' }).click();
+
+    const addServer = page.getByRole('button', { name: 'Добавить сервер' });
+    assert.equal(await computedStyle(addServer, 'boxShadow'), 'none');
+    assert.equal(await style('#masked-guild-wrapper', 'boxShadow'), 'none');
+    assert.equal(await style('#masked-guild-wrapper', 'backgroundColor'), transparent);
+    await addServer.hover();
+    assert.equal(await computedStyle(addServer, 'boxShadow'), 'none');
+    await page.evaluate(() => document.documentElement.classList.add('keyboard-mode'));
+    await page.getByRole('button', { name: 'Сервер', exact: true }).press('Tab');
+    assert.equal(await addServer.evaluate(element => element.matches(':focus-visible')), true);
+    assert.equal(await computedStyle(addServer, 'outlineStyle'), 'none');
+    assert.equal(await style('.focusStroke_hqZPsU', 'stroke'), 'rgb(231, 201, 148)');
+    await addServer.click();
 
     assert.equal(await page.locator('.sidebarList_pog62O').evaluate(element => element.offsetWidth), sidebarWidth);
     assert.match(await style('.sidebarList_pog62O', 'backgroundColor'), /\/ 0\.3\)/);
@@ -158,6 +187,11 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal(await style('.videoWrapper_7NOr2f', 'backgroundColor'), transparent);
     assert.match(await style('.tile_7NOr2f', 'backgroundColor'), /\/ 0\.24\)/);
     assert.equal(await style('.content_7NOr2f', 'backgroundImage'), 'none');
+    assert.match(await style('#speaking-tile-border', 'boxShadow'), /rgb\(196, 164, 108\) 0px 0px 0px 2px inset/);
+    assert.equal(await style('#idle-tile-border', 'boxShadow'), 'none');
+    assert.equal(await page.locator('.root_rTsZa_').first().evaluate(element => (
+      getComputedStyle(element).getPropertyValue('--status-speaking').trim()
+    )), '#248046');
     await page.locator('.wrapper_hbKzX7').evaluate(element => element.classList.add('minimum_hbKzX7'));
     assert.equal(await style('.callContainer_hbKzX7', 'backgroundColor'), transparent);
     assert.equal(await style('video', 'opacity'), '1');
@@ -172,6 +206,8 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal(await style('.toggleButton_9EByBZ', 'color'), 'rgb(225, 152, 141)');
     assert.equal(await style('.buttonActive_9U6LUN', 'color'), 'rgb(163, 182, 156)');
     assert.equal(await style('.fauxDisabled_9U6LUN', 'opacity'), '0.54');
+    assert.match(await style('#voice-effects', 'backgroundColor'), /\/ 0\.74\)/);
+    assert.match(await style('#voice-effects', 'boxShadow'), /\/ 0\.32\)/);
     const disabledFrame = await style('.fauxDisabled_9U6LUN', 'boxShadow');
     await page.getByRole('button', { name: 'Камера' }).hover();
     assert.equal(await style('.fauxDisabled_9U6LUN', 'boxShadow'), disabledFrame);
