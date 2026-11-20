@@ -47,6 +47,7 @@
   --gr-hover-duration: 150ms;
   --gr-popout-duration: 165ms;
   --gr-effects: block;
+  --gr-ambient-motion: paused;
   --gr-particles-opacity: 0.34;
   --gr-particles-play-state: running;
   --gr-canopy-opacity: 0.22;

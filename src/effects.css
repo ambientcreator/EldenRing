@@ -1,4 +1,4 @@
-/* Static grain is unnecessary with this wallpaper. Only two small layers move. */
+/* Full enables motion on these two small layers. Balanced paints them once. */
 .bg_Fd0FEH::before,
 .bg_Fd0FEH::after {
   content: "";
@@ -14,7 +14,6 @@
   height: min(32vh, 340px);
   background: radial-gradient(ellipse at center, rgb(248 189 104 / 32%), transparent 69%);
   opacity: var(--gr-canopy-opacity);
-  animation: gr-canopy calc(16s * var(--gr-motion)) ease-in-out infinite alternate;
 }
 
 .bg_Fd0FEH::after {
@@ -31,8 +30,17 @@
     radial-gradient(circle at 77% 18%, #f5d69b 0 1px, transparent 2px),
     radial-gradient(circle at 86% 82%, #e2b579 0 1px, transparent 2px);
   opacity: var(--gr-particles-opacity);
-  animation: gr-embers calc(19s * var(--gr-motion)) ease-in-out infinite alternate;
-  animation-play-state: var(--gr-particles-play-state);
+}
+
+@container style(--gr-ambient-motion: running) {
+  .bg_Fd0FEH::before {
+    animation: gr-canopy calc(16s * var(--gr-motion)) ease-in-out infinite alternate;
+  }
+
+  .bg_Fd0FEH::after {
+    animation: gr-embers calc(19s * var(--gr-motion)) ease-in-out infinite alternate;
+    animation-play-state: var(--gr-particles-play-state);
+  }
 }
 
 @keyframes gr-canopy {

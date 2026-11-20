@@ -4,6 +4,7 @@
   --gr-corner-opacity: 0.8;
   --gr-glow-opacity: 0.52;
   --gr-shadow-opacity: 0.60;
+  --gr-ambient-motion: running;
   --gr-particles-opacity: 0.6;
   --gr-canopy-opacity: 0.4;
 }

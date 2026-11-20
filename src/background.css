@@ -5,27 +5,26 @@ html {
 
 /* Paint below the app shells and repeat the image only when a call enters the top layer. */
 :is(body, :is(#app-mount, [id^="app-mount_"], [data-popout-root]) .wrapper_hbKzX7:fullscreen) {
+  --gr-wallpaper-edge-dim: calc(var(--gr-dim) + (1 - var(--gr-dim)) * var(--gr-vignette));
+  --gr-wallpaper-shading: radial-gradient(
+    ellipse at 69% 38%, rgb(12 11 9 / var(--gr-dim)) 25%, rgb(12 11 9 / var(--gr-wallpaper-edge-dim)) 100%
+  );
+
   isolation: isolate;
-  background-color: rgb(12 11 9 / var(--gr-dim));
-  background-image: url("../assets/golden-ruins.webp");
-  background-blend-mode: multiply;
-  background-position: var(--gr-wallpaper-x) var(--gr-wallpaper-y);
-  background-size: var(--gr-wallpaper-size);
+  background-color: transparent;
+  background-image: var(--gr-wallpaper-shading), url("../assets/golden-ruins-display.webp");
+  background-position: left top, var(--gr-wallpaper-x) var(--gr-wallpaper-y);
+  background-size: auto, var(--gr-wallpaper-size);
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-  /* Chromium caps CSS variable values at 2 MiB. Keep the default as a literal URL. */
   @container style(--gr-wallpaper) {
-    background-image: var(--gr-wallpaper);
+    background-image: var(--gr-wallpaper-shading), var(--gr-wallpaper);
   }
 
-  &::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image: radial-gradient(ellipse at 69% 38%, transparent 25%, rgb(9 8 6 / var(--gr-vignette)) 100%);
+  @container style(--gr-wallpaper: none) {
+    background-color: var(--gr-bg-base);
+    background-image: none;
   }
 }
 

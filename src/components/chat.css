@@ -12,8 +12,8 @@
   background: var(--gr-chat-bg);
 }
 
-.chatContent_z_gUBg :is(.messageListItem_SY_P2T, li[id^="chat-messages-"]) {
-  /* Concentrate the scrim behind text while the wallpaper shows through the right side. */
+/* The message viewport paints one scrim for the whole scrolling list. */
+.chatContent_z_gUBg :is([class^="messagesWrapper_"], [class*=" messagesWrapper_"]) {
   background-image: linear-gradient(90deg, var(--gr-reading-bg) min(100%, 25rem), transparent min(100%, 55rem));
 }
 
@@ -28,7 +28,6 @@
 .markup_ku1OHH,
 .messageContent_2i8Bfm {
   font-family: var(--gr-font-body);
-  text-shadow: var(--gr-text-shadow);
 }
 
 .timestamp_2i8Bfm,

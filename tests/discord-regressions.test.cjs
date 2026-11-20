@@ -39,6 +39,7 @@ const fixture = `
     .wrapper_hbKzX7.minimum_hbKzX7 .callContainer_hbKzX7 { background: none; }
   </style>
   <div id="app-mount_gEkNtR" class="theme-dark">
+    <div class="bg_Fd0FEH"></div>
     <nav class="guilds_pog62O">
       <div data-guilds-bar-home>
         <button aria-label="Главная" data-list-item-id="guildsnav___home">
@@ -58,7 +59,20 @@ const fixture = `
       <div class="circleIconButton_1czW-w" id="masked-guild-wrapper"><svg width="40" height="40"></svg></div>
     </nav>
     <aside class="sidebarList_pog62O">
-      <div class="container_H5ozaj"><nav id="channels">Список каналов сервера</nav></div>
+      <div class="container_H5ozaj">
+        <nav id="channels">
+          <div class="voiceChannelHighlightContainer_Wx6SnQ">
+            <div class="voiceChannelHighlightBorder_Wx6SnQ"></div>
+            <div class="voiceChannelHighlightGlow_Wx6SnQ"></div>
+            <svg class="iconLive_Wx6SnQ" width="20" height="20"></svg>
+            <div class="channelInfo_Wx6SnQ"><span id="voice-timer" role="timer" style="color:var(--text-feedback-positive)">8:23:21</span></div>
+            <div class="voiceUser_YUoOxm">
+              <div class="avatar_YUoOxm" style="box-shadow: 0 0 0 2px var(--status-speaking)"></div>
+              <div class="iconPriortySpeakerSpeaking_YUoOxm"></div>
+            </div>
+          </div>
+        </nav>
+      </div>
       <div class="privateChannels_u88IQl">
         <div class="scroller_Bce46W" tabindex="0">
           <a href="#chat" data-list-item-id="channels___test">Канал</a>
@@ -73,10 +87,13 @@ const fixture = `
     <aside class="_c48ade-sidebarList" id="desktop-sidebar">Боковая панель</aside>
     <div class="appAsidePanelWrapper_YRXZu0"><div class="page_pog62O"></div></div>
     <main class="chatContent_z_gUBg" id="chat">
-      <article class="messageListItem_SY_P2T flash_EajVQV" data-flash="true">
-        <span class="markup_ku1OHH"><span class="wrapper_NDaLCQ mention interactive" tabindex="0">@Путник</span></span>
-      </article>
-      <article class="highlighted_SY_P2T">Найденное сообщение</article>
+      <div class="messagesWrapper_8AE1Qq">
+        <article class="messageListItem_SY_P2T flash_EajVQV" data-flash="true">
+          <span class="markup_ku1OHH"><span class="wrapper_NDaLCQ mention interactive" tabindex="0">@Путник</span></span>
+          <img id="chat-attachment" class="imageWrapper_W6wEGA" width="240" height="135" alt="Вложение">
+        </article>
+        <article class="highlighted_SY_P2T">Найденное сообщение</article>
+      </div>
     </main>
     <section class="wrapper_hbKzX7">
       <div class="callContainer_hbKzX7">
@@ -118,6 +135,8 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     const page = await browser.newPage({ reducedMotion: 'reduce' });
     await page.setContent(fixture);
     const before = await page.getByRole('button', { name: 'Главная' }).boundingBox();
+    const attachment = page.locator('#chat-attachment');
+    const attachmentBefore = await attachment.boundingBox();
     const sidebarWidth = await page.locator('.sidebarList_pog62O').evaluate(element => element.offsetWidth);
     await page.addStyleTag({ content: theme });
     await page.addStyleTag({ content: `
@@ -132,6 +151,9 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       .circleIconButton_g8YUxD { width: 40px; height: 40px; background: var(--background-mod-subtle); }
       .circleIconButton_g8YUxD:hover { background: var(--background-brand); }
       .keyboard-mode .focusStroke_hqZPsU { stroke: #5865f2; stroke-width: 8px; }
+      .iconLive_Wx6SnQ { color: var(--text-feedback-positive) !important; }
+      .voiceChannelHighlightBorder_Wx6SnQ { background-color: var(--icon-feedback-positive); }
+      .iconPriortySpeakerSpeaking_YUoOxm { background-color: #248046; }
     ` });
 
     const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
@@ -179,6 +201,16 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.match(await style('.mention', 'backgroundColor'), /^color\(srgb/);
     assert.match(await style('.flash_EajVQV', 'backgroundColor'), /\/ 0\.19\)/);
     assert.equal(await style('.highlighted_SY_P2T', 'backgroundColor'), await style('.flash_EajVQV', 'backgroundColor'));
+    assert.match(await style('.messagesWrapper_8AE1Qq', 'backgroundImage'), /^linear-gradient/);
+    assert.equal(await style('.flash_EajVQV', 'backgroundImage'), 'none');
+    const attachmentAfter = await attachment.boundingBox();
+    assert.deepEqual([attachmentAfter.width, attachmentAfter.height], [attachmentBefore.width, attachmentBefore.height]);
+
+    assert.match(await style('.avatar_YUoOxm', 'boxShadow'), /rgb\(196, 164, 108\)/);
+    assert.equal(await style('.iconPriortySpeakerSpeaking_YUoOxm', 'backgroundColor'), 'rgb(196, 164, 108)');
+    assert.equal(await style('.voiceChannelHighlightBorder_Wx6SnQ', 'backgroundColor'), 'rgb(196, 164, 108)');
+    assert.equal(await style('.iconLive_Wx6SnQ', 'color'), 'rgb(231, 201, 148)');
+    assert.equal(await style('#voice-timer', 'color'), 'rgb(231, 201, 148)');
 
     assert.match(await style('.wrapper_hbKzX7', 'backgroundColor'), /\/ 0\.2\)/);
     assert.equal(await style('.callContainer_hbKzX7', 'backgroundColor'), transparent);
@@ -225,6 +257,25 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       return visible;
     });
     assert.equal(hasFullscreenWallpaper, true);
+
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'none');
+    await page.addStyleTag({ content: `
+      :root {
+        --gr-wallpaper: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'/%3E");
+        --gr-wallpaper-size: contain;
+        --gr-wallpaper-x: 30%;
+        --gr-wallpaper-y: 70%;
+      }
+    ` });
+    assert.match(await style('body', 'backgroundImage'), /data:image\/svg\+xml/);
+    assert.equal((await style('body', 'backgroundSize')).split(', ').at(-1), 'contain');
+    assert.equal((await style('body', 'backgroundPosition')).split(', ').at(-1), '30% 70%');
+    await page.addStyleTag({ content: ':root { --gr-ambient-motion: running; --gr-wallpaper: none; }' });
+    assert.equal(await style('body', 'backgroundImage'), 'none');
+    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'gr-embers');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'none');
   } finally {
     await browser.close();
   }

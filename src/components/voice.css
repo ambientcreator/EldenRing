@@ -3,7 +3,7 @@
 }
 
 .panels_pog62O .connection_9U6LUN {
-  background: color-mix(in srgb, var(--gr-success) 7%, transparent);
+  background: color-mix(in srgb, var(--gr-gold) 7%, transparent);
 }
 
 .noiseCancellationPopout_9U6LUN {
@@ -34,8 +34,22 @@
   }
 
   /* The inline speaking shadow follows this token and keeps its volume-based animation. */
-  & .border_7NOr2f {
+  & :is(.border_7NOr2f, .voiceUser_YUoOxm, .povMediaActive_rBoB5H) {
     --status-speaking: var(--gr-gold);
+  }
+
+  & :is(.iconLive_Wx6SnQ, .channelInfo_Wx6SnQ, .callDuration_zln_tS, .rtcConnectionStatusConnected_4LJE6I) {
+    --text-feedback-positive: var(--gr-gold-bright);
+  }
+
+  & :is(.iconPriortySpeakerSpeaking_YUoOxm, .voiceChannelHighlightBorder_Wx6SnQ) {
+    background-color: var(--gr-gold);
+  }
+
+  & .voiceChannelHighlightGlow_Wx6SnQ {
+    background-image: radial-gradient(
+      ellipse 40px 50% at left center, color-mix(in srgb, var(--gr-gold) 13%, transparent), transparent
+    );
   }
 
   /* The call controls reveal independently of their full-width scrim. */

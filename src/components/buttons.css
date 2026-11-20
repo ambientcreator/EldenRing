@@ -35,7 +35,6 @@
   font-family: var(--font-primary);
   transition:
     background-color var(--gr-hover-time),
-    box-shadow var(--gr-hover-time),
     color var(--gr-hover-time),
     opacity var(--gr-hover-time);
 
