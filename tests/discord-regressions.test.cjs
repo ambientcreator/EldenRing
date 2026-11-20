@@ -5,6 +5,10 @@ const { test } = require('node:test');
 const { chromium } = require('playwright');
 
 const theme = readFileSync(join(__dirname, '../dist/GoldenRuins.theme.css'), 'utf8');
+const computedStyle = (locator, name, pseudo = null) => locator.evaluate(
+  (element, { name, pseudo }) => getComputedStyle(element, pseudo)[name], { name, pseudo },
+);
+const transparent = 'rgba(0, 0, 0, 0)';
 
 // Model the Discord markup and default paint involved in the reported regressions.
 const fixture = `
@@ -93,10 +97,7 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       .callContainer_hbKzX7, .root_rTsZa_, .videoWrapper_7NOr2f { background: #000; }
     ` });
 
-    const style = (selector, name, pseudo = null) => page.locator(selector).evaluate(
-      (element, { name, pseudo }) => getComputedStyle(element, pseudo)[name], { name, pseudo },
-    );
-    const transparent = 'rgba(0, 0, 0, 0)';
+    const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
 
     assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundImage.includes('data:image/webp;base64,')), true);
     for (const selector of ['#app-mount_gEkNtR', '.appAsidePanelWrapper_YRXZu0', '.page_pog62O']) {
@@ -148,6 +149,164 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       return visible;
     });
     assert.equal(hasFullscreenWallpaper, true);
+  } finally {
+    await browser.close();
+  }
+});
+
+test('squares Discord folders and styles the desktop screen-share picker', { timeout: 15_000 }, async () => {
+  const browser = await chromium.launch({
+    executablePath: process.env.GOLDEN_RUINS_CHROMIUM || undefined,
+  });
+
+  try {
+    const page = await browser.newPage({ reducedMotion: 'reduce' });
+    await page.setContent(`
+      <div id="app-mount_gEkNtR" class="theme-dark refresh-fast-follow-avatars">
+        <nav class="guilds_pog62O">
+          <div class="folderGroup_RTMSuZ">
+            <div class="folderGroupBackground_RTMSuZ"></div>
+            <div class="folderHeader_RTMSuZ">
+              <div role="button" class="folderButton_RTMSuZ" tabindex="0">
+                <div class="folderButtonInner_RTMSuZ">
+                  <div class="folderPreviewWrapper_RTMSuZ">
+                    <div class="folderPreview_RTMSuZ"><img class="folderPreviewGuildIcon_RTMSuZ" alt=""></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div role="dialog" aria-label="Демонстрация экрана">
+          <div data-mana-component="modal" class="container_dvN-MP">
+            <div class="root_oszuaw">
+              <div class="segmentedControl_oszuaw pillContainer_I4ubrz" role="tablist">
+                <div class="pillItem_I4ubrz pillItemSelected_I4ubrz" role="tab" aria-selected="true">
+                  <div data-text-variant="body-sm/medium">Приложения</div>
+                </div>
+              </div>
+              <div class="source_4HfQya" role="button" tabindex="0">
+                <div class="sourcePreviewContainer_4HfQya">
+                  <div class="sourcePreview_4HfQya">
+                    <div class="sourceOverlay_4HfQya"><div class="sourceOverlayCTA_4HfQya">Демонстрировать экран</div></div>
+                  </div>
+                </div>
+                <div class="sourceName_4HfQya" data-text-variant="body-sm/medium">Летопись</div>
+              </div>
+              <div class="footer_oszuaw">
+                <div class="rightButtonGroup_oszuaw">
+                  <div class="selector_IeXlUE pillContainer_I4ubrz" role="list">
+                    <div class="pillItem_I4ubrz premiumOption_IeXlUE" role="button">HD</div>
+                  </div>
+                  <button class="button_F7qvhY secondary_F7qvhY">Настройки стрима</button>
+                </div>
+                <div class="root_RmOtW7">
+                  <div class="infoText_RmOtW7" data-text-variant="body-xs/normal">Стримьте в HD с <a href="#nitro">Nitro</a></div>
+                  <div role="button" class="wishlistButton_RmOtW7" aria-label="В список желаемого" tabindex="0"></div>
+                  <button class="button_9OQtot lookFilled_9OQtot colorBrandInverted_9OQtot ctaButton_RmOtW7">
+                    <svg class="premiumIcon_RmOtW7" width="16" height="16"><path d="M0 0h16v16H0z" fill="#dc58b8"/></svg>
+                    <span class="ctaButtonText_RmOtW7" data-text-variant="body-xs/semibold">Подписаться на Nitro</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div role="menu" id="stream-options"><div data-text-variant="body-sm/medium">Частота кадров</div></div>
+        <button id="outside-picker">Чат</button>
+      </div>`);
+
+    await page.addStyleTag({ content: theme });
+    await page.addStyleTag({ content: `
+      :root { --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --white: #fff; --black: #000; }
+      .folderGroupBackground_RTMSuZ { background: var(--background-mod-subtle); border-radius: var(--radius-lg); opacity: 0; }
+      .isExpanded_RTMSuZ .folderGroupBackground_RTMSuZ { opacity: 1; }
+      .folderButtonInner_RTMSuZ { border-radius: var(--radius-md); overflow: hidden; }
+      .folderPreviewWrapper_RTMSuZ { background: var(--background-mod-subtle); border-radius: var(--radius-lg); padding: 4px; }
+      .refresh-fast-follow-avatars .folderPreviewGuildIcon_RTMSuZ:first-child { border-radius: 10px 4px 4px; }
+      .folderGroup_RTMSuZ[data-drop-hovering=true]:not(.isExpanded_RTMSuZ) .folderHeader_RTMSuZ {
+        border-radius: 12px; outline: 1px solid green;
+      }
+      .container_dvN-MP { background: var(--background-surface-high); border-radius: var(--radius-md); }
+      .pillContainer_I4ubrz { background: var(--background-base-lowest); border-radius: var(--radius-md); }
+      .pillItemSelected_I4ubrz { background: var(--background-surface-high); }
+      .premiumOption_IeXlUE { color: #dc58b8; }
+      .sourcePreviewContainer_4HfQya { position: relative; }
+      .sourcePreviewContainer_4HfQya::before { content: ""; border: 2px solid transparent; }
+      .selectedSource_4HfQya .sourcePreviewContainer_4HfQya::before { border-color: #5865f2; }
+      .sourcePreview_4HfQya { aspect-ratio: 16 / 9; background: var(--black); border-radius: var(--radius-sm); width: 224px; }
+      .sourceOverlay_4HfQya { display: none; }
+      .source_4HfQya:hover .sourceOverlay_4HfQya { display: flex; }
+      .sourceOverlayCTA_4HfQya { background: var(--white); color: var(--black); border-radius: var(--radius-sm); }
+      .button_F7qvhY { border-radius: var(--radius-sm); }
+      .secondary_F7qvhY { background: var(--control-secondary-background-default); }
+      .secondary_F7qvhY:hover { background: var(--control-secondary-background-hover); }
+      .footer_oszuaw { background: var(--background-surface-high); }
+      .root_RmOtW7 { background: linear-gradient(90deg, #8440bd, #dc58b8); border-radius: var(--radius-sm); }
+      .ctaButtonText_RmOtW7 { background: linear-gradient(90deg, #8440bd, #dc58b8); background-clip: text; color: transparent; }
+      .lookFilled_9OQtot.colorBrandInverted_9OQtot { background: #fff; color: #111; }
+      .lookFilled_9OQtot.colorBrandInverted_9OQtot:hover { background: #eee; }
+      .theme-dark .wishlistButton_RmOtW7 { background: #38222f; }
+      [data-text-variant] { font-family: var(--font-primary); }
+    ` });
+
+    const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
+    const gold = 'rgb(196, 164, 108)';
+    const brightGold = 'rgb(231, 201, 148)';
+    const ink = 'rgb(23, 19, 14)';
+
+    for (const selector of ['.folderButton_RTMSuZ', '.folderPreview_RTMSuZ']) {
+      assert.equal(await style(selector, 'backgroundColor'), transparent);
+    }
+    for (const selector of [
+      '.folderGroupBackground_RTMSuZ', '.folderButtonInner_RTMSuZ', '.folderPreviewWrapper_RTMSuZ', '.folderPreviewGuildIcon_RTMSuZ',
+      '.container_dvN-MP', '.sourceOverlayCTA_4HfQya', '.button_F7qvhY', '.root_RmOtW7',
+    ]) {
+      assert.equal(await style(selector, 'borderRadius'), '2px', selector);
+    }
+    assert.equal(await style('.folderButtonInner_RTMSuZ', 'overflow'), 'hidden');
+    assert.equal(await style('.folderGroupBackground_RTMSuZ', 'opacity'), '0');
+    const folder = page.locator('.folderGroup_RTMSuZ');
+    await folder.evaluate(element => { element.dataset.dropHovering = 'true'; });
+    assert.equal(await style('.folderHeader_RTMSuZ', 'borderRadius'), '2px');
+    assert.equal(await style('.folderHeader_RTMSuZ', 'outlineColor'), 'rgb(0, 128, 0)');
+    await folder.evaluate(element => element.classList.add('isExpanded_RTMSuZ'));
+    assert.equal(await style('.folderGroupBackground_RTMSuZ', 'opacity'), '1');
+
+    const source = page.locator('.source_4HfQya');
+    await source.hover();
+    assert.equal(await style('.sourceOverlay_4HfQya', 'display'), 'flex');
+    assert.equal(await style('.sourceOverlayCTA_4HfQya', 'backgroundColor'), gold);
+    assert.equal(await style('.sourceOverlayCTA_4HfQya', 'color'), ink);
+    await source.evaluate(element => element.classList.add('selectedSource_4HfQya'));
+    assert.equal(await style('.sourcePreviewContainer_4HfQya', 'borderTopColor', '::before'), brightGold);
+    assert.match(await style('.footer_oszuaw', 'backgroundColor'), /\/ 0\.5\)/);
+    assert.equal(await style('.premiumOption_IeXlUE', 'color'), brightGold);
+    assert.match(await style('.root_RmOtW7', 'backgroundImage'), /rgb\(101, 82, 58\)/);
+    assert.equal(await style('.ctaButtonText_RmOtW7', 'backgroundImage'), 'none');
+    assert.equal(await style('.ctaButtonText_RmOtW7', 'color'), ink);
+    assert.equal(await style('.premiumIcon_RmOtW7 path', 'fill'), ink);
+
+    const subscribe = page.getByRole('button', { name: 'Подписаться на Nitro' });
+    assert.equal(await computedStyle(subscribe, 'backgroundColor'), gold);
+    await subscribe.hover();
+    assert.equal(await computedStyle(subscribe, 'backgroundColor'), brightGold);
+    for (const selector of [
+      '.sourceName_4HfQya', '.sourceOverlayCTA_4HfQya', '.button_F7qvhY',
+      '.ctaButtonText_RmOtW7', '#stream-options [data-text-variant]',
+    ]) {
+      assert.match(await style(selector, 'fontFamily'), /^"Golden Ruins Forum"/);
+    }
+    assert.match(await style('#outside-picker', 'fontFamily'), /^"Golden Ruins Literata"/);
+    const forumSubsets = await page.evaluate(async () => (
+      await document.fonts.load('14px "Golden Ruins Forum"', 'Nitro Демонстрация')
+    ).length);
+    assert.equal(forumSubsets, 2);
+
+    await page.addStyleTag({ content: ':root { --gr-radius: 0px; }' });
+    assert.equal(await style('.folderPreviewGuildIcon_RTMSuZ', 'borderRadius'), '0px');
+    assert.equal(await style('.container_dvN-MP', 'borderRadius'), '0px');
+    assert.equal(await style('.root_RmOtW7', 'borderRadius'), '0px');
   } finally {
     await browser.close();
   }

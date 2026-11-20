@@ -3,8 +3,10 @@
   background-color: var(--gr-control-bg);
 }
 
-.guilds_pog62O :is(.folderGroupBackground_RTMSuZ, .folderButton_RTMSuZ, .folderPreview_RTMSuZ) {
-  background-color: var(--gr-hover);
+/* The native preview wrapper and expanded group paint the folder backing. */
+:is(#app-mount, [id^="app-mount_"]) .folderGroup_RTMSuZ
+  :is(.folderHeader_RTMSuZ, .folderPreviewGuildIcon_RTMSuZ) {
+  border-radius: var(--gr-radius);
 }
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {

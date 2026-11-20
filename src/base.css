@@ -21,6 +21,12 @@
 
   --app-frame-background: transparent;
   --app-frame-border: var(--gr-line);
+  --radius-xs: var(--gr-radius);
+  --radius-sm: var(--gr-radius);
+  --radius-md: var(--gr-radius);
+  --radius-lg: var(--gr-radius);
+  --radius-xl: var(--gr-radius);
+  --radius-xxl: var(--gr-radius);
   --home-background: var(--gr-home-bg);
   --chat-background-default: var(--gr-chat-bg);
   --chat-text-muted: var(--gr-text-muted);

@@ -47,7 +47,7 @@
 }
 
 :is(#app-mount, [id^="app-mount_"]) :where(button, input, select, textarea) {
-  font-family: var(--gr-font-body);
+  font-family: var(--font-primary);
 }
 
 :is(#app-mount, [id^="app-mount_"]) :where(pre, code, kbd, samp) {

@@ -1,7 +1,7 @@
 /**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.4.0
+ * @version 0.5.0
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */
@@ -42,7 +42,7 @@
   --gr-success: #a3b69c;
   --gr-warning: #e5be78;
   --gr-danger: #e1988d;
-  --gr-radius: 3px;
+  --gr-radius: 2px;
   --gr-border-width: 1px;
   --gr-font-heading: "Golden Ruins Forum", "Palatino Linotype", Georgia, serif;
   --gr-font-body: "Golden Ruins Literata", Cambria, Georgia, serif;
@@ -142,7 +142,7 @@
 }
 
 :is(#app-mount, [id^="app-mount_"]) :where(button, input, select, textarea) {
-  font-family: var(--gr-font-body);
+  font-family: var(--font-primary);
 }
 
 :is(#app-mount, [id^="app-mount_"]) :where(pre, code, kbd, samp) {
@@ -173,6 +173,12 @@
 
   --app-frame-background: transparent;
   --app-frame-border: var(--gr-line);
+  --radius-xs: var(--gr-radius);
+  --radius-sm: var(--gr-radius);
+  --radius-md: var(--gr-radius);
+  --radius-lg: var(--gr-radius);
+  --radius-xl: var(--gr-radius);
+  --radius-xxl: var(--gr-radius);
   --home-background: var(--gr-home-bg);
   --chat-background-default: var(--gr-chat-bg);
   --chat-text-muted: var(--gr-text-muted);
@@ -322,8 +328,10 @@ body {
   background-color: var(--gr-control-bg);
 }
 
-.guilds_pog62O :is(.folderGroupBackground_RTMSuZ, .folderButton_RTMSuZ, .folderPreview_RTMSuZ) {
-  background-color: var(--gr-hover);
+/* The native preview wrapper and expanded group paint the folder backing. */
+:is(#app-mount, [id^="app-mount_"]) .folderGroup_RTMSuZ
+  :is(.folderHeader_RTMSuZ, .folderPreviewGuildIcon_RTMSuZ) {
+  border-radius: var(--gr-radius);
 }
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
@@ -1149,6 +1157,120 @@ body {
 
 .tileContainer_4cz-WN {
   border-radius: var(--gr-radius);
+}
+
+/* components/screenshare */
+/* Discord's desktop Go Live source picker and its detached settings menu. */
+:is(.root_oszuaw, #stream-options) {
+  --font-primary: var(--gr-font-heading);
+  font-family: var(--font-primary);
+}
+
+:is(#app-mount, [id^="app-mount_"], [data-popout-root])
+  [data-mana-component="modal"]:has(.root_oszuaw) {
+  background: var(--gr-popout-bg);
+  border-color: var(--gr-line-strong);
+  box-shadow: var(--gr-shadow);
+  backdrop-filter: var(--gr-popout-filter);
+}
+
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) .root_oszuaw {
+  & :is(.segmentedControl_oszuaw, .selector_IeXlUE) {
+    background-color: var(--gr-control-bg);
+    box-shadow: inset 0 0 0 1px var(--gr-line);
+  }
+
+  & .pillItemSelected_I4ubrz {
+    background-color: var(--gr-selected);
+    box-shadow: inset 0 -2px var(--gr-gold);
+    color: var(--gr-text);
+  }
+
+  & .premiumOption_IeXlUE {
+    color: var(--gr-gold-bright);
+  }
+
+  & .sourcePreview_4HfQya {
+    background-color: var(--gr-control-bg);
+  }
+
+  & .source_4HfQya:focus-visible .sourceOverlay_4HfQya {
+    display: flex;
+  }
+
+  & .sourceOverlayCTA_4HfQya {
+    background-color: var(--gr-gold);
+    color: var(--gr-ink);
+  }
+
+  & .selectedSource_4HfQya .sourcePreviewContainer_4HfQya::before {
+    border-color: var(--gr-gold-bright);
+  }
+
+  & .footer_oszuaw {
+    background-color: var(--gr-control-bg);
+    box-shadow: inset 0 1px var(--gr-line);
+  }
+
+  & .rightButtonGroup_oszuaw {
+    --control-secondary-background-default: var(--gr-control-bg);
+    --control-secondary-border-active: var(--gr-line-strong);
+  }
+
+  & .root_RmOtW7 {
+    --text-overlay-light: var(--gr-text);
+    background: linear-gradient(90deg, var(--gr-bronze), var(--gr-card-bg));
+    box-shadow: inset 0 0 0 1px var(--gr-line-strong);
+  }
+
+  & .infoText_RmOtW7 a {
+    color: var(--gr-gold-bright);
+  }
+
+  & .ctaButton_RmOtW7 {
+    background-color: var(--gr-gold);
+    border-color: var(--gr-gold-bright);
+    color: var(--gr-ink);
+  }
+
+  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):hover {
+    background-color: var(--gr-gold-bright);
+  }
+
+  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):active {
+    background-color: var(--gr-gold);
+  }
+
+  & .ctaButtonText_RmOtW7 {
+    background: none;
+    color: inherit;
+  }
+
+  & .premiumIcon_RmOtW7 > path {
+    fill: currentColor;
+  }
+
+  & .premiumShine_RmOtW7 {
+    color: color-mix(in srgb, var(--gr-gold-bright) 35%, transparent);
+  }
+
+  & .wishlistButton_RmOtW7 {
+    background: var(--gr-control-bg);
+    border-color: var(--gr-line);
+  }
+
+  & .wishlistButton_RmOtW7:not([aria-disabled="true"]):hover {
+    background: var(--gr-selected);
+    border-color: var(--gr-line-strong);
+  }
+
+  & .wishlistedOrAnimating_M2FQyv {
+    fill: var(--gr-gold-bright);
+  }
+}
+
+#stream-options .premiumOptionContainer_B6ppCQ svg > path {
+  fill: var(--gr-gold);
 }
 
 /* components/misc */

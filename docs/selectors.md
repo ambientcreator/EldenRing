@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | Фон приложения | `body`, `#app-mount`, `[id^="app-mount_"]`, `[data-popout-root]` | `background.css`, `effects.css` |
 | Серверы и каналы | `.guilds_pog62O`, `#channels`, `.container_H5ozaj`, `.container__2637a`, основы `sidebarList` и `privateChannels` | `servers.css`, `channels.css` |
+| Папки серверов | `.folderGroup_RTMSuZ`, `.folderHeader_RTMSuZ`, `.folderPreviewGuildIcon_RTMSuZ`, `--radius-md`, `--radius-lg` | `servers.css`, `base.css` |
 | Кнопка «Главная» | `[data-guilds-bar-home]`, `[data-list-item-id="guildsnav___home"]`, контейнер с префиксом `childWrapper_` | `servers.css` |
 | Панель и поиск | `.container_ybUK7Z.themed_ybUK7Z`, `.searchBar_i16Ad0` | `header.css` |
 | Друзья | `.container_zrUwGA`, `.tabBody_zrUwGA`, `.nowPlayingColumn_zrUwGA` | `home.css` |
@@ -14,6 +15,7 @@
 | Участники и профиль | `.membersWrap_86es0b`, `.outer_P1YEjQ`, `.themeContainer_nitlyF`, `.overlay_P1YEjQ` | `members.css`, `profiles.css` |
 | Меню и настройки | `.menu_M3qk4j`, `.root__KoJTP`, `.container_XtY2mm` | `menus.css`, `settings.css` |
 | Голос | `.wrapper_hbKzX7`, `.callContainer_hbKzX7`, `.root_rTsZa_`, `.tile_7NOr2f`, `.videoWrapper_7NOr2f` | `voice.css`, `background.css` |
+| Демонстрация экрана | `.root_oszuaw`, `.sourceOverlayCTA_4HfQya`, `.root_RmOtW7`, `#stream-options` | `screenshare.css` |
 | Дополнительные панели | `.tabBody_zrUwGA`, `.searchHeader_rfDq2B`, `.header_LSviKk` | `misc.css` |
 
 Ограниченные префиксные селекторы и старые цветовые токены поддерживают часть поверхностей при смене суффиксов классов. Наличие класса в бандле подтверждает доступность селектора. Применение правила в конкретном экране проверяется в клиенте.
