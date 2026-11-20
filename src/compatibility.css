@@ -19,21 +19,6 @@
   --interactive-active: var(--gr-gold-bright);
 }
 
-/* The scope is the classic mount ID, which also constrains the stem matches. */
-#app-mount :where([class^="bg_"], [class*=" bg_"]),
-#app-mount > :where([class^="app_"], [class*=" app_"]),
-#app-mount :where([class^="chat_"], [class*=" chat_"]) {
-  background: transparent;
-}
-
-#app-mount :where([class^="chatContent_"], [class*=" chatContent_"]) {
-  background: var(--gr-chat-bg);
-}
-
-#app-mount :where([class^="sidebarList_"], [class*=" sidebarList_"]) {
-  background: var(--gr-channels-bg);
-}
-
 #app-mount :where([class^="membersWrap_"], [class*=" membersWrap_"]) {
   background: var(--gr-members-bg);
 }

@@ -1,14 +1,16 @@
 /* Friends has separate fills on its root, content and activity column. */
-.container_zrUwGA {
+:is(.container_zrUwGA, .container__133bf) {
   background: transparent;
   border-color: var(--gr-line);
 }
 
-.container_zrUwGA .tabBody_zrUwGA {
+:is(.container_zrUwGA, .container__133bf) :is(.tabBody_zrUwGA, .tabBody__133bf) {
   background: var(--gr-home-bg);
 }
 
-.container_zrUwGA :is(.peopleColumn_zrUwGA, .nowPlayingColumn_zrUwGA) {
+:is(.container_zrUwGA, .container__133bf) :is(
+  .peopleColumn_zrUwGA, .nowPlayingColumn_zrUwGA, .peopleList_zrUwGA, .peopleList__5ec2f
+) {
   background: transparent;
   border-color: var(--gr-line);
 }

@@ -1,6 +1,6 @@
 /* Keep Discord's semantic colors for error, success, warning and links distinct. */
 :is(.theme-dark, .theme-light, .theme-darker, .theme-midnight, .theme-amoled),
-:is(#app-mount, [id^="app-mount_"]) {
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
   color-scheme: dark;
   --background-base-lowest: var(--gr-bg-base);
   --background-base-lower: var(--gr-channels-bg);

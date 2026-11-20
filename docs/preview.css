@@ -25,7 +25,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--gr-bg-base); color: var(--gr-text); font: 14px/1.5 var(--gr-font-body); }
+body { margin: 0; color: var(--gr-text); font: 14px/1.5 var(--gr-font-body); }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 button, a { -webkit-tap-highlight-color: transparent; }

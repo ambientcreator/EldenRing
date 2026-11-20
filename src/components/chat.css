@@ -1,24 +1,34 @@
-.chat_z_gUBg {
+:is(#app-mount, [id^="app-mount_"]) :is(
+  [class^="chat_"], [class*=" chat_"], [class$="-chat"], [class*="-chat "]
+) {
+  --chat-background: transparent;
   background: transparent;
   border-color: var(--gr-line);
 }
 
-.chatContent_z_gUBg {
+:is(#app-mount, [id^="app-mount_"]) :is(
+  [class^="chatContent_"], [class*=" chatContent_"], [class$="-chatContent"], [class*="-chatContent "]
+) {
   background: var(--gr-chat-bg);
 }
 
 .chatContent_z_gUBg :is(.messageListItem_SY_P2T, li[id^="chat-messages-"]) {
-  /* Keep the native mention, reply and search flash background colors underneath. */
-  background-image: linear-gradient(var(--gr-reading-bg), var(--gr-reading-bg));
+  /* Concentrate the scrim behind text while the wallpaper shows through the right side. */
+  background-image: linear-gradient(90deg, var(--gr-reading-bg) min(100%, 25rem), transparent min(100%, 55rem));
 }
 
 .chatContent_z_gUBg :where([data-list-id="chat-messages"], [class^="messagesWrapper_"]) {
   background-color: transparent;
 }
 
+.chatContent_z_gUBg :is(.chatGradient_8AE1Qq, .chatGradient__36d07) {
+  background-image: none;
+}
+
 .markup_ku1OHH,
 .messageContent_2i8Bfm {
   font-family: var(--gr-font-body);
+  text-shadow: var(--gr-text-shadow);
 }
 
 .timestamp_2i8Bfm,

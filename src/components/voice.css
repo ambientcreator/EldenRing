@@ -35,15 +35,35 @@
   border-radius: var(--gr-radius);
 }
 
-/* The call wrapper and call container have two native opaque backgrounds. */
-.wrapper_hbKzX7,
-.wrapper_hbKzX7.minimum_hbKzX7 {
-  background: transparent;
+/* Scope to the app so these fills also win against lazy-loaded call styles. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & .wrapper_hbKzX7:not(:fullscreen) {
+    background: var(--gr-voice-bg);
+  }
+
+  & :is(
+    .callContainer_hbKzX7, .root_rTsZa_, .root_QKgWuD,
+    .videoGridWrapper_QKgWuD, .videoWrapper_7NOr2f, .videoWrapper_QKgWuD
+  ) {
+    background: transparent;
+  }
+
+  & .wrapper_hbKzX7:fullscreen .callContainer_hbKzX7 {
+    background: var(--gr-voice-bg);
+  }
+
+  & .callContainer_hbKzX7 video {
+    background-color: transparent;
+  }
 }
 
-.callContainer_hbKzX7,
-.wrapper_hbKzX7.minimum_hbKzX7 .callContainer_hbKzX7 {
-  background: var(--gr-voice-bg);
+/* Participant colors can come from inline avatar palettes. Only their backing is tinted. */
+:is(.tile_7NOr2f, .tileContainer_4cz-WN) {
+  background-color: var(--gr-voice-tile-bg) !important;
+}
+
+.tile_7NOr2f :is(.tileChild_7NOr2f, .content_7NOr2f)[style*="background"] {
+  background: transparent !important;
 }
 
 .tileContainer_4cz-WN {

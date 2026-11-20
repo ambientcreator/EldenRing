@@ -19,14 +19,18 @@ const fixture = `
     }
     .guilds_pog62O { display: flex; }
     .childWrapper_JJ-hgR { display: grid; place-items: center; width: 40px; height: 40px; }
+    #app-mount_gEkNtR, .appAsidePanelWrapper_YRXZu0, .page_pog62O { background: #111; }
     .sidebarList_pog62O { width: 250px; border-inline-start: 1px solid; border-block-start: 1px solid; }
-    .privateChannels_u88IQl, .scroller_Bce46W { background: var(--background-base-lowest); }
+    #channels, .container_H5ozaj, .privateChannels_u88IQl, .scroller_Bce46W {
+      background: var(--background-base-lowest);
+    }
+    [class$="-sidebarList"] { background: #111; }
     .bar_oJAkDB { width: 100%; height: 24px; border-radius: 12px; border: 1px solid; }
     .unread_oJAkDB { background-color: var(--background-surface-highest); }
     .interactive:hover { background-color: var(--brand-500); color: var(--white); }
     .flash_EajVQV[data-flash="true"], .highlighted_SY_P2T { background: var(--message-highlight-background-default); }
     .wrapper_hbKzX7 { background: var(--background-base-lowest); }
-    .callContainer_hbKzX7 { background: var(--black); }
+    .callContainer_hbKzX7, .root_rTsZa_, .videoWrapper_7NOr2f { background: var(--black); }
     .wrapper_hbKzX7.minimum_hbKzX7 .callContainer_hbKzX7 { background: none; }
   </style>
   <div id="app-mount_gEkNtR" class="theme-dark">
@@ -39,6 +43,7 @@ const fixture = `
       <button aria-label="Сервер"><span class="childWrapper_JJ-hgR"><svg width="24" height="24"></svg></span></button>
     </nav>
     <aside class="sidebarList_pog62O">
+      <div class="container_H5ozaj"><nav id="channels">Список каналов сервера</nav></div>
       <div class="privateChannels_u88IQl">
         <div class="scroller_Bce46W" tabindex="0">
           <a href="#chat" data-list-item-id="channels___test">Канал</a>
@@ -50,6 +55,8 @@ const fixture = `
       </div>
       <i class="unread_otherx" id="layout-marker"></i>
     </aside>
+    <aside class="_c48ade-sidebarList" id="desktop-sidebar">Боковая панель</aside>
+    <div class="appAsidePanelWrapper_YRXZu0"><div class="page_pog62O"></div></div>
     <main class="chatContent_z_gUBg" id="chat">
       <article class="messageListItem_SY_P2T flash_EajVQV" data-flash="true">
         <span class="markup_ku1OHH"><span class="wrapper_NDaLCQ mention interactive" tabindex="0">@Путник</span></span>
@@ -57,9 +64,17 @@ const fixture = `
       <article class="highlighted_SY_P2T">Найденное сообщение</article>
     </main>
     <section class="wrapper_hbKzX7">
-      <div class="callContainer_hbKzX7"><video></video></div>
+      <div class="callContainer_hbKzX7">
+        <div class="root_rTsZa_">
+          <div class="tile_7NOr2f" style="background-color: #d6c0c0">
+            <div class="content_7NOr2f" style="background: linear-gradient(#4a3d32, #282527)">Участник</div>
+          </div>
+          <div class="videoWrapper_7NOr2f"><video></video></div>
+        </div>
+      </div>
     </section>
-  </div>`;
+  </div>
+  <div data-popout-root><div class="root_rTsZa_" id="floating-call">Отдельное окно звонка</div></div>`;
 
 test('keeps Discord layout and themes Home, unread bars, message highlights and calls', { timeout: 15_000 }, async () => {
   const browser = await chromium.launch({
@@ -72,11 +87,21 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     const before = await page.getByRole('button', { name: 'Главная' }).boundingBox();
     const sidebarWidth = await page.locator('.sidebarList_pog62O').evaluate(element => element.offsetWidth);
     await page.addStyleTag({ content: theme });
+    await page.addStyleTag({ content: `
+      #channels, .container_H5ozaj { background: #111; }
+      .wrapper_hbKzX7, .wrapper_hbKzX7.minimum_hbKzX7 { background: #111; }
+      .callContainer_hbKzX7, .root_rTsZa_, .videoWrapper_7NOr2f { background: #000; }
+    ` });
 
     const style = (selector, name, pseudo = null) => page.locator(selector).evaluate(
       (element, { name, pseudo }) => getComputedStyle(element, pseudo)[name], { name, pseudo },
     );
     const transparent = 'rgba(0, 0, 0, 0)';
+
+    assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundImage.includes('data:image/webp;base64,')), true);
+    for (const selector of ['#app-mount_gEkNtR', '.appAsidePanelWrapper_YRXZu0', '.page_pog62O']) {
+      assert.equal(await style(selector, 'backgroundColor'), transparent);
+    }
 
     assert.match(await style('[data-guilds-bar-home] span', 'maskImage', '::after'), /data:image\/svg\+xml;base64/);
     assert.equal(await style('[data-guilds-bar-home] svg', 'visibility'), 'hidden');
@@ -86,11 +111,15 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     await page.getByRole('button', { name: 'Главная' }).click();
 
     assert.equal(await page.locator('.sidebarList_pog62O').evaluate(element => element.offsetWidth), sidebarWidth);
+    assert.match(await style('.sidebarList_pog62O', 'backgroundColor'), /\/ 0\.3\)/);
+    assert.equal(await style('#desktop-sidebar', 'backgroundColor'), await style('.sidebarList_pog62O', 'backgroundColor'));
+    assert.equal(await style('#channels', 'backgroundColor'), transparent);
+    assert.equal(await style('.container_H5ozaj', 'backgroundColor'), transparent);
     assert.equal(await style('.privateChannels_u88IQl', 'backgroundColor'), transparent);
     assert.equal(await style('.scroller_Bce46W', 'backgroundColor'), transparent);
     assert.equal(await style('.tabHoverGradient_zln_tS', 'visibility'), 'hidden');
     assert.equal(await style('#layout-marker', 'backgroundColor'), transparent);
-    assert.match(await style('.bar_oJAkDB', 'backgroundColor'), /\/ 0\.84\)/);
+    assert.match(await style('.bar_oJAkDB', 'backgroundColor'), /\/ 0\.8\)/);
     await page.addStyleTag({ content: ':root { --gr-channel-row-height: 36px; }' });
     assert.equal(await style('[data-list-item-id="channels___test"]', 'minBlockSize'), '36px');
 
@@ -100,16 +129,21 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.match(await style('.flash_EajVQV', 'backgroundColor'), /\/ 0\.19\)/);
     assert.equal(await style('.highlighted_SY_P2T', 'backgroundColor'), await style('.flash_EajVQV', 'backgroundColor'));
 
-    assert.equal(await style('.wrapper_hbKzX7', 'backgroundColor'), transparent);
-    assert.match(await style('.callContainer_hbKzX7', 'backgroundColor'), /\/ 0\.34\)/);
+    assert.match(await style('.wrapper_hbKzX7', 'backgroundColor'), /\/ 0\.2\)/);
+    assert.equal(await style('.callContainer_hbKzX7', 'backgroundColor'), transparent);
+    assert.equal(await style('.callContainer_hbKzX7 .root_rTsZa_', 'backgroundColor'), transparent);
+    assert.equal(await style('#floating-call', 'backgroundColor'), transparent);
+    assert.equal(await style('.videoWrapper_7NOr2f', 'backgroundColor'), transparent);
+    assert.match(await style('.tile_7NOr2f', 'backgroundColor'), /\/ 0\.24\)/);
+    assert.equal(await style('.content_7NOr2f', 'backgroundImage'), 'none');
     await page.locator('.wrapper_hbKzX7').evaluate(element => element.classList.add('minimum_hbKzX7'));
-    assert.match(await style('.callContainer_hbKzX7', 'backgroundColor'), /\/ 0\.34\)/);
+    assert.equal(await style('.callContainer_hbKzX7', 'backgroundColor'), transparent);
     assert.equal(await style('video', 'opacity'), '1');
     assert.equal(await style('video', 'filter'), 'none');
 
     const hasFullscreenWallpaper = await page.locator('.wrapper_hbKzX7').evaluate(async element => {
       await element.requestFullscreen();
-      const visible = getComputedStyle(element, '::before').backgroundImage.includes('data:image/webp;base64,');
+      const visible = getComputedStyle(element).backgroundImage.includes('data:image/webp;base64,');
       await document.exitFullscreen();
       return visible;
     });

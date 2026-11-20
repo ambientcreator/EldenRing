@@ -1,41 +1,47 @@
-/* The call becomes a separate painting layer in native fullscreen. */
-:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen) {
+html {
+  background-color: var(--gr-bg-base);
+  background-image: radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
+}
+
+/* Paint below the app shells and repeat the image only when a call enters the top layer. */
+:is(body, :is(#app-mount, [id^="app-mount_"], [data-popout-root]) .wrapper_hbKzX7:fullscreen) {
   isolation: isolate;
-  background-color: var(--gr-bg-base);
-}
-
-:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before,
-:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-}
-
-:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before {
-  z-index: -2;
-  background-color: var(--gr-bg-base);
-  background-image: url("../assets/golden-ruins.webp"), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
-  background-position: var(--gr-wallpaper-x) var(--gr-wallpaper-y), center;
-  background-size: var(--gr-wallpaper-size), cover;
+  background-color: rgb(12 11 9 / var(--gr-dim));
+  background-image: url("../assets/golden-ruins.webp");
+  background-blend-mode: multiply;
+  background-position: var(--gr-wallpaper-x) var(--gr-wallpaper-y);
+  background-size: var(--gr-wallpaper-size);
   background-repeat: no-repeat;
-}
+  background-attachment: fixed;
 
-/* Chromium caps CSS variable values at 2 MiB. Keep the lossless default as a literal URL. */
-@container style(--gr-wallpaper) {
-  :is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::before {
-    background-image: var(--gr-wallpaper), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
+  /* Chromium caps CSS variable values at 2 MiB. Keep the default as a literal URL. */
+  @container style(--gr-wallpaper) {
+    background-image: var(--gr-wallpaper);
+  }
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(ellipse at 69% 38%, transparent 25%, rgb(9 8 6 / var(--gr-vignette)) 100%);
   }
 }
 
-:is(#app-mount, [id^="app-mount_"], .wrapper_hbKzX7:fullscreen)::after {
-  z-index: -1;
-  background-image:
-    radial-gradient(ellipse at 69% 38%, transparent 25%, rgb(9 8 6 / var(--gr-vignette)) 100%),
-    linear-gradient(rgb(12 11 9 / var(--gr-dim)), rgb(12 11 9 / var(--gr-dim)));
+body {
+  min-block-size: 100vh;
 }
 
-:is(#app-mount, [id^="app-mount_"]) :is(.app_QbT-Jy, .bg_Fd0FEH) {
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]),
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  [class^="app_"], [class*=" app_"],
+  [class^="appAsidePanelWrapper_"], [class*=" appAsidePanelWrapper_"],
+  [class^="appContainer_"], [class*=" appContainer_"],
+  [class^="layers_"], [class*=" layers_"],
+  [class^="baseLayer_"], [class*=" baseLayer_"],
+  .base_Fd0FEH, .base_c48ade, .page_pog62O, .bg_Fd0FEH, .bg__960e4, .bg__12180
+) {
   background: transparent;
 }
 

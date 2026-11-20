@@ -1,26 +1,39 @@
-.sidebar_pog62O,
-.privateChannels_u88IQl {
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  .sidebar_pog62O, .sidebar_c48ade,
+  [class^="sidebar_"], [class*=" sidebar_"], [class$="-sidebar"], [class*="-sidebar "]
+) {
   background: transparent;
 }
 
-.sidebar_pog62O::after {
-  background-color: transparent;
+:is(.sidebar_pog62O, .sidebar_c48ade)::after {
+  background: none;
 }
 
-.sidebarList_pog62O {
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  [class^="sidebarList_"], [class*=" sidebarList_"], [class$="-sidebarList"], [class*="-sidebarList "]
+) {
   background: var(--gr-channels-bg);
   border-color: var(--gr-line);
+
+  & :is([class^="scroller_"], [class*=" scroller_"], [class$="-scroller"], [class*="-scroller "]) {
+    background: transparent;
+  }
 }
 
-/* Discord paints the DM scroller and the channel scroller over the sidebar. */
-.sidebarList_pog62O :is([class^="scroller_"], [class*=" scroller_"]) {
+/* These layers can cover the sidebar fill, including inside the voice channel drawer. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  #channels, .container_H5ozaj, .container__2637a,
+  [class^="privateChannels_"], [class*=" privateChannels_"],
+  [class$="-privateChannels"], [class*="-privateChannels "]
+) {
   background: transparent;
 }
 
 .sidebarList_pog62O [data-list-item-id^="channels___"],
 .privateChannels_u88IQl .interactive_zln_tS {
-  background-color: color-mix(in srgb, var(--gr-reading-bg) 45%, transparent);
+  background-color: color-mix(in srgb, var(--gr-reading-bg) 62%, transparent);
   border-radius: var(--gr-radius);
+  text-shadow: var(--gr-text-shadow);
   transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
 }
 

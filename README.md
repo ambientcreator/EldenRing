@@ -6,7 +6,7 @@
 
 ![Предпросмотр Golden Ruins, 1920 × 1080](docs/preview.jpg)
 
-[Страница «Друзья»](docs/preview-friends.jpg) · [Меню профиля](docs/preview-account.jpg)
+[Страница «Друзья»](docs/preview-friends.jpg) · [Голосовой канал](docs/preview-call.jpg) · [Меню профиля](docs/preview-account.jpg)
 
 ## Установка
 
