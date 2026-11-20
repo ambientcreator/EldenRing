@@ -37,7 +37,7 @@ node scripts/build.mjs --check
 
 ## English
 
-**Golden Ruins** is a fan-made Discord theme with wallpaper behind the chat and Friends list, weathered gold accents and translucent panels. The single CSS release embeds a compressed wallpaper at its original resolution, contains Forum headings and Literata interface and message text, and adds an interlocking ring emblem to the Home button.
+**Golden Ruins** is a fan-made Discord theme with wallpaper behind the chat and Friends list, weathered gold accents and translucent panels. The single CSS release embeds the 1670 × 941 wallpaper as a lossless WebP, contains Forum headings and Literata interface and message text, and adds an interlocking ring emblem to the Home button.
 
 Put the CSS file in **BetterDiscord → Themes → Open Themes Folder** or **Vencord → Themes → Local Themes → Open Themes Folder**, then enable it. Vencord's Online Themes accepts a directly accessible HTTPS URL to the CSS. [GoldenRuins.theme.css](dist/GoldenRuins.theme.css)
 

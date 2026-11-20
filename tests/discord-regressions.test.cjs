@@ -5,6 +5,7 @@ const { test } = require('node:test');
 const { chromium } = require('playwright');
 
 const theme = readFileSync(join(__dirname, '../dist/GoldenRuins.theme.css'), 'utf8');
+const wallpaper = readFileSync(join(__dirname, '../assets/golden-ruins.webp'));
 const computedStyle = (locator, name, pseudo = null) => locator.evaluate(
   (element, { name, pseudo }) => getComputedStyle(element, pseudo)[name], { name, pseudo },
 );
@@ -219,7 +220,7 @@ const fixture = `
     .wrapper_hbKzX7.minimum_hbKzX7 .callContainer_hbKzX7 { background: none; }
   </style>
   <div id="app-mount_gEkNtR" class="theme-dark">
-    <div class="bg_Fd0FEH"></div>
+    <div class="bg__960e4"></div>
     <nav class="guilds_pog62O">
       <div data-guilds-bar-home>
         <button aria-label="Главная" data-list-item-id="guildsnav___home">
@@ -338,7 +339,11 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
 
     const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
 
-    assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundImage.includes('data:image/webp;base64,')), true);
+    const wallpaperUrl = await page.evaluate(() => (
+      getComputedStyle(document.body).backgroundImage.match(/data:image\/webp;base64,([^")]+)/)?.[1]
+    ));
+    assert.ok(wallpaperUrl, 'the body uses the embedded WebP');
+    assert.ok(Buffer.from(wallpaperUrl, 'base64').equals(wallpaper), 'the built-in wallpaper matches the lossless source');
     for (const selector of ['#app-mount_gEkNtR', '.appAsidePanelWrapper_YRXZu0', '.page_pog62O']) {
       assert.equal(await style(selector, 'backgroundColor'), transparent);
     }
@@ -439,7 +444,9 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal(hasFullscreenWallpaper, true);
 
     await page.emulateMedia({ reducedMotion: 'no-preference' });
-    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'none');
+    const app = '#app-mount_gEkNtR';
+    assert.equal(await style(app, 'animationName', '::before'), 'none');
+    assert.equal(await style(app, 'animationName', '::after'), 'none');
     await page.addStyleTag({ content: `
       :root {
         --gr-wallpaper: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'/%3E");
@@ -453,9 +460,15 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal((await style('body', 'backgroundPosition')).split(', ').at(-1), '30% 70%');
     await page.addStyleTag({ content: ':root { --gr-ambient-motion: running; --gr-wallpaper: none; }' });
     assert.equal(await style('body', 'backgroundImage'), 'none');
-    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'gr-embers');
+    assert.equal(await style('body', 'display', '::before'), 'none');
+    assert.equal(await style(app, 'animationName', '::before'), 'gr-canopy');
+    assert.equal(await style(app, 'animationName', '::after'), 'gr-embers');
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    assert.equal(await style('.bg_Fd0FEH', 'animationName', '::after'), 'none');
+    assert.equal(await style(app, 'animationName', '::after'), 'none');
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.addStyleTag({ content: ':root { --gr-effects: none; --gr-motion: 0; }' });
+    assert.equal(await style(app, 'display', '::before'), 'none');
+    assert.equal(await style(app, 'display', '::after'), 'none');
   } finally {
     await browser.close();
   }

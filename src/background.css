@@ -12,19 +12,33 @@ html {
 
   isolation: isolate;
   background-color: transparent;
-  background-image: var(--gr-wallpaper-shading), url("../assets/golden-ruins-display.webp");
-  background-position: left top, var(--gr-wallpaper-x) var(--gr-wallpaper-y);
-  background-size: auto, var(--gr-wallpaper-size);
+  /* The embedded URL exceeds Chromium's size limit for declarations with var(). */
+  background-image: url("../assets/golden-ruins.webp");
+  background-position: var(--gr-wallpaper-x) var(--gr-wallpaper-y);
+  background-size: var(--gr-wallpaper-size);
   background-repeat: no-repeat;
   background-attachment: fixed;
 
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--gr-wallpaper-shading);
+  }
+
   @container style(--gr-wallpaper) {
-    background-image: var(--gr-wallpaper-shading), var(--gr-wallpaper);
+    background-image: var(--gr-wallpaper);
   }
 
   @container style(--gr-wallpaper: none) {
     background-color: var(--gr-bg-base);
     background-image: none;
+
+    &::before {
+      display: none;
+    }
   }
 }
 

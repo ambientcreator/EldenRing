@@ -37,8 +37,8 @@
     --gr-motion: 0;
   }
 
-  .bg_Fd0FEH::before,
-  .bg_Fd0FEH::after {
+  :is(#app-mount, [id^="app-mount_"])::before,
+  :is(#app-mount, [id^="app-mount_"])::after {
     display: none;
     animation: none;
   }

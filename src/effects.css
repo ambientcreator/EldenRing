@@ -1,45 +1,48 @@
-/* Full enables motion on these two small layers. Balanced paints them once. */
-.bg_Fd0FEH::before,
-.bg_Fd0FEH::after {
-  content: "";
-  position: absolute;
-  display: var(--gr-effects);
-  pointer-events: none;
-}
-
-.bg_Fd0FEH::before {
-  top: 2%;
-  right: 2%;
-  width: min(34vw, 530px);
-  height: min(32vh, 340px);
-  background: radial-gradient(ellipse at center, rgb(248 189 104 / 32%), transparent 69%);
-  opacity: var(--gr-canopy-opacity);
-}
-
-.bg_Fd0FEH::after {
-  top: 12%;
-  right: 5%;
-  width: min(31vw, 440px);
-  height: min(28vh, 270px);
-  background:
-    radial-gradient(circle at 11% 47%, #f5d69b 0 1px, transparent 2px),
-    radial-gradient(circle at 28% 29%, #efd29a 0 1px, transparent 2px),
-    radial-gradient(circle at 43% 72%, #d9b17a 0 1px, transparent 2px),
-    radial-gradient(circle at 55% 34%, #f8dcac 0 1.3px, transparent 2.4px),
-    radial-gradient(circle at 68% 67%, #e5b97c 0 1px, transparent 2px),
-    radial-gradient(circle at 77% 18%, #f5d69b 0 1px, transparent 2px),
-    radial-gradient(circle at 86% 82%, #e2b579 0 1px, transparent 2px);
-  opacity: var(--gr-particles-opacity);
-}
-
-@container style(--gr-ambient-motion: running) {
-  .bg_Fd0FEH::before {
-    animation: gr-canopy calc(16s * var(--gr-motion)) ease-in-out infinite alternate;
+/* Paint the effects between the body wallpaper and the app, across client builds. */
+:is(#app-mount, [id^="app-mount_"]) {
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    display: var(--gr-effects);
+    pointer-events: none;
   }
 
-  .bg_Fd0FEH::after {
-    animation: gr-embers calc(19s * var(--gr-motion)) ease-in-out infinite alternate;
-    animation-play-state: var(--gr-particles-play-state);
+  &::before {
+    top: 2%;
+    right: 2%;
+    width: min(34vw, 530px);
+    height: min(32vh, 340px);
+    background: radial-gradient(ellipse at center, rgb(248 189 104 / 32%), transparent 69%);
+    opacity: var(--gr-canopy-opacity);
+  }
+
+  &::after {
+    top: 12%;
+    right: 5%;
+    width: min(31vw, 440px);
+    height: min(28vh, 270px);
+    background:
+      radial-gradient(circle at 11% 47%, #f5d69b 0 1px, transparent 2px),
+      radial-gradient(circle at 28% 29%, #efd29a 0 1px, transparent 2px),
+      radial-gradient(circle at 43% 72%, #d9b17a 0 1px, transparent 2px),
+      radial-gradient(circle at 55% 34%, #f8dcac 0 1.3px, transparent 2.4px),
+      radial-gradient(circle at 68% 67%, #e5b97c 0 1px, transparent 2px),
+      radial-gradient(circle at 77% 18%, #f5d69b 0 1px, transparent 2px),
+      radial-gradient(circle at 86% 82%, #e2b579 0 1px, transparent 2px);
+    opacity: var(--gr-particles-opacity);
+  }
+
+  @container style(--gr-ambient-motion: running) {
+    &::before {
+      animation: gr-canopy calc(16s * var(--gr-motion)) ease-in-out infinite alternate;
+    }
+
+    &::after {
+      animation: gr-embers calc(19s * var(--gr-motion)) ease-in-out infinite alternate;
+      animation-play-state: var(--gr-particles-play-state);
+    }
   }
 }
 
