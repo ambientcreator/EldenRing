@@ -59,7 +59,7 @@
 }
 
 .panels_pog62O {
-  background: var(--gr-popout-bg);
+  background: var(--gr-card-bg);
   border: var(--gr-border-width) solid var(--gr-line-strong);
   border-radius: var(--gr-radius);
 }

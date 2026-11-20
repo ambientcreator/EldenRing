@@ -1,6 +1,6 @@
 .guilds_pog62O:is(.wrapper_5dqHTG, nav),
 .guilds_pog62O .wrapper_5dqHTG {
-  background-color: color-mix(in srgb, var(--gr-bg-base) 88%, transparent);
+  background-color: var(--gr-control-bg);
 }
 
 .guilds_pog62O :is(.folderGroupBackground_RTMSuZ, .folderButton_RTMSuZ, .folderPreview_RTMSuZ) {
@@ -8,24 +8,50 @@
 }
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
-  background-color: var(--gr-surface);
+  background-color: var(--gr-control-bg);
   color: var(--gr-gold);
-  box-shadow: inset 0 0 0 1px var(--gr-line);
+  box-shadow: none;
   transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
 }
 
-.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w):is(:hover, :focus-visible) {
+.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w)
+  :where(.circleIcon_g8YUxD, .discoveryIcon_5dqHTG) {
+  color: inherit;
+}
+
+.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) svg {
+  flex-shrink: 0;
+}
+
+.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w):is(:hover, :focus-visible, .selected_g8YUxD) {
   background-color: var(--gr-selected);
   color: var(--gr-gold-bright);
 }
 
-.guilds_pog62O :is([class^="pill_"], [class*=" pill_"]) > :is([class^="item_"], [class*=" item_"]) {
-  background-color: var(--gr-gold);
+.guilds_pog62O .tutorialContainer_1IyMuq .wrapper_JJ-hgR .childWrapper_JJ-hgR {
+  background-color: var(--gr-control-bg);
+  color: var(--gr-gold);
 }
 
-.guilds_pog62O [data-list-item-id^="guildsnav___"]:is([aria-selected="true"], [aria-current="page"], .selected_tQErD4) {
-  outline: 1px solid var(--gr-line-strong);
-  outline-offset: -1px;
+.guilds_pog62O .tutorialContainer_1IyMuq .wrapper_JJ-hgR:is(:hover, :focus-within, .selected_JJ-hgR) .childWrapper_JJ-hgR {
+  background-color: var(--gr-selected);
+  color: var(--gr-gold-bright);
+}
+
+@supports (mask-image: none) {
+  /* Paint within the existing icon box so the Home button keeps its label and hit area. */
+  :is(.guilds_pog62O, [class^="guilds_"], [class*=" guilds_"]) svg:is([class^="homeIcon_"], [class*=" homeIcon_"]) {
+    background-color: currentColor;
+    mask: var(--gr-home-rings) center / contain no-repeat;
+  }
+
+  :is(.guilds_pog62O, [class^="guilds_"], [class*=" guilds_"]) svg:is([class^="homeIcon_"], [class*=" homeIcon_"]) > :not(title, desc) {
+    visibility: hidden;
+  }
+}
+
+.guilds_pog62O :is([class^="pill_"], [class*=" pill_"]) > :is([class^="item_"], [class*=" item_"]) {
+  background-color: var(--gr-gold);
 }
 
 .guilds_pog62O :is(.unreadMentionsBar_5dqHTG, .badge_nFH31_) {

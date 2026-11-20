@@ -23,7 +23,10 @@
     --gr-channels-opacity: 0.96;
     --gr-chat-opacity: 0.95;
     --gr-members-opacity: 0.94;
+    --gr-home-opacity: 0.94;
     --gr-popout-opacity: 1;
+    --gr-card-opacity: 0.95;
+    --gr-control-opacity: 0.91;
     --gr-text: #fff5e7;
     --gr-text-muted: #d8ccbd;
     --gr-bronze: #a18a64;
@@ -40,5 +43,10 @@
 
   :is(#app-mount, [id^="app-mount_"]) :focus-visible {
     outline-color: Highlight;
+  }
+
+  :is(.guilds_pog62O, [class^="guilds_"], [class*=" guilds_"]) svg:is([class^="homeIcon_"], [class*=" homeIcon_"]) {
+    forced-color-adjust: none;
+    background-color: ButtonText;
   }
 }

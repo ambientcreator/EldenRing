@@ -1,9 +1,9 @@
 /* Older desktop builds can still consume the pre-refresh color tokens. */
 :is(.theme-dark, .theme-light, .theme-darker, .theme-midnight, .theme-amoled) {
-  --background-primary: var(--gr-surface);
-  --background-secondary: var(--gr-surface);
-  --background-secondary-alt: var(--gr-surface-raised);
-  --background-tertiary: var(--gr-bg-base);
+  --background-primary: var(--gr-chat-bg);
+  --background-secondary: var(--gr-channels-bg);
+  --background-secondary-alt: var(--gr-card-bg);
+  --background-tertiary: var(--gr-control-bg);
   --background-floating: var(--gr-popout-bg);
   --background-modifier-hover: var(--gr-hover);
   --background-modifier-active: var(--gr-selected);

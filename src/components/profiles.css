@@ -1,11 +1,34 @@
-/* Only the card frame is themed, so profile banners and accents can render normally. */
+/* The popout wrapper also positions submenus. Paint the profile surface itself. */
 .profilePopout_iar92T,
-.accountPopout_g6VwXp,
+.outer_P1YEjQ:not(.custom-user-profile-theme, .user-profile-sidebar),
 :is([class^="userPopoutOuter_"], [class*=" userPopoutOuter_"]),
 :is([class^="userProfileModalOuter_"], [class*=" userProfileModalOuter_"]) {
   --profile-body-background-color: var(--gr-popout-bg);
+  background-color: var(--gr-popout-bg);
   border-radius: var(--gr-radius);
   box-shadow: 0 0 0 var(--gr-border-width) var(--gr-line-strong), var(--gr-shadow);
+}
+
+.themeContainer_nitlyF .body_nitlyF :is(.overlay_P1YEjQ, .menuOverlay_nitlyF, .card_Bu4Al8),
+.accountPopout_g6VwXp :is(.overlay_P1YEjQ, .menuOverlay_nitlyF, .card_Bu4Al8) {
+  background: var(--gr-card-bg);
+  border-radius: var(--gr-radius);
+  box-shadow: inset 0 0 0 var(--gr-border-width) var(--gr-line);
+}
+
+.themeContainer_nitlyF .menuItemInner_nitlyF {
+  border-radius: var(--gr-radius);
+  color: var(--gr-text);
+}
+
+.themeContainer_nitlyF .menuItemInner_nitlyF:is(:hover, :focus-visible) {
+  background-color: var(--gr-hover);
+  color: var(--gr-gold-bright);
+}
+
+.themeContainer_nitlyF :is(.displayName_C2XpHA, .userTagUsername_C2XpHA) {
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
 }
 
 .profilePopout_iar92T .profileContent_iar92T {

@@ -25,7 +25,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--gr-bg-base); color: var(--gr-text); font: 14px/1.5 system-ui, sans-serif; }
+body { margin: 0; background: var(--gr-bg-base); color: var(--gr-text); font: 14px/1.5 var(--gr-font-body); }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -119,6 +119,8 @@ svg:not(.icons) {
 
 .guild:hover, .active-guild { border-color: var(--gr-gold-dim); background-color: var(--gr-surface-raised); }
 .active-guild { background-image: radial-gradient(ellipse, var(--gr-selected), transparent 85%); }
+.guild .childWrapper_JJ-hgR { display: grid; place-items: center; width: 100%; height: 100%; border-radius: inherit; }
+.guild .homeIcon_1IyMuq { width: 26px; height: 26px; }
 .pill_nFH31_ { position: absolute; inset-inline-start: -13px; }
 .pill_nFH31_ .item_6zZYhF { display: block; width: 3px; height: 21px; border-radius: 0 2px 2px 0; }
 .rail-divider { width: 33px; height: 1px; background: var(--gr-line); }
@@ -138,6 +140,7 @@ svg:not(.icons) {
 .server-heading span { font-size: 11px; color: var(--gr-text-muted); }
 .channel-list { flex: 1; padding: 10px; overflow: auto; }
 .channel-list section + section { margin-top: 19px; }
+.privateChannels_u88IQl section { margin-top: 16px; }
 .channel-list h2 { margin: 8px 5px; font-size: 13px; text-transform: uppercase; }
 
 .channel-list button {
@@ -155,7 +158,8 @@ svg:not(.icons) {
 .channel-list .unread_oJAkDB { width: 5px; height: 5px; margin-inline-start: auto; border-radius: 50%; }
 .preview-account { margin: 8px; padding: 8px; }
 .account-row { display: flex; align-items: center; gap: 6px; }
-.account-row > div { flex: 1; min-width: 0; }
+.account-trigger { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; text-align: start; }
+.account-trigger > span:last-child { min-width: 0; }
 .account-row strong, .account-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .account-row strong { font-weight: 550; }
 .account-row small { color: var(--gr-success); font-size: 10px; }
@@ -233,6 +237,8 @@ svg:not(.icons) {
 .message-head strong { color: var(--gr-gold-bright); font-weight: 600; }
 .sample-message time { font-size: 11px; }
 .sample-message p { margin: 1px 0 0; overflow-wrap: anywhere; }
+.sample-embed { max-width: 100%; margin-top: 6px; padding: 6px 10px; border-inline-start: 2px solid var(--gr-gold); }
+.sample-embed strong { color: var(--gr-gold-bright); }
 .message-options { margin-inline-start: auto; }
 .reaction { margin-top: 6px; padding: 1px 7px; border: 1px solid; color: var(--gr-gold-bright); font-size: 12px; }
 .no-messages { padding: 0 20px; margin: 8px 0; color: var(--gr-text-muted); }
@@ -249,6 +255,33 @@ svg:not(.icons) {
 }
 
 .compose .send { color: var(--gr-gold-bright); background-color: var(--gr-hover); }
+
+.preview-home { display: flex; flex-direction: column; grid-column: 3 / -1; min-width: 0; min-height: 0; }
+.friends-header { min-height: 65px; justify-content: flex-start; gap: 16px; }
+.friends-header h1 { margin: 0; white-space: nowrap; }
+.friend-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.friend-tabs button { padding: 5px 9px; color: var(--gr-text-muted); }
+.friend-tabs .addFriend_zrUwGA { background: var(--control-primary-background-default); color: var(--white); }
+.friend-tabs .addFriend_zrUwGA:hover { background: var(--control-primary-background-hover); }
+.friends-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 27%);
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.friends-list, .friends-activity { padding: 15px; min-width: 0; }
+.friends-search input { width: 100%; min-width: 0; }
+.friends-list h2, .friends-activity h2 { margin: 12px 0 9px; color: var(--gr-gold-bright); font: 21px var(--gr-font-heading); }
+.friends-activity { border-inline-start: var(--gr-border-width) solid var(--gr-line); }
+.friends-activity h2 { margin-top: 0; }
+.friend-row, .activity-card { display: flex; align-items: center; gap: 10px; }
+.friends-list .friend-row { width: 100%; min-height: 52px; padding: 8px; margin-block: 5px; text-align: start; }
+.friend-row strong, .friend-row small { display: block; }
+.friend-row small, .activity-card p { color: var(--gr-text-muted); }
+.activity-card { padding: 10px; border: var(--gr-border-width) solid var(--gr-line); }
+.activity-card p { margin: 2px 0 0; font-size: 12px; }
+
 .preview-members { flex-direction: column; min-height: 0; overflow: auto; }
 .preview-members > div { padding: 0 10px 12px; }
 
@@ -288,6 +321,23 @@ svg:not(.icons) {
 .status { position: absolute; width: 9px; height: 9px; inset: auto -1px -1px auto; border: 1px solid #26231e; border-radius: 50%; background: var(--gr-success); }
 .demo-menu { position: fixed; inset: auto 18px 80px auto; margin: 0; padding: 5px; color: var(--gr-text); }
 .demo-menu button { display: block; width: 100%; padding: 7px 12px; text-align: left; }
+.demo-account-menu {
+  position: fixed;
+  inset: auto auto 73px calc(var(--rail-width) + 8px);
+  width: min(300px, calc(100% - var(--rail-width) - 16px));
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  color: var(--gr-text);
+}
+.account-menu-title { display: flex; align-items: center; gap: 9px; padding: 14px 12px 6px; }
+.account-menu-title h2 { margin: 0; }
+.demo-account-menu .body_nitlyF { display: grid; gap: 8px; padding: 10px 12px 12px; }
+.demo-account-menu :is(.account-activity, .menuItemInner_nitlyF) { padding: 7px 10px; }
+.demo-account-menu .menuItemInner_nitlyF { width: 100%; border: 0; background: transparent; text-align: start; }
+.demo-account-menu .menuItem_nitlyF + .menuItem_nitlyF { border-top: 1px solid var(--gr-line); }
 #details { width: min(440px, calc(100% - 28px)); border: 0; padding: 0; background: transparent; color: var(--gr-text); }
 #details::backdrop { background: rgb(9 8 6 / 68%); }
 .demo-dialog { position: relative; margin: 0; padding: 21px; text-align: center; }
@@ -316,6 +366,10 @@ svg:not(.icons) {
   .chat-header { padding-inline: 9px; }
   .chat-intro { flex-basis: 220px; }
   .compose input { font-size: 16px; }
+  .preview-home { grid-column: 2 / -1; }
+  .friends-header { flex-wrap: wrap; gap: 5px; padding: 9px; }
+  .friends-body { display: block; }
+  .friends-activity { border-inline-start: 0; border-block-start: var(--gr-border-width) solid var(--gr-line); }
 }
 
 @media (max-width: 390px) {

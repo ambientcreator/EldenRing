@@ -76,7 +76,7 @@
 
 .chatContent_z_gUBg :is(.dividerContent_j9Vvzj, .content_4TfzT5) {
   color: var(--gr-gold-bright);
-  background: var(--gr-surface);
+  background: var(--gr-control-bg);
   font-family: var(--gr-font-heading);
   letter-spacing: 0.04em;
 }
@@ -91,7 +91,7 @@
 }
 
 .chatContent_z_gUBg :is(.newMessagesBar_j9Vvzj, .jumpToPresentBar_j9Vvzj) {
-  background: var(--gr-surface-raised);
+  background: var(--gr-card-bg);
   border: var(--gr-border-width) solid var(--gr-line-strong);
   border-radius: var(--gr-radius);
 }
@@ -109,7 +109,9 @@
 }
 
 .chatContent_z_gUBg .embedFull_XyW1ZT {
-  background-color: var(--gr-surface-raised);
+  background-color: var(--gr-card-bg);
+  border-block: var(--gr-border-width) solid var(--gr-line);
+  border-inline-end: var(--gr-border-width) solid var(--gr-line);
   border-radius: var(--gr-radius);
 }
 

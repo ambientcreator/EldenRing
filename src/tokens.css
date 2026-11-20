@@ -3,23 +3,26 @@
   --gr-wallpaper-x: 50%;
   --gr-wallpaper-y: 50%;
   --gr-wallpaper-size: cover;
-  --gr-dim: 0.18;
-  --gr-vignette: 0.45;
+  --gr-dim: 0.26;
+  --gr-vignette: 0.42;
 
   /* Surfaces and typography */
   --gr-bg-base: #10100f;
   --gr-surface: #1a1916;
   --gr-surface-raised: #26231e;
-  --gr-channels-opacity: 0.86;
-  --gr-chat-opacity: 0.78;
-  --gr-members-opacity: 0.76;
-  --gr-popout-opacity: 0.97;
+  --gr-channels-opacity: 0.73;
+  --gr-chat-opacity: 0.69;
+  --gr-members-opacity: 0.67;
+  --gr-home-opacity: 0.55;
+  --gr-popout-opacity: 0.90;
+  --gr-card-opacity: 0.76;
+  --gr-control-opacity: 0.64;
   --gr-gold: #c4a46c;
   --gr-gold-bright: #e7c994;
   --gr-gold-dim: #8c744c;
   --gr-bronze: #65523a;
   --gr-text: #e7dfd1;
-  --gr-text-muted: #bdb4a5;
+  --gr-text-muted: #d5cbbb;
   --gr-link: #bdd3e9;
   --gr-success: #a3b69c;
   --gr-warning: #e5be78;
@@ -28,7 +31,7 @@
   --gr-border-width: 1px;
   --gr-channel-row-height: 32px;
   --gr-font-heading: "Golden Ruins Forum", "Palatino Linotype", Georgia, serif;
-  --gr-font-body: var(--font-primary, system-ui, sans-serif);
+  --gr-font-body: "Golden Ruins Literata", Cambria, Georgia, serif;
   --gr-heading-scale: 1;
 
   /* Balanced visual effects */
@@ -50,11 +53,15 @@
   --gr-divider: url("../assets/ornament-divider.svg");
   --gr-grace: url("../assets/grace-marker.svg");
   --gr-emblem: url("../assets/rune-emblem.svg");
+  --gr-home-rings: url("../assets/home-rings.svg");
 
   --gr-channels-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-channels-opacity) * 100%), transparent);
   --gr-chat-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-chat-opacity) * 100%), transparent);
   --gr-members-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-members-opacity) * 100%), transparent);
+  --gr-home-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-home-opacity) * 100%), transparent);
   --gr-popout-bg: color-mix(in srgb, var(--gr-surface-raised) calc(var(--gr-popout-opacity) * 100%), transparent);
+  --gr-card-bg: color-mix(in srgb, var(--gr-surface-raised) calc(var(--gr-card-opacity) * 100%), transparent);
+  --gr-control-bg: color-mix(in srgb, var(--gr-bg-base) calc(var(--gr-control-opacity) * 100%), transparent);
   --gr-line: color-mix(in srgb, var(--gr-bronze) 75%, transparent);
   --gr-line-strong: color-mix(in srgb, var(--gr-gold-dim) 85%, transparent);
   --gr-hover: color-mix(in srgb, var(--gr-gold) 12%, transparent);

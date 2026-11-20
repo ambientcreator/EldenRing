@@ -1,6 +1,5 @@
 .menu_M3qk4j,
-.popout_uFkqU2,
-.popoutContainer_nitlyF {
+.popout_uFkqU2 {
   background: var(--gr-popout-bg);
   border: var(--gr-border-width) solid var(--gr-line-strong);
   border-radius: var(--gr-radius);
@@ -34,14 +33,14 @@
 }
 
 .tooltipPrimary_3_v8qp {
-  background: var(--gr-surface-raised);
+  background: var(--gr-popout-bg);
   border-radius: var(--gr-radius);
   box-shadow: 0 0 0 1px var(--gr-line), var(--gr-shadow);
   color: var(--gr-text);
 }
 
 .tooltipPrimary_3_v8qp .tooltipPointer_3_v8qp {
-  border-top-color: var(--gr-surface-raised);
+  border-top-color: var(--gr-popout-bg);
 }
 
 .root__KoJTP:not(.fullscreenOnMobile__KoJTP) {
@@ -81,7 +80,7 @@
 }
 
 .root__KoJTP .footer__KoJTP {
-  background: var(--gr-surface);
+  background: var(--gr-control-bg);
   border-color: var(--gr-line);
 }
 

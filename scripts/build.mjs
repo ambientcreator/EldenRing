@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 const root = new URL('../', import.meta.url);
 const modules = [
   'tokens', 'typography', 'base', 'background', 'components/servers',
-  'components/channels', 'components/header', 'components/chat',
+  'components/channels', 'components/header', 'components/home', 'components/chat',
   'components/composer', 'components/members', 'components/profiles',
   'components/menus', 'components/settings', 'components/voice',
   'components/misc', 'effects', 'accessibility', 'compatibility',
@@ -16,7 +16,7 @@ const mimeTypes = {
 const header = `/**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.1.0
+ * @version 0.2.0
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */
@@ -37,7 +37,7 @@ async function bundle() {
     const bytes = await readFile(new URL(`assets/${name}`, root));
     return [name, `url("data:${type};base64,${bytes.toString('base64')}")`];
   })));
-  const licenseFiles = ['LICENSE', 'assets/forum-OFL.txt'];
+  const licenseFiles = ['LICENSE', 'assets/forum-OFL.txt', 'assets/literata-OFL.txt'];
   const licenses = await Promise.all(licenseFiles.map(async name => {
     const license = await readFile(new URL(name, root), 'utf8');
     return `/*\n${license.trim()}\n*/`;

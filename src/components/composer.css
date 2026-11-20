@@ -3,9 +3,9 @@
 }
 
 .channelTextArea_2x8-Qn {
-  --chat-input-background: var(--gr-surface-raised);
-  --channeltextarea-background: var(--gr-surface-raised);
-  background: var(--gr-surface-raised);
+  --chat-input-background: var(--gr-card-bg);
+  --channeltextarea-background: var(--gr-card-bg);
+  background: var(--gr-card-bg);
   border: var(--gr-border-width) solid var(--gr-line);
   border-radius: var(--gr-radius);
   caret-color: var(--gr-gold-bright);

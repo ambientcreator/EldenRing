@@ -56,22 +56,27 @@
 
     <div class="preview-layout">
       <nav class="preview-rail guilds_pog62O wrapper_5dqHTG" aria-label="Серверы">
-        <a class="guild active-guild" href="#channel" aria-label="Золотые руины" aria-current="page" data-list-item-id="guildsnav___ruins" data-channel="travel">
+        <div class="tutorialContainer_1IyMuq">
+          <button class="guild wrapper_JJ-hgR" id="show-home" aria-label="Главная" aria-pressed="false">
+            <span class="childWrapper_JJ-hgR"><svg class="homeIcon_1IyMuq"><use href="#i-users"/></svg></span>
+          </button>
+        </div>
+        <div class="rail-divider"></div>
+        <a class="guild active-guild" id="show-server" href="#channel" aria-label="Золотые руины" aria-current="page" data-list-item-id="guildsnav___ruins" data-channel="travel">
           <img src="../assets/grace-marker.svg" width="20" height="24" alt="">
           <span class="pill_nFH31_" aria-hidden="true"><span class="item_6zZYhF"></span></span>
         </a>
-        <div class="rail-divider"></div>
         <button class="guild" data-channel="atlas" aria-label="Открыть карты пути"><svg><use href="#i-compass"/></svg></button>
         <button class="guild" data-channel="chronicle" aria-label="Открыть летопись"><svg><use href="#i-arch"/></svg></button>
         <button class="guild circleIconButton_g8YUxD" id="invite" aria-label="Приглашение"><svg><use href="#i-plus"/></svg></button>
       </nav>
 
       <aside class="preview-channels sidebarList_pog62O" aria-label="Каналы">
-        <div class="server-heading">
+        <div class="server-heading" id="server-heading">
           <p>Золотые руины</p>
           <span>Междуземье</span>
         </div>
-        <nav class="channel-list" aria-label="Список каналов">
+        <nav class="channel-list" id="server-channels" aria-label="Список каналов">
           <section>
             <h2 class="headerText_6zZYhF">Архивы</h2>
             <button data-channel="travel" data-list-item-id="channels___travel" aria-current="page"><svg><use href="#i-hash"/></svg>странствия</button>
@@ -83,11 +88,23 @@
             <button id="voice-channel" data-list-item-id="channels___voice" aria-pressed="false"><svg><use href="#i-volume"/></svg>У костра</button>
           </section>
         </nav>
+        <div class="server-heading" id="home-heading" hidden><p>Личные сообщения</p></div>
+        <nav class="channel-list privateChannels_u88IQl" id="home-channels" aria-label="Личные сообщения" hidden>
+          <button class="interactive_zln_tS interactiveSelected_zln_tS" id="friends-nav" aria-current="page">
+            <svg><use href="#i-users"/></svg>Друзья
+          </button>
+          <section>
+            <h2 class="headerText_6zZYhF">Путники</h2>
+            <button class="interactive_zln_tS" data-channel="travel"><svg><use href="#i-hash"/></svg>Зал благодати</button>
+          </section>
+        </nav>
         <div class="preview-account panels_pog62O">
           <span id="voice-state" class="voice-state connection_9U6LUN" hidden>Голосовой канал открыт</span>
           <div class="account-row">
-            <span class="avatar avatar-olive">П</span>
-            <div><strong>Путник</strong><small>В сети</small></div>
+            <button class="account-trigger" aria-label="Меню профиля" popovertarget="account-menu">
+              <span class="avatar avatar-olive" aria-hidden="true">П</span>
+              <span><strong>Путник</strong><small id="account-state">В сети</small></span>
+            </button>
             <button class="icon-button" id="mic" aria-label="Микрофон" aria-pressed="false"><svg><use href="#i-mic"/></svg></button>
             <button class="icon-button" id="settings" aria-label="Настройки предпросмотра"><svg><use href="#i-settings"/></svg></button>
           </div>
@@ -132,6 +149,10 @@
                 <div class="message-copy">
                   <div class="message-head"><strong>Лорен</strong><time class="timestamp_2i8Bfm">19:05</time></div>
                   <p class="markup_ku1OHH messageContent_2i8Bfm">Встречаемся у арки. <a href="#channel" data-channel="atlas">Карта тропы</a> лежит в архиве.</p>
+                  <div class="sample-embed embedFull_XyW1ZT">
+                    <strong>Архив путника</strong>
+                    <p>Западная арка · тропа через долину</p>
+                  </div>
                 </div>
               </article>
               <article class="sample-message" data-room="atlas" hidden>
@@ -161,6 +182,46 @@
         </div>
       </main>
 
+      <main class="preview-home container_zrUwGA" id="friends" aria-label="Друзья" hidden>
+        <header class="chat-header friends-header container_ybUK7Z themed_ybUK7Z">
+          <div class="room-name"><svg><use href="#i-users"/></svg><h1 class="title_ybUK7Z">Друзья</h1></div>
+          <div class="friend-tabs tabBar_zrUwGA" role="tablist" aria-label="Фильтр друзей">
+            <button class="item_zrUwGA" role="tab" id="friends-online" aria-selected="true">В сети</button>
+            <button class="item_zrUwGA" role="tab" id="friends-all" aria-selected="false">Все</button>
+            <button class="item_zrUwGA addFriend_zrUwGA" id="add-friend" type="button">Добавить в друзья</button>
+          </div>
+        </header>
+        <div class="friends-body tabBody_zrUwGA">
+          <section class="friends-list peopleColumn_zrUwGA" aria-labelledby="friends-title">
+            <label class="search friends-search searchBar_i16Ad0">
+              <svg><use href="#i-search"/></svg>
+              <input type="search" id="find-friend" placeholder="Поиск" aria-label="Поиск друзей">
+            </label>
+            <h2 id="friends-title">В сети</h2>
+            <button class="friend-row peopleListItem_y75PxA" data-member="Эрида">
+              <span class="avatar avatar-gold" aria-hidden="true">Э<i class="status"></i></span>
+              <span><strong>Эрида</strong><small>В сети</small></span>
+            </button>
+            <button class="friend-row peopleListItem_y75PxA" data-member="Лорен">
+              <span class="avatar avatar-slate" aria-hidden="true">Л<i class="status"></i></span>
+              <span><strong>Лорен</strong><small>В сети</small></span>
+            </button>
+            <button class="friend-row peopleListItem_y75PxA" data-member="Мира" data-offline hidden>
+              <span class="avatar avatar-rose" aria-hidden="true">М</span>
+              <span><strong>Мира</strong><small>Не в сети</small></span>
+            </button>
+            <p id="friends-empty" role="status" hidden>Друзья не найдены</p>
+          </section>
+          <aside class="friends-activity nowPlayingColumn_zrUwGA">
+            <h2>Активность друзей</h2>
+            <div class="activity-card outer_ERB-Vv">
+              <span class="avatar avatar-gold" aria-hidden="true">Э</span>
+              <div><strong>Эрида</strong><p>В голосовом чате «У костра»</p></div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
       <aside class="preview-members membersWrap_86es0b" id="members" aria-label="Участники">
         <div class="members_86es0b">
           <h2 class="members-title">Участники</h2>
@@ -178,6 +239,26 @@
   <div id="message-menu" class="demo-menu menu_M3qk4j" role="menu" popover>
     <button class="item_M3qk4j colorDefault_M3qk4j" role="menuitem" data-action="reply">Ответить</button>
     <button class="item_M3qk4j colorDefault_M3qk4j" role="menuitem" data-action="react">Поставить реакцию</button>
+  </div>
+
+  <div id="account-menu" class="demo-account-menu accountPopout_g6VwXp" popover>
+    <section class="themeContainer_nitlyF outer_P1YEjQ">
+      <div class="account-menu-title userInfo_nitlyF">
+        <span class="avatar avatar-olive" aria-hidden="true">П</span>
+        <h2 class="displayName_C2XpHA">Путник</h2>
+      </div>
+      <div class="body_nitlyF">
+        <div class="account-activity overlay_P1YEjQ">Голосовой канал «У костра»</div>
+        <div class="menuOverlay_nitlyF overlay_P1YEjQ">
+          <div class="menuItem_nitlyF">
+            <button class="menuItemInner_nitlyF" data-member="Путник" popovertarget="account-menu" popovertargetaction="hide">Профиль</button>
+          </div>
+          <div class="menuItem_nitlyF">
+            <button class="menuItemInner_nitlyF" id="account-status" aria-pressed="false">В сети</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <dialog id="details" aria-labelledby="dialog-title">

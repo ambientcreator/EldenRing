@@ -11,6 +11,9 @@ const members = byId('members');
 const membersToggle = byId('members-toggle');
 const detail = byId('details');
 const menu = byId('message-menu');
+const friends = byId('friends');
+const homeButton = byId('show-home');
+const friendSearch = byId('find-friend');
 const roomButtons = document.querySelectorAll('.channel-list [data-channel]');
 let room = 'travel';
 
@@ -28,6 +31,7 @@ function updateMessages() {
 }
 
 function openRoom(nextRoom) {
+  showHome(false);
   room = nextRoom;
   const [name, title, description] = rooms[room];
   byId('channel-name').textContent = name;
@@ -47,9 +51,38 @@ function openRoom(nextRoom) {
 }
 
 function setMembersHidden(hidden) {
-  members.hidden = hidden;
+  members.hidden = hidden || !friends.hidden;
   membersToggle.setAttribute('aria-pressed', String(!hidden));
-  document.querySelector('.preview-layout').classList.toggle('members-hidden', hidden);
+  document.querySelector('.preview-layout').classList.toggle('members-hidden', members.hidden);
+}
+
+function showHome(visible) {
+  friends.hidden = !visible;
+  byId('home-heading').hidden = !visible;
+  byId('home-channels').hidden = !visible;
+  byId('channel').hidden = visible;
+  byId('server-heading').hidden = visible;
+  byId('server-channels').hidden = visible;
+  homeButton.classList.toggle('selected_JJ-hgR', visible);
+  homeButton.setAttribute('aria-pressed', String(visible));
+  const serverButton = byId('show-server');
+  serverButton.classList.toggle('active-guild', !visible);
+  serverButton.setAttribute('aria-current', visible ? 'false' : 'page');
+  setMembersHidden(membersToggle.getAttribute('aria-pressed') !== 'true');
+}
+
+function filterFriends() {
+  const onlineOnly = byId('friends-online').getAttribute('aria-selected') === 'true';
+  const query = friendSearch.value.trim().toLocaleLowerCase('ru');
+  let found = false;
+
+  for (const row of friends.querySelectorAll('.friend-row')) {
+    row.hidden = (onlineOnly && row.hasAttribute('data-offline'))
+      || !row.dataset.member.toLocaleLowerCase('ru').includes(query);
+    found ||= !row.hidden;
+  }
+  byId('friends-title').textContent = onlineOnly ? 'В сети' : 'Все друзья';
+  byId('friends-empty').hidden = found;
 }
 
 function showDetail(title, copy) {
@@ -66,8 +99,32 @@ document.addEventListener('click', event => {
   }
   const member = event.target.closest('[data-member]');
   if (member) {
-    showDetail(member.dataset.member, 'Участник сервера «Золотые руины» · В сети');
+    const status = member.hasAttribute('data-offline') ? 'Не в сети' : 'В сети';
+    showDetail(member.dataset.member, `Участник сервера «Золотые руины» · ${status}`);
   }
+});
+
+homeButton.addEventListener('click', () => showHome(true));
+byId('friends-nav').addEventListener('click', () => showHome(true));
+friendSearch.addEventListener('input', filterFriends);
+for (const tab of friends.querySelectorAll('[role="tab"]')) {
+  tab.addEventListener('click', () => {
+    byId('friends-online').setAttribute('aria-selected', String(tab.id === 'friends-online'));
+    byId('friends-all').setAttribute('aria-selected', String(tab.id === 'friends-all'));
+    filterFriends();
+  });
+}
+
+byId('add-friend').addEventListener('click', () => {
+  showDetail('Добавить в друзья', 'Откройте Discord, чтобы отправить запрос по имени пользователя.');
+});
+
+byId('account-status').addEventListener('click', event => {
+  const button = event.currentTarget;
+  const idle = button.getAttribute('aria-pressed') !== 'true';
+  button.setAttribute('aria-pressed', String(idle));
+  button.textContent = idle ? 'Неактивен' : 'В сети';
+  byId('account-state').textContent = button.textContent;
 });
 
 byId('effects-profile').addEventListener('change', event => {

@@ -6,9 +6,11 @@
 | --- | --- | --- |
 | Фон приложения | `#app-mount`, `[id^="app-mount_"]`, `.bg_Fd0FEH` | `background.css`, `effects.css` |
 | Серверы и каналы | `.guilds_pog62O`, `.sidebarList_pog62O`, `.privateChannels_u88IQl`, префикс `data-list-item-id` | `servers.css`, `channels.css` |
+| Кнопка «Главная» | SVG с префиксом класса `homeIcon_` внутри серверной колонки | `servers.css` |
 | Панель и поиск | `.container_ybUK7Z.themed_ybUK7Z`, `.searchBar_i16Ad0` | `header.css` |
+| Друзья | `.container_zrUwGA`, `.tabBody_zrUwGA`, `.nowPlayingColumn_zrUwGA` | `home.css` |
 | Чат и редактор | `.chat_z_gUBg`, `.chatContent_z_gUBg`, `.markup_ku1OHH`, `.channelTextArea_2x8-Qn` | `chat.css`, `composer.css` |
-| Участники и профиль | `.membersWrap_86es0b`, `.profilePopout_iar92T` | `members.css`, `profiles.css` |
+| Участники и профиль | `.membersWrap_86es0b`, `.outer_P1YEjQ`, `.themeContainer_nitlyF`, `.overlay_P1YEjQ` | `members.css`, `profiles.css` |
 | Меню и настройки | `.menu_M3qk4j`, `.root__KoJTP`, `.container_XtY2mm` | `menus.css`, `settings.css` |
 | Голос | `.wrapper_9U6LUN`, `.connection_9U6LUN`, `.tileContainer_4cz-WN` | `voice.css` |
 | Дополнительные панели | `.tabBody_zrUwGA`, `.searchHeader_rfDq2B`, `.header_LSviKk` | `misc.css` |
@@ -18,3 +20,5 @@
 При обновлении Discord проверьте родителя и класс изменившегося элемента в инспекторе, обновите нужный CSS-модуль, пересоберите тему и повторите соответствующий сценарий. [Матрица проверок](test-matrix.md)
 
 Фоновый WebP встраивается непосредственно в `background-image`, поскольку Chromium ограничивает размер CSS-переменной 2 МиБ. Стилевой запрос `@container style(--gr-wallpaper)` подключает пользовательское значение, включая `none`. Оба варианта используют один псевдоэлемент с заданными X/Y и масштабом.
+
+На странице «Друзья» родительский контейнер и колонка активности прозрачны. Заливка `--gr-home-bg` применяется к `.tabBody_zrUwGA` один раз. `--font-primary` переопределяется на контейнере приложения, поэтому QuickCSS на `:root` может ссылаться на исходный шрифт Discord.

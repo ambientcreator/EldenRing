@@ -1,18 +1,18 @@
 .container_XtY2mm,
 :is([class^="standardSidebarView_"], [class*=" standardSidebarView_"]) {
-  background: var(--gr-bg-base);
+  background: var(--gr-popout-bg);
 }
 
 .sideNavContent_XtY2mm,
 .sidebarTabBar_XtY2mm,
 :is([class^="sidebarRegionScroller_"], [class*=" sidebarRegionScroller_"]) {
-  background: var(--gr-surface);
+  background: var(--gr-control-bg);
 }
 
 .contentPanel_XtY2mm,
 .userSettingsContentPanel_XtY2mm,
 :is([class^="contentRegionScroller_"], [class*=" contentRegionScroller_"]) {
-  background: var(--gr-surface-raised);
+  background: var(--gr-card-bg);
 }
 
 :is(.container_XtY2mm, [class^="standardSidebarView_"], [class*=" standardSidebarView_"]) :is(h1, h2) {
@@ -46,7 +46,7 @@
 
 .container_uFkqU2:not([data-variant="text-only"]) .select_uFkqU2,
 .inputDefault_cZux1n {
-  background-color: var(--gr-bg-base);
+  background-color: var(--gr-control-bg);
   border-color: var(--gr-line);
 }
 

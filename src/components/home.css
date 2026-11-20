@@ -1,0 +1,54 @@
+/* Friends has separate fills on its root, content and activity column. */
+.container_zrUwGA {
+  background: transparent;
+  border-color: var(--gr-line);
+}
+
+.container_zrUwGA .tabBody_zrUwGA {
+  background: var(--gr-home-bg);
+}
+
+.container_zrUwGA :is(.peopleColumn_zrUwGA, .nowPlayingColumn_zrUwGA) {
+  background: transparent;
+  border-color: var(--gr-line);
+}
+
+.peopleColumn_zrUwGA .peopleListItem_y75PxA {
+  background-color: var(--gr-control-bg);
+  border-radius: var(--gr-radius);
+}
+
+.peopleColumn_zrUwGA .peopleListItem_y75PxA:is(:hover, :focus-within, .active_y75PxA) {
+  background-color: var(--gr-card-bg);
+}
+
+.peopleColumn_zrUwGA .divider_y75PxA {
+  background-color: var(--gr-line);
+}
+
+.nowPlayingColumn_zrUwGA :is(.outer_ERB-Vv, .itemCard_-7KzVR, .emptyCard_-7KzVR) {
+  background-color: var(--gr-card-bg);
+  border-color: var(--gr-line);
+  border-radius: var(--gr-radius);
+}
+
+.nowPlayingColumn_zrUwGA .inset_ERB-Vv {
+  background-color: var(--gr-control-bg);
+}
+
+.tabBar_zrUwGA .item_zrUwGA {
+  border-radius: var(--gr-radius);
+}
+
+.tabBar_zrUwGA .item_zrUwGA[aria-selected="true"]:not(.addFriend_zrUwGA) {
+  background: var(--gr-selection-fill);
+  color: var(--gr-gold-bright);
+}
+
+/* The native button paints its label with --white and its open state with blurple. */
+.tabBar_zrUwGA .addFriend_zrUwGA {
+  --white: var(--gr-ink);
+  --status-positive-text: var(--gr-ink);
+  --opacity-blurple-16: var(--gr-selected);
+  border-radius: var(--gr-radius);
+}

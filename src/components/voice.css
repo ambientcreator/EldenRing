@@ -1,5 +1,21 @@
 .panels_pog62O .wrapper_9U6LUN {
+  --control-primary-background-default: var(--gr-control-bg);
+  --control-primary-background-hover: var(--gr-selected);
+  --control-primary-background-active: var(--gr-hover);
+  --control-primary-text-default: var(--gr-text);
+  --control-primary-text-hover: var(--gr-gold-bright);
+  --control-primary-text-active: var(--gr-gold-bright);
   border-block-end: var(--gr-border-width) solid var(--gr-line);
+}
+
+.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:not(.buttonActive_9U6LUN, .greyButtonActive_9U6LUN) {
+  background-color: var(--gr-control-bg);
+  border-color: var(--gr-line);
+  color: var(--gr-text);
+}
+
+.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:hover:not(:disabled, .fauxDisabled_9U6LUN, .buttonActive_9U6LUN) {
+  background-color: var(--gr-selected);
 }
 
 .panels_pog62O .connection_9U6LUN {
