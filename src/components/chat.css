@@ -83,18 +83,6 @@
   background: var(--gr-gold);
 }
 
-.chatContent_z_gUBg :is([class^="reaction_"], [class*=" reaction_"]) {
-  background-color: var(--gr-hover);
-  border-color: var(--gr-line);
-  border-radius: var(--gr-radius);
-  transition: background-color var(--gr-hover-time), border-color var(--gr-hover-time);
-}
-
-.chatContent_z_gUBg :is([class^="reaction_"], [class*=" reaction_"]):is(:hover, [aria-pressed="true"], [class*=" reactionMe_"]) {
-  background-color: var(--gr-selected);
-  border-color: var(--gr-gold-dim);
-}
-
 .chatContent_z_gUBg :is(.divider_j9Vvzj, .divider_4TfzT5) {
   border-color: var(--gr-line-strong);
 }

@@ -9,13 +9,6 @@
   border-radius: var(--gr-radius);
 }
 
-.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
-  background-color: var(--gr-control-bg);
-  color: var(--gr-gold);
-  box-shadow: none;
-  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
-}
-
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w)
   :where(.circleIcon_g8YUxD, .discoveryIcon_5dqHTG) {
   color: inherit;
@@ -23,11 +16,6 @@
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) svg {
   flex-shrink: 0;
-}
-
-.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w):is(:hover, :focus-visible, .selected_g8YUxD) {
-  background-color: var(--gr-selected);
-  color: var(--gr-gold-bright);
 }
 
 .guilds_pog62O .tutorialContainer_1IyMuq .wrapper_JJ-hgR .childWrapper_JJ-hgR {

@@ -1,7 +1,7 @@
 /**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.5.0
+ * @version 0.6.0
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */
@@ -82,6 +82,11 @@
   --gr-text-shadow: 0 1px 2px rgb(10 8 5 / 90%);
   --gr-line: color-mix(in srgb, var(--gr-bronze) 75%, transparent);
   --gr-line-strong: color-mix(in srgb, var(--gr-gold-dim) 85%, transparent);
+  --gr-button-bg: color-mix(in srgb, var(--gr-bg-base) 82%, transparent);
+  --gr-button-highlight: color-mix(in srgb, var(--gr-text) 88%, var(--gr-gold-bright));
+  --gr-button-border: color-mix(in srgb, var(--gr-button-highlight) 40%, transparent);
+  --gr-button-hover-bg: color-mix(in srgb, var(--gr-button-highlight) 11%, var(--gr-button-bg));
+  --gr-button-active-bg: color-mix(in srgb, var(--gr-button-highlight) 22%, var(--gr-button-bg));
   --gr-hover: color-mix(in srgb, var(--gr-gold) 12%, transparent);
   --gr-selected: color-mix(in srgb, var(--gr-gold) 19%, transparent);
   --gr-hover-time: calc(var(--gr-motion) * var(--gr-hover-duration));
@@ -241,23 +246,28 @@
   --user-profile-activity-toolbar-background: var(--gr-control-bg);
   --user-profile-note-background-focus: var(--gr-control-bg);
 
-  --control-primary-background-default: var(--gr-gold);
-  --control-primary-background-hover: var(--gr-gold-bright);
-  --control-primary-background-active: var(--gr-gold);
-  --control-primary-text-default: var(--gr-ink);
-  --control-primary-text-hover: var(--gr-ink);
-  --control-primary-text-active: var(--gr-ink);
-  --control-secondary-background-default: var(--gr-hover);
-  --control-secondary-background-hover: var(--gr-selected);
-  --control-secondary-background-active: var(--gr-selected);
-  --control-secondary-border-default: var(--gr-line);
-  --control-secondary-border-hover: var(--gr-gold-dim);
+  --control-primary-background-default: var(--gr-button-bg);
+  --control-primary-background-hover: var(--gr-button-hover-bg);
+  --control-primary-background-active: var(--gr-button-active-bg);
+  --control-primary-border-default: var(--gr-button-border);
+  --control-primary-border-hover: var(--gr-button-highlight);
+  --control-primary-border-active: var(--gr-gold-bright);
+  --control-primary-text-default: var(--gr-text);
+  --control-primary-text-hover: var(--gr-text);
+  --control-primary-text-active: var(--gr-text);
+  --control-secondary-background-default: var(--control-primary-background-default);
+  --control-secondary-background-hover: var(--control-primary-background-hover);
+  --control-secondary-background-active: var(--control-primary-background-active);
+  --control-secondary-border-default: var(--control-primary-border-default);
+  --control-secondary-border-hover: var(--control-primary-border-hover);
+  --control-secondary-border-active: var(--control-primary-border-active);
   --control-secondary-text-default: var(--gr-text);
   --control-secondary-text-hover: var(--gr-text);
   --control-secondary-text-active: var(--gr-gold-bright);
-  --control-critical-primary-background-default: #833d34;
-  --control-critical-primary-background-hover: #9b4e43;
-  --control-critical-primary-background-active: #71362f;
+  --control-critical-primary-background-default: color-mix(in srgb, var(--gr-danger) 8%, var(--gr-button-bg));
+  --control-critical-primary-background-hover: color-mix(in srgb, var(--gr-danger) 15%, var(--gr-button-bg));
+  --control-critical-primary-background-active: color-mix(in srgb, var(--gr-danger) 22%, var(--gr-button-bg));
+  --control-critical-primary-text-default: var(--gr-danger);
   --control-critical-secondary-text-default: var(--gr-danger);
   --control-critical-secondary-text-hover: var(--gr-danger);
   --control-critical-secondary-text-active: var(--gr-danger);
@@ -334,13 +344,6 @@ body {
   border-radius: var(--gr-radius);
 }
 
-.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
-  background-color: var(--gr-control-bg);
-  color: var(--gr-gold);
-  box-shadow: none;
-  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
-}
-
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w)
   :where(.circleIcon_g8YUxD, .discoveryIcon_5dqHTG) {
   color: inherit;
@@ -348,11 +351,6 @@ body {
 
 .guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) svg {
   flex-shrink: 0;
-}
-
-.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w):is(:hover, :focus-visible, .selected_g8YUxD) {
-  background-color: var(--gr-selected);
-  color: var(--gr-gold-bright);
 }
 
 .guilds_pog62O .tutorialContainer_1IyMuq .wrapper_JJ-hgR .childWrapper_JJ-hgR {
@@ -594,23 +592,6 @@ body {
   background-color: var(--gr-control-bg);
 }
 
-.tabBar_zrUwGA .item_zrUwGA {
-  border-radius: var(--gr-radius);
-}
-
-.tabBar_zrUwGA .item_zrUwGA[aria-selected="true"]:not(.addFriend_zrUwGA) {
-  background: var(--gr-selection-fill);
-  color: var(--gr-gold-bright);
-}
-
-/* The native button paints its label with --white and its open state with blurple. */
-.tabBar_zrUwGA .addFriend_zrUwGA {
-  --white: var(--gr-ink);
-  --status-positive-text: var(--gr-ink);
-  --opacity-blurple-16: var(--gr-selected);
-  border-radius: var(--gr-radius);
-}
-
 /* components/chat */
 :is(#app-mount, [id^="app-mount_"]) :is(
   [class^="chat_"], [class*=" chat_"], [class$="-chat"], [class*="-chat "]
@@ -697,18 +678,6 @@ body {
   background: var(--gr-gold);
 }
 
-.chatContent_z_gUBg :is([class^="reaction_"], [class*=" reaction_"]) {
-  background-color: var(--gr-hover);
-  border-color: var(--gr-line);
-  border-radius: var(--gr-radius);
-  transition: background-color var(--gr-hover-time), border-color var(--gr-hover-time);
-}
-
-.chatContent_z_gUBg :is([class^="reaction_"], [class*=" reaction_"]):is(:hover, [aria-pressed="true"], [class*=" reactionMe_"]) {
-  background-color: var(--gr-selected);
-  border-color: var(--gr-gold-dim);
-}
-
 .chatContent_z_gUBg :is(.divider_j9Vvzj, .divider_4TfzT5) {
   border-color: var(--gr-line-strong);
 }
@@ -782,10 +751,6 @@ body {
 .channelTextArea_2x8-Qn :is(.themedBackground_2x8-Qn, .scrollableContainer_2x8-Qn) {
   background: transparent;
   border-radius: inherit;
-}
-
-.channelTextArea_2x8-Qn .button_2x8-Qn:hover {
-  color: var(--gr-gold-bright);
 }
 
 .autocomplete_CAMiwx,
@@ -1063,59 +1028,13 @@ body {
   accent-color: var(--gr-gold);
 }
 
-.button_9OQtot:is(.lookFilled_9OQtot, .lookOutlined_9OQtot) {
-  border-radius: var(--gr-radius);
-  transition: background-color var(--gr-hover-time), border-color var(--gr-hover-time), color var(--gr-hover-time);
-}
-
-.button_9OQtot.lookFilled_9OQtot.colorBrand_9OQtot {
-  background-color: var(--gr-gold);
-  color: var(--gr-ink);
-}
-
-.button_9OQtot.lookFilled_9OQtot.colorBrand_9OQtot:hover:not(:disabled, [aria-disabled="true"]) {
-  background-color: var(--gr-gold-bright);
-}
-
-.button_9OQtot.lookFilled_9OQtot.colorRed_9OQtot {
-  background-color: var(--control-critical-primary-background-default);
-  color: var(--gr-text);
-}
-
-.button_9OQtot.lookFilled_9OQtot.colorRed_9OQtot:hover:not(:disabled, [aria-disabled="true"]) {
-  background-color: var(--control-critical-primary-background-hover);
-}
-
 /* components/voice */
-.panels_pog62O {
-  --control-primary-background-default: var(--gr-control-bg);
-  --control-primary-background-hover: var(--gr-selected);
-  --control-primary-background-active: var(--gr-hover);
-  --control-primary-text-default: var(--gr-text);
-  --control-primary-text-hover: var(--gr-gold-bright);
-  --control-primary-text-active: var(--gr-gold-bright);
-}
-
 .panels_pog62O .wrapper_9U6LUN {
   box-shadow: inset 0 -1px var(--gr-line);
 }
 
-.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:not(.buttonActive_9U6LUN, .greyButtonActive_9U6LUN) {
-  background-color: var(--gr-control-bg);
-  border-color: var(--gr-line);
-  color: var(--gr-text);
-}
-
-.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:hover:not(:disabled, .fauxDisabled_9U6LUN, .buttonActive_9U6LUN) {
-  background-color: var(--gr-selected);
-}
-
 .panels_pog62O .connection_9U6LUN {
   background: color-mix(in srgb, var(--gr-success) 7%, transparent);
-}
-
-.panels_pog62O .button_9U6LUN:is(:hover, :focus-visible) {
-  box-shadow: inset 0 0 0 1px var(--gr-line-strong);
 }
 
 .noiseCancellationPopout_9U6LUN {
@@ -1143,6 +1062,20 @@ body {
 
   & .callContainer_hbKzX7 video {
     background-color: transparent;
+  }
+
+  /* The call controls reveal independently of their full-width scrim. */
+  & .gradientContainer_rTsZa_ {
+    background: none;
+  }
+
+  & :is(
+    .buttonSection_6Ln5ei, .buttonSection_9bvEB0, .buttonSection_Z_HbQM, .buttonSection_Fz8i07,
+    .fullRegionDropdownButton_K9Xq13
+  ) {
+    background: var(--gr-control-bg);
+    border-color: var(--gr-line);
+    border-radius: var(--gr-radius);
   }
 }
 
@@ -1180,27 +1113,16 @@ body {
     box-shadow: inset 0 0 0 1px var(--gr-line);
   }
 
-  & .pillItemSelected_I4ubrz {
-    background-color: var(--gr-selected);
-    box-shadow: inset 0 -2px var(--gr-gold);
-    color: var(--gr-text);
-  }
-
-  & .premiumOption_IeXlUE {
-    color: var(--gr-gold-bright);
-  }
-
   & .sourcePreview_4HfQya {
     background-color: var(--gr-control-bg);
   }
 
-  & .source_4HfQya:focus-visible .sourceOverlay_4HfQya {
-    display: flex;
+  & .sourceOverlay_4HfQya {
+    background: none;
   }
 
-  & .sourceOverlayCTA_4HfQya {
-    background-color: var(--gr-gold);
-    color: var(--gr-ink);
+  & .source_4HfQya:focus-visible .sourceOverlay_4HfQya {
+    display: flex;
   }
 
   & .selectedSource_4HfQya .sourcePreviewContainer_4HfQya::before {
@@ -1212,11 +1134,6 @@ body {
     box-shadow: inset 0 1px var(--gr-line);
   }
 
-  & .rightButtonGroup_oszuaw {
-    --control-secondary-background-default: var(--gr-control-bg);
-    --control-secondary-border-active: var(--gr-line-strong);
-  }
-
   & .root_RmOtW7 {
     --text-overlay-light: var(--gr-text);
     background: linear-gradient(90deg, var(--gr-bronze), var(--gr-card-bg));
@@ -1225,20 +1142,6 @@ body {
 
   & .infoText_RmOtW7 a {
     color: var(--gr-gold-bright);
-  }
-
-  & .ctaButton_RmOtW7 {
-    background-color: var(--gr-gold);
-    border-color: var(--gr-gold-bright);
-    color: var(--gr-ink);
-  }
-
-  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):hover {
-    background-color: var(--gr-gold-bright);
-  }
-
-  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):active {
-    background-color: var(--gr-gold);
   }
 
   & .ctaButtonText_RmOtW7 {
@@ -1252,16 +1155,6 @@ body {
 
   & .premiumShine_RmOtW7 {
     color: color-mix(in srgb, var(--gr-gold-bright) 35%, transparent);
-  }
-
-  & .wishlistButton_RmOtW7 {
-    background: var(--gr-control-bg);
-    border-color: var(--gr-line);
-  }
-
-  & .wishlistButton_RmOtW7:not([aria-disabled="true"]):hover {
-    background: var(--gr-selected);
-    border-color: var(--gr-line-strong);
   }
 
   & .wishlistedOrAnimating_M2FQyv {
@@ -1308,6 +1201,137 @@ body {
 .nowPlayingTitle_iar92T {
   font-family: var(--gr-font-heading);
   letter-spacing: 0.035em;
+}
+
+/* components/buttons */
+/* Style control primitives and custom action buttons. Clickable previews keep their own paint. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  [data-mana-component="button"], .button_F7qvhY, .toggleButton_9EByBZ, .button_9OQtot,
+  .colorable_K9Xq13, .buttonColor_9U6LUN,
+  .overlayButton_7NOr2f:where(button, [role="button"]), .videoControlsBtnCont_hFq1lM[role="button"],
+  .circleIconButton_g8YUxD, .circleIconButton_1czW-w,
+  .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
+  .button_2x8-Qn, .attachButton_2x8-Qn,
+  .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
+  .wishlistButton_RmOtW7, [class^="reaction_"], [class*=" reaction_"],
+  :where(button, [role="button"]):is(
+    [class^="button_"], [class*=" button_"], [class^="iconButton_"], [class*=" iconButton_"],
+    [class^="actionButton_"], [class*=" actionButton_"], [class$="-button"], [class*="-button "]
+  ),
+  button:not([class]), input:is([type="button"], [type="submit"], [type="reset"])
+) {
+  --font-primary: var(--gr-font-heading);
+  --gr-button-tone: var(--gr-button-highlight);
+  --gr-button-label: var(--gr-text);
+  --gr-button-edge-strength: 40%;
+  --gr-button-tint: 0%;
+  --gr-button-glow: transparent;
+  --gr-button-edge: color-mix(in srgb, var(--gr-button-tone) var(--gr-button-edge-strength), transparent);
+
+  background:
+    linear-gradient(180deg, rgb(255 249 234 / 5%), transparent 74%),
+    color-mix(in srgb, var(--gr-button-tone) var(--gr-button-tint), var(--gr-button-bg));
+  border-color: transparent;
+  border-radius: var(--gr-radius);
+  box-shadow:
+    inset 0 0 0 var(--gr-border-width) var(--gr-button-edge),
+    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 8%),
+    inset 0 0 5px var(--gr-button-glow),
+    0 0 5px var(--gr-button-glow);
+  color: var(--gr-button-label);
+  font-family: var(--font-primary);
+  transition:
+    background-color var(--gr-hover-time),
+    box-shadow var(--gr-hover-time),
+    color var(--gr-hover-time),
+    opacity var(--gr-hover-time);
+
+  &:is(.primary_F7qvhY, .colorBrand_9OQtot, .addFriend_zrUwGA, .sourceOverlayCTA_4HfQya, .ctaButton_RmOtW7) {
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 4%;
+  }
+
+  &:is(
+    .critical-primary_F7qvhY, .critical-secondary_F7qvhY, .colorRed_9OQtot,
+    .disconnect_K9Xq13, .red_K9Xq13, .redGlow_K9Xq13,
+    .critical_9EByBZ:where([aria-pressed="true"], [data-selected])
+  ) {
+    --gr-button-tone: var(--gr-danger);
+    --gr-button-label: var(--gr-danger);
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 8%;
+  }
+
+  &:is(.premiumOption_IeXlUE, .circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
+    --gr-button-label: var(--gr-gold-bright);
+  }
+
+  &.yellow_K9Xq13 {
+    --gr-button-tone: var(--gr-warning);
+    --gr-button-label: var(--gr-warning);
+  }
+
+  &:is(
+    .active_F7qvhY, .colorGreen_9OQtot, .green_K9Xq13, .greenGlow_K9Xq13,
+    .join_K9Xq13, .buttonActive_9U6LUN
+  ) {
+    --gr-button-tone: var(--gr-success);
+    --gr-button-label: var(--gr-success);
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 8%;
+  }
+
+  &:is(
+    [aria-pressed="true"], [aria-selected="true"], [aria-expanded="true"], [data-selected],
+    .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
+    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
+  ) {
+    --gr-button-edge-strength: 76%;
+    --gr-button-tint: 16%;
+  }
+
+  &:is(
+    :hover, :focus-visible, [data-hovered],
+    :where(.source_4HfQya:is(:hover, :focus-visible) .sourceOverlayCTA_4HfQya)
+  ) {
+    --gr-button-edge-strength: 96%;
+    --gr-button-tint: 11%;
+    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 90%), transparent);
+  }
+
+  &:is(:active, [data-pressed]) {
+    --gr-button-edge-strength: 100%;
+    --gr-button-tint: 22%;
+  }
+
+  &:is(
+    :disabled, [aria-disabled="true"], [data-disabled], .fauxDisabled_9U6LUN,
+    .disabled_K9Xq13, .disabled_g8YUxD, .disabled_I4ubrz
+  ) {
+    --gr-button-edge-strength: 25%;
+    --gr-button-tint: 0%;
+    --gr-button-glow: transparent;
+
+    @media (forced-colors: none) {
+      opacity: 0.54;
+    }
+  }
+
+  & :is(.centerIcon_K9Xq13, .controlIcon_K9Xq13, .reactionCount_MmKct8, .reactionCount_UNkajC) {
+    color: inherit;
+  }
+}
+
+/* These native decorative layers would otherwise paint over the button face. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & .color-mix_F7qvhY::before {
+    background: none;
+    border-color: transparent;
+  }
+
+  & .button_F7qvhY .expressiveRive_F7qvhY {
+    visibility: hidden;
+  }
 }
 
 /* effects */
@@ -1359,7 +1383,7 @@ body {
 }
 
 /* accessibility */
-:is(#app-mount, [id^="app-mount_"]) :where(
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :where(
   button, a[href], input, select, textarea, [contenteditable="true"],
   [role="button"], [role="tab"], [role="treeitem"], [role="option"],
   [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]
@@ -1392,6 +1416,7 @@ body {
     --gr-popout-opacity: 1;
     --gr-card-opacity: 0.95;
     --gr-control-opacity: 0.91;
+    --gr-button-bg: var(--gr-bg-base);
     --gr-text: #fff5e7;
     --gr-text-muted: #d8ccbd;
     --gr-bronze: #a18a64;
@@ -1406,7 +1431,7 @@ body {
     --gr-corner-opacity: 0;
   }
 
-  :is(#app-mount, [id^="app-mount_"]) :focus-visible {
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root]) :focus-visible {
     outline-color: Highlight;
   }
 }

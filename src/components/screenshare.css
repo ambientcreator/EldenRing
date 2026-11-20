@@ -18,27 +18,16 @@
     box-shadow: inset 0 0 0 1px var(--gr-line);
   }
 
-  & .pillItemSelected_I4ubrz {
-    background-color: var(--gr-selected);
-    box-shadow: inset 0 -2px var(--gr-gold);
-    color: var(--gr-text);
-  }
-
-  & .premiumOption_IeXlUE {
-    color: var(--gr-gold-bright);
-  }
-
   & .sourcePreview_4HfQya {
     background-color: var(--gr-control-bg);
   }
 
-  & .source_4HfQya:focus-visible .sourceOverlay_4HfQya {
-    display: flex;
+  & .sourceOverlay_4HfQya {
+    background: none;
   }
 
-  & .sourceOverlayCTA_4HfQya {
-    background-color: var(--gr-gold);
-    color: var(--gr-ink);
+  & .source_4HfQya:focus-visible .sourceOverlay_4HfQya {
+    display: flex;
   }
 
   & .selectedSource_4HfQya .sourcePreviewContainer_4HfQya::before {
@@ -50,11 +39,6 @@
     box-shadow: inset 0 1px var(--gr-line);
   }
 
-  & .rightButtonGroup_oszuaw {
-    --control-secondary-background-default: var(--gr-control-bg);
-    --control-secondary-border-active: var(--gr-line-strong);
-  }
-
   & .root_RmOtW7 {
     --text-overlay-light: var(--gr-text);
     background: linear-gradient(90deg, var(--gr-bronze), var(--gr-card-bg));
@@ -63,20 +47,6 @@
 
   & .infoText_RmOtW7 a {
     color: var(--gr-gold-bright);
-  }
-
-  & .ctaButton_RmOtW7 {
-    background-color: var(--gr-gold);
-    border-color: var(--gr-gold-bright);
-    color: var(--gr-ink);
-  }
-
-  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):hover {
-    background-color: var(--gr-gold-bright);
-  }
-
-  & .ctaButton_RmOtW7:not(:disabled, [aria-disabled="true"]):active {
-    background-color: var(--gr-gold);
   }
 
   & .ctaButtonText_RmOtW7 {
@@ -90,16 +60,6 @@
 
   & .premiumShine_RmOtW7 {
     color: color-mix(in srgb, var(--gr-gold-bright) 35%, transparent);
-  }
-
-  & .wishlistButton_RmOtW7 {
-    background: var(--gr-control-bg);
-    border-color: var(--gr-line);
-  }
-
-  & .wishlistButton_RmOtW7:not([aria-disabled="true"]):hover {
-    background: var(--gr-selected);
-    border-color: var(--gr-line-strong);
   }
 
   & .wishlistedOrAnimating_M2FQyv {

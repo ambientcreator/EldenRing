@@ -70,6 +70,11 @@
   --gr-text-shadow: 0 1px 2px rgb(10 8 5 / 90%);
   --gr-line: color-mix(in srgb, var(--gr-bronze) 75%, transparent);
   --gr-line-strong: color-mix(in srgb, var(--gr-gold-dim) 85%, transparent);
+  --gr-button-bg: color-mix(in srgb, var(--gr-bg-base) 82%, transparent);
+  --gr-button-highlight: color-mix(in srgb, var(--gr-text) 88%, var(--gr-gold-bright));
+  --gr-button-border: color-mix(in srgb, var(--gr-button-highlight) 40%, transparent);
+  --gr-button-hover-bg: color-mix(in srgb, var(--gr-button-highlight) 11%, var(--gr-button-bg));
+  --gr-button-active-bg: color-mix(in srgb, var(--gr-button-highlight) 22%, var(--gr-button-bg));
   --gr-hover: color-mix(in srgb, var(--gr-gold) 12%, transparent);
   --gr-selected: color-mix(in srgb, var(--gr-gold) 19%, transparent);
   --gr-hover-time: calc(var(--gr-motion) * var(--gr-hover-duration));

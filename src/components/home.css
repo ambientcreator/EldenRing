@@ -37,20 +37,3 @@
 .nowPlayingColumn_zrUwGA .inset_ERB-Vv {
   background-color: var(--gr-control-bg);
 }
-
-.tabBar_zrUwGA .item_zrUwGA {
-  border-radius: var(--gr-radius);
-}
-
-.tabBar_zrUwGA .item_zrUwGA[aria-selected="true"]:not(.addFriend_zrUwGA) {
-  background: var(--gr-selection-fill);
-  color: var(--gr-gold-bright);
-}
-
-/* The native button paints its label with --white and its open state with blurple. */
-.tabBar_zrUwGA .addFriend_zrUwGA {
-  --white: var(--gr-ink);
-  --status-positive-text: var(--gr-ink);
-  --opacity-blurple-16: var(--gr-selected);
-  border-radius: var(--gr-radius);
-}

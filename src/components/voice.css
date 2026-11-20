@@ -1,32 +1,9 @@
-.panels_pog62O {
-  --control-primary-background-default: var(--gr-control-bg);
-  --control-primary-background-hover: var(--gr-selected);
-  --control-primary-background-active: var(--gr-hover);
-  --control-primary-text-default: var(--gr-text);
-  --control-primary-text-hover: var(--gr-gold-bright);
-  --control-primary-text-active: var(--gr-gold-bright);
-}
-
 .panels_pog62O .wrapper_9U6LUN {
   box-shadow: inset 0 -1px var(--gr-line);
 }
 
-.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:not(.buttonActive_9U6LUN, .greyButtonActive_9U6LUN) {
-  background-color: var(--gr-control-bg);
-  border-color: var(--gr-line);
-  color: var(--gr-text);
-}
-
-.panels_pog62O .voiceButtonsContainer_9U6LUN .buttonColor_9U6LUN:hover:not(:disabled, .fauxDisabled_9U6LUN, .buttonActive_9U6LUN) {
-  background-color: var(--gr-selected);
-}
-
 .panels_pog62O .connection_9U6LUN {
   background: color-mix(in srgb, var(--gr-success) 7%, transparent);
-}
-
-.panels_pog62O .button_9U6LUN:is(:hover, :focus-visible) {
-  box-shadow: inset 0 0 0 1px var(--gr-line-strong);
 }
 
 .noiseCancellationPopout_9U6LUN {
@@ -54,6 +31,20 @@
 
   & .callContainer_hbKzX7 video {
     background-color: transparent;
+  }
+
+  /* The call controls reveal independently of their full-width scrim. */
+  & .gradientContainer_rTsZa_ {
+    background: none;
+  }
+
+  & :is(
+    .buttonSection_6Ln5ei, .buttonSection_9bvEB0, .buttonSection_Z_HbQM, .buttonSection_Fz8i07,
+    .fullRegionDropdownButton_K9Xq13
+  ) {
+    background: var(--gr-control-bg);
+    border-color: var(--gr-line);
+    border-radius: var(--gr-radius);
   }
 }
 

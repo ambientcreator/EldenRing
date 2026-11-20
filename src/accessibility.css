@@ -1,4 +1,4 @@
-:is(#app-mount, [id^="app-mount_"]) :where(
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :where(
   button, a[href], input, select, textarea, [contenteditable="true"],
   [role="button"], [role="tab"], [role="treeitem"], [role="option"],
   [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]
@@ -31,6 +31,7 @@
     --gr-popout-opacity: 1;
     --gr-card-opacity: 0.95;
     --gr-control-opacity: 0.91;
+    --gr-button-bg: var(--gr-bg-base);
     --gr-text: #fff5e7;
     --gr-text-muted: #d8ccbd;
     --gr-bronze: #a18a64;
@@ -45,7 +46,7 @@
     --gr-corner-opacity: 0;
   }
 
-  :is(#app-mount, [id^="app-mount_"]) :focus-visible {
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root]) :focus-visible {
     outline-color: Highlight;
   }
 }

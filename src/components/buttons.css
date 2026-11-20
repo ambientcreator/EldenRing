@@ -1,0 +1,129 @@
+/* Style control primitives and custom action buttons. Clickable previews keep their own paint. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) :is(
+  [data-mana-component="button"], .button_F7qvhY, .toggleButton_9EByBZ, .button_9OQtot,
+  .colorable_K9Xq13, .buttonColor_9U6LUN,
+  .overlayButton_7NOr2f:where(button, [role="button"]), .videoControlsBtnCont_hFq1lM[role="button"],
+  .circleIconButton_g8YUxD, .circleIconButton_1czW-w,
+  .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
+  .button_2x8-Qn, .attachButton_2x8-Qn,
+  .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
+  .wishlistButton_RmOtW7, [class^="reaction_"], [class*=" reaction_"],
+  :where(button, [role="button"]):is(
+    [class^="button_"], [class*=" button_"], [class^="iconButton_"], [class*=" iconButton_"],
+    [class^="actionButton_"], [class*=" actionButton_"], [class$="-button"], [class*="-button "]
+  ),
+  button:not([class]), input:is([type="button"], [type="submit"], [type="reset"])
+) {
+  --font-primary: var(--gr-font-heading);
+  --gr-button-tone: var(--gr-button-highlight);
+  --gr-button-label: var(--gr-text);
+  --gr-button-edge-strength: 40%;
+  --gr-button-tint: 0%;
+  --gr-button-glow: transparent;
+  --gr-button-edge: color-mix(in srgb, var(--gr-button-tone) var(--gr-button-edge-strength), transparent);
+
+  background:
+    linear-gradient(180deg, rgb(255 249 234 / 5%), transparent 74%),
+    color-mix(in srgb, var(--gr-button-tone) var(--gr-button-tint), var(--gr-button-bg));
+  border-color: transparent;
+  border-radius: var(--gr-radius);
+  box-shadow:
+    inset 0 0 0 var(--gr-border-width) var(--gr-button-edge),
+    inset 0 0 0 calc(var(--gr-border-width) + 1px) rgb(255 249 234 / 8%),
+    inset 0 0 5px var(--gr-button-glow),
+    0 0 5px var(--gr-button-glow);
+  color: var(--gr-button-label);
+  font-family: var(--font-primary);
+  transition:
+    background-color var(--gr-hover-time),
+    box-shadow var(--gr-hover-time),
+    color var(--gr-hover-time),
+    opacity var(--gr-hover-time);
+
+  &:is(.primary_F7qvhY, .colorBrand_9OQtot, .addFriend_zrUwGA, .sourceOverlayCTA_4HfQya, .ctaButton_RmOtW7) {
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 4%;
+  }
+
+  &:is(
+    .critical-primary_F7qvhY, .critical-secondary_F7qvhY, .colorRed_9OQtot,
+    .disconnect_K9Xq13, .red_K9Xq13, .redGlow_K9Xq13,
+    .critical_9EByBZ:where([aria-pressed="true"], [data-selected])
+  ) {
+    --gr-button-tone: var(--gr-danger);
+    --gr-button-label: var(--gr-danger);
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 8%;
+  }
+
+  &:is(.premiumOption_IeXlUE, .circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
+    --gr-button-label: var(--gr-gold-bright);
+  }
+
+  &.yellow_K9Xq13 {
+    --gr-button-tone: var(--gr-warning);
+    --gr-button-label: var(--gr-warning);
+  }
+
+  &:is(
+    .active_F7qvhY, .colorGreen_9OQtot, .green_K9Xq13, .greenGlow_K9Xq13,
+    .join_K9Xq13, .buttonActive_9U6LUN
+  ) {
+    --gr-button-tone: var(--gr-success);
+    --gr-button-label: var(--gr-success);
+    --gr-button-edge-strength: 68%;
+    --gr-button-tint: 8%;
+  }
+
+  &:is(
+    [aria-pressed="true"], [aria-selected="true"], [aria-expanded="true"], [data-selected],
+    .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
+    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
+  ) {
+    --gr-button-edge-strength: 76%;
+    --gr-button-tint: 16%;
+  }
+
+  &:is(
+    :hover, :focus-visible, [data-hovered],
+    :where(.source_4HfQya:is(:hover, :focus-visible) .sourceOverlayCTA_4HfQya)
+  ) {
+    --gr-button-edge-strength: 96%;
+    --gr-button-tint: 11%;
+    --gr-button-glow: color-mix(in srgb, var(--gr-button-tone) calc(var(--gr-glow-opacity) * 90%), transparent);
+  }
+
+  &:is(:active, [data-pressed]) {
+    --gr-button-edge-strength: 100%;
+    --gr-button-tint: 22%;
+  }
+
+  &:is(
+    :disabled, [aria-disabled="true"], [data-disabled], .fauxDisabled_9U6LUN,
+    .disabled_K9Xq13, .disabled_g8YUxD, .disabled_I4ubrz
+  ) {
+    --gr-button-edge-strength: 25%;
+    --gr-button-tint: 0%;
+    --gr-button-glow: transparent;
+
+    @media (forced-colors: none) {
+      opacity: 0.54;
+    }
+  }
+
+  & :is(.centerIcon_K9Xq13, .controlIcon_K9Xq13, .reactionCount_MmKct8, .reactionCount_UNkajC) {
+    color: inherit;
+  }
+}
+
+/* These native decorative layers would otherwise paint over the button face. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & .color-mix_F7qvhY::before {
+    background: none;
+    border-color: transparent;
+  }
+
+  & .button_F7qvhY .expressiveRive_F7qvhY {
+    visibility: hidden;
+  }
+}

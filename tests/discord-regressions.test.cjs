@@ -70,13 +70,29 @@ const fixture = `
     <section class="wrapper_hbKzX7">
       <div class="callContainer_hbKzX7">
         <div class="root_rTsZa_">
+          <div class="gradientTop_rTsZa_ gradientContainer_rTsZa_"></div>
+          <div class="gradientBottom_rTsZa_ gradientContainer_rTsZa_"></div>
           <div class="tile_7NOr2f" style="background-color: #d6c0c0">
             <div class="content_7NOr2f" style="background: linear-gradient(#4a3d32, #282527)">Участник</div>
           </div>
           <div class="videoWrapper_7NOr2f"><video></video></div>
+          <div class="bottomControls_rTsZa_ controlSection_rTsZa_">
+            <div class="buttonSection_9bvEB0">
+              <button class="button_F7qvhY critical_9EByBZ toggleButton_9EByBZ" aria-pressed="true">Микрофон</button>
+              <button class="centerButton_K9Xq13 colorable_K9Xq13 disconnect_K9Xq13">
+                <span class="centerIcon_K9Xq13">Отключиться</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    <div class="panels_pog62O">
+      <div class="voiceButtonsContainer_9U6LUN">
+        <button class="button_9U6LUN buttonColor_9U6LUN buttonActive_9U6LUN">Трансляция включена</button>
+        <button class="button_9U6LUN buttonColor_9U6LUN fauxDisabled_9U6LUN" aria-disabled="true">Камера</button>
+      </div>
+    </div>
   </div>
   <div data-popout-root><div class="root_rTsZa_" id="floating-call">Отдельное окно звонка</div></div>`;
 
@@ -86,7 +102,7 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
   });
 
   try {
-    const page = await browser.newPage();
+    const page = await browser.newPage({ reducedMotion: 'reduce' });
     await page.setContent(fixture);
     const before = await page.getByRole('button', { name: 'Главная' }).boundingBox();
     const sidebarWidth = await page.locator('.sidebarList_pog62O').evaluate(element => element.offsetWidth);
@@ -95,6 +111,11 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
       #channels, .container_H5ozaj { background: #111; }
       .wrapper_hbKzX7, .wrapper_hbKzX7.minimum_hbKzX7 { background: #111; }
       .callContainer_hbKzX7, .root_rTsZa_, .videoWrapper_7NOr2f { background: #000; }
+      .gradientContainer_rTsZa_ { background: linear-gradient(black, transparent); }
+      .buttonSection_9bvEB0, .colorable_K9Xq13 { border-radius: 12px; }
+      .colorable_K9Xq13.disconnect_K9Xq13 { background: red; }
+      .colorable_K9Xq13.disconnect_K9Xq13 .centerIcon_K9Xq13 { color: white; }
+      .button_9U6LUN.buttonColor_9U6LUN.buttonActive_9U6LUN { background: green; color: white; }
     ` });
 
     const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
@@ -141,6 +162,25 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal(await style('.callContainer_hbKzX7', 'backgroundColor'), transparent);
     assert.equal(await style('video', 'opacity'), '1');
     assert.equal(await style('video', 'filter'), 'none');
+
+    for (const selector of ['.gradientTop_rTsZa_', '.gradientBottom_rTsZa_']) {
+      assert.equal(await style(selector, 'backgroundImage'), 'none');
+      assert.equal(await style(selector, 'backgroundColor'), transparent);
+    }
+    assert.equal(await style('.buttonSection_9bvEB0', 'borderRadius'), '2px');
+    assert.equal(await style('.disconnect_K9Xq13 span', 'color'), 'rgb(225, 152, 141)');
+    assert.equal(await style('.toggleButton_9EByBZ', 'color'), 'rgb(225, 152, 141)');
+    assert.equal(await style('.buttonActive_9U6LUN', 'color'), 'rgb(163, 182, 156)');
+    assert.equal(await style('.fauxDisabled_9U6LUN', 'opacity'), '0.54');
+    const disabledFrame = await style('.fauxDisabled_9U6LUN', 'boxShadow');
+    await page.getByRole('button', { name: 'Камера' }).hover();
+    assert.equal(await style('.fauxDisabled_9U6LUN', 'boxShadow'), disabledFrame);
+
+    const disconnect = page.getByRole('button', { name: 'Отключиться' });
+    const idleFrame = await computedStyle(disconnect, 'boxShadow');
+    await page.getByRole('button', { name: 'Микрофон' }).press('Tab');
+    assert.equal(await disconnect.evaluate(element => element.matches(':focus-visible')), true);
+    assert.notEqual(await computedStyle(disconnect, 'boxShadow'), idleFrame);
 
     const hasFullscreenWallpaper = await page.locator('.wrapper_hbKzX7').evaluate(async element => {
       await element.requestFullscreen();
@@ -213,7 +253,7 @@ test('squares Discord folders and styles the desktop screen-share picker', { tim
           </div>
         </div>
         <div role="menu" id="stream-options"><div data-text-variant="body-sm/medium">Частота кадров</div></div>
-        <button id="outside-picker">Чат</button>
+        <span id="outside-picker">Чат</span>
       </div>`);
 
     await page.addStyleTag({ content: theme });
@@ -235,7 +275,7 @@ test('squares Discord folders and styles the desktop screen-share picker', { tim
       .sourcePreviewContainer_4HfQya::before { content: ""; border: 2px solid transparent; }
       .selectedSource_4HfQya .sourcePreviewContainer_4HfQya::before { border-color: #5865f2; }
       .sourcePreview_4HfQya { aspect-ratio: 16 / 9; background: var(--black); border-radius: var(--radius-sm); width: 224px; }
-      .sourceOverlay_4HfQya { display: none; }
+      .sourceOverlay_4HfQya { display: none; background: rgb(0 0 0 / 40%); }
       .source_4HfQya:hover .sourceOverlay_4HfQya { display: flex; }
       .sourceOverlayCTA_4HfQya { background: var(--white); color: var(--black); border-radius: var(--radius-sm); }
       .button_F7qvhY { border-radius: var(--radius-sm); }
@@ -251,9 +291,8 @@ test('squares Discord folders and styles the desktop screen-share picker', { tim
     ` });
 
     const style = (selector, name, pseudo) => computedStyle(page.locator(selector), name, pseudo);
-    const gold = 'rgb(196, 164, 108)';
     const brightGold = 'rgb(231, 201, 148)';
-    const ink = 'rgb(23, 19, 14)';
+    const text = 'rgb(240, 231, 216)';
 
     for (const selector of ['.folderButton_RTMSuZ', '.folderPreview_RTMSuZ']) {
       assert.equal(await style(selector, 'backgroundColor'), transparent);
@@ -276,21 +315,25 @@ test('squares Discord folders and styles the desktop screen-share picker', { tim
     const source = page.locator('.source_4HfQya');
     await source.hover();
     assert.equal(await style('.sourceOverlay_4HfQya', 'display'), 'flex');
-    assert.equal(await style('.sourceOverlayCTA_4HfQya', 'backgroundColor'), gold);
-    assert.equal(await style('.sourceOverlayCTA_4HfQya', 'color'), ink);
+    assert.equal(await style('.sourceOverlay_4HfQya', 'backgroundColor'), transparent);
+    assert.equal(await style('.source_4HfQya', 'backgroundColor'), transparent);
+    assert.match(await style('.sourceOverlayCTA_4HfQya', 'boxShadow'), /inset/);
+    assert.equal(await style('.sourceOverlayCTA_4HfQya', 'color'), text);
     await source.evaluate(element => element.classList.add('selectedSource_4HfQya'));
     assert.equal(await style('.sourcePreviewContainer_4HfQya', 'borderTopColor', '::before'), brightGold);
     assert.match(await style('.footer_oszuaw', 'backgroundColor'), /\/ 0\.5\)/);
     assert.equal(await style('.premiumOption_IeXlUE', 'color'), brightGold);
     assert.match(await style('.root_RmOtW7', 'backgroundImage'), /rgb\(101, 82, 58\)/);
     assert.equal(await style('.ctaButtonText_RmOtW7', 'backgroundImage'), 'none');
-    assert.equal(await style('.ctaButtonText_RmOtW7', 'color'), ink);
-    assert.equal(await style('.premiumIcon_RmOtW7 path', 'fill'), ink);
+    assert.equal(await style('.ctaButtonText_RmOtW7', 'color'), text);
+    assert.equal(await style('.premiumIcon_RmOtW7 path', 'fill'), text);
 
     const subscribe = page.getByRole('button', { name: 'Подписаться на Nitro' });
-    assert.equal(await computedStyle(subscribe, 'backgroundColor'), gold);
+    await page.mouse.move(0, 0);
+    assert.equal(await computedStyle(subscribe, 'backgroundColor'), await style('.sourceOverlayCTA_4HfQya', 'backgroundColor'));
+    const idleFrame = await computedStyle(subscribe, 'boxShadow');
     await subscribe.hover();
-    assert.equal(await computedStyle(subscribe, 'backgroundColor'), brightGold);
+    assert.notEqual(await computedStyle(subscribe, 'boxShadow'), idleFrame);
     for (const selector of [
       '.sourceName_4HfQya', '.sourceOverlayCTA_4HfQya', '.button_F7qvhY',
       '.ctaButtonText_RmOtW7', '#stream-options [data-text-variant]',
