@@ -1,0 +1,97 @@
+.menu_M3qk4j,
+.popout_uFkqU2,
+.popoutContainer_nitlyF {
+  background: var(--gr-popout-bg);
+  border: var(--gr-border-width) solid var(--gr-line-strong);
+  border-radius: var(--gr-radius);
+  box-shadow: var(--gr-shadow);
+}
+
+.menu_M3qk4j .item_M3qk4j {
+  border-radius: var(--gr-radius);
+}
+
+.menu_M3qk4j .colorDefault_M3qk4j:is(:hover, .focused_M3qk4j) {
+  background: var(--gr-selection-fill);
+  box-shadow: inset 2px 0 var(--gr-gold);
+  color: var(--gr-text);
+}
+
+.menu_M3qk4j .colorDefault_M3qk4j:is(:hover, .focused_M3qk4j) .icon_M3qk4j {
+  color: var(--gr-gold-bright);
+}
+
+.menu_M3qk4j .colorDanger_M3qk4j {
+  color: var(--gr-danger);
+}
+
+.menu_M3qk4j .colorDanger_M3qk4j:is(:hover, .focused_M3qk4j) {
+  background: var(--background-feedback-mod-critical);
+}
+
+.menu_M3qk4j .separator_M3qk4j {
+  border-color: var(--gr-line);
+}
+
+.tooltipPrimary_3_v8qp {
+  background: var(--gr-surface-raised);
+  border-radius: var(--gr-radius);
+  box-shadow: 0 0 0 1px var(--gr-line), var(--gr-shadow);
+  color: var(--gr-text);
+}
+
+.tooltipPrimary_3_v8qp .tooltipPointer_3_v8qp {
+  border-top-color: var(--gr-surface-raised);
+}
+
+.root__KoJTP:not(.fullscreenOnMobile__KoJTP) {
+  background: var(--gr-popout-bg);
+  border: var(--gr-border-width) solid var(--gr-line-strong);
+  border-radius: var(--gr-radius);
+  box-shadow: var(--gr-shadow);
+  backdrop-filter: var(--gr-popout-filter);
+}
+
+.root__KoJTP:not(.fullscreenOnMobile__KoJTP)::before,
+.root__KoJTP:not(.fullscreenOnMobile__KoJTP)::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 55px;
+  height: 55px;
+  background: var(--gr-corner) center / contain no-repeat;
+  pointer-events: none;
+}
+
+.root__KoJTP:not(.fullscreenOnMobile__KoJTP)::before {
+  inset: 4px auto auto 4px;
+  opacity: var(--gr-ornament-opacity);
+}
+
+.root__KoJTP:not(.fullscreenOnMobile__KoJTP)::after {
+  inset: auto 4px 4px auto;
+  transform: rotate(180deg);
+  opacity: var(--gr-corner-opacity);
+}
+
+.root__KoJTP .header__KoJTP :is(h1, h2, h3) {
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.root__KoJTP .footer__KoJTP {
+  background: var(--gr-surface);
+  border-color: var(--gr-line);
+}
+
+@keyframes gr-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.menu_M3qk4j,
+.autocomplete_CAMiwx,
+.popout_uFkqU2 {
+  animation: gr-enter var(--gr-popout-time) ease-out;
+}

@@ -1,0 +1,43 @@
+.bar_3zSH5d {
+  background: color-mix(in srgb, var(--gr-bg-base) 85%, transparent);
+  color: var(--gr-text);
+}
+
+.container_ybUK7Z.themed_ybUK7Z {
+  --__header-bar-background: var(--gr-channels-bg);
+  background: var(--gr-channels-bg);
+  border-block-end: var(--gr-border-width) solid var(--gr-line-strong);
+}
+
+.container_ybUK7Z .title_ybUK7Z,
+.bar_3zSH5d .title_3zSH5d,
+.chat_z_gUBg .title_z_gUBg {
+  color: var(--gr-text);
+  font-family: var(--gr-font-heading);
+  font-size: calc(1.16em * var(--gr-heading-scale));
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}
+
+.container_ybUK7Z .iconWrapper_ybUK7Z {
+  color: var(--gr-text-muted);
+}
+
+.container_ybUK7Z .iconWrapper_ybUK7Z:is(:hover, .selected_ybUK7Z) {
+  color: var(--gr-gold-bright);
+}
+
+.searchBar_i16Ad0,
+.searchBar_u88IQl .searchBarComponent_u88IQl {
+  background: var(--gr-bg-base);
+  border-radius: var(--gr-radius);
+  box-shadow: inset 0 0 0 var(--gr-border-width) var(--gr-line);
+  color: var(--gr-text-muted);
+}
+
+.searchBar_i16Ad0:focus-within,
+.searchBar_u88IQl .searchBarComponent_u88IQl:focus-visible {
+  outline: 1px solid var(--gr-gold);
+  outline-offset: 0;
+  box-shadow: var(--gr-focus-glow);
+}

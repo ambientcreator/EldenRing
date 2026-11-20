@@ -1,0 +1,84 @@
+.container_XtY2mm,
+:is([class^="standardSidebarView_"], [class*=" standardSidebarView_"]) {
+  background: var(--gr-bg-base);
+}
+
+.sideNavContent_XtY2mm,
+.sidebarTabBar_XtY2mm,
+:is([class^="sidebarRegionScroller_"], [class*=" sidebarRegionScroller_"]) {
+  background: var(--gr-surface);
+}
+
+.contentPanel_XtY2mm,
+.userSettingsContentPanel_XtY2mm,
+:is([class^="contentRegionScroller_"], [class*=" contentRegionScroller_"]) {
+  background: var(--gr-surface-raised);
+}
+
+:is(.container_XtY2mm, [class^="standardSidebarView_"], [class*=" standardSidebarView_"]) :is(h1, h2) {
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.035em;
+}
+
+.side_6zZYhF .selected_6zZYhF,
+.settingsTabBarItem_XtY2mm[aria-selected="true"] {
+  background: var(--gr-selection-fill);
+  box-shadow: inset 2px 0 var(--gr-gold);
+  color: var(--gr-gold-bright);
+}
+
+.side_6zZYhF .headerText_6zZYhF {
+  color: var(--gr-gold);
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.side_6zZYhF .separator_6zZYhF {
+  background-color: var(--gr-line);
+}
+
+.inputWrapper_cZux1n,
+.container_uFkqU2:not([data-variant="text-only"]) .select_uFkqU2 {
+  border-radius: var(--gr-radius);
+}
+
+.container_uFkqU2:not([data-variant="text-only"]) .select_uFkqU2,
+.inputDefault_cZux1n {
+  background-color: var(--gr-bg-base);
+  border-color: var(--gr-line);
+}
+
+.inputWrapper_cZux1n:focus-within {
+  outline: 1px solid var(--gr-gold);
+  outline-offset: -1px;
+}
+
+:is(.container_XtY2mm, [class^="standardSidebarView_"], [class*=" standardSidebarView_"], .root__KoJTP)
+  :is(input[type="checkbox"], input[type="radio"], input[type="range"]) {
+  accent-color: var(--gr-gold);
+}
+
+.button_9OQtot:is(.lookFilled_9OQtot, .lookOutlined_9OQtot) {
+  border-radius: var(--gr-radius);
+  transition: background-color var(--gr-hover-time), border-color var(--gr-hover-time), color var(--gr-hover-time);
+}
+
+.button_9OQtot.lookFilled_9OQtot.colorBrand_9OQtot {
+  background-color: var(--gr-gold);
+  color: var(--gr-ink);
+}
+
+.button_9OQtot.lookFilled_9OQtot.colorBrand_9OQtot:hover:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--gr-gold-bright);
+}
+
+.button_9OQtot.lookFilled_9OQtot.colorRed_9OQtot {
+  background-color: var(--control-critical-primary-background-default);
+  color: var(--gr-text);
+}
+
+.button_9OQtot.lookFilled_9OQtot.colorRed_9OQtot:hover:not(:disabled, [aria-disabled="true"]) {
+  background-color: var(--control-critical-primary-background-hover);
+}

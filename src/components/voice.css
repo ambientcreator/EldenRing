@@ -1,0 +1,21 @@
+.panels_pog62O .wrapper_9U6LUN {
+  border-block-end: var(--gr-border-width) solid var(--gr-line);
+}
+
+.panels_pog62O .connection_9U6LUN {
+  background: color-mix(in srgb, var(--gr-success) 7%, transparent);
+}
+
+.panels_pog62O .button_9U6LUN:is(:hover, :focus-visible) {
+  box-shadow: inset 0 0 0 1px var(--gr-line-strong);
+}
+
+.noiseCancellationPopout_9U6LUN {
+  background: var(--gr-popout-bg);
+  border: var(--gr-border-width) solid var(--gr-line);
+  border-radius: var(--gr-radius);
+}
+
+.tileContainer_4cz-WN {
+  border-radius: var(--gr-radius);
+}

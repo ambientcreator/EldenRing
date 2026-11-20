@@ -1,0 +1,44 @@
+/* One fixed image, behind the existing app and its layers. */
+:is(#app-mount, [id^="app-mount_"]) {
+  isolation: isolate;
+  background-color: var(--gr-bg-base);
+}
+
+:is(#app-mount, [id^="app-mount_"])::before,
+:is(#app-mount, [id^="app-mount_"])::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+:is(#app-mount, [id^="app-mount_"])::before {
+  z-index: -2;
+  background-color: var(--gr-bg-base);
+  background-image: url("../assets/golden-ruins.webp"), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
+  background-position: var(--gr-wallpaper-x) var(--gr-wallpaper-y), center;
+  background-size: var(--gr-wallpaper-size), cover;
+  background-repeat: no-repeat;
+}
+
+/* Chromium caps CSS variable values at 2 MiB. Keep the lossless default as a literal URL. */
+@container style(--gr-wallpaper) {
+  :is(#app-mount, [id^="app-mount_"])::before {
+    background-image: var(--gr-wallpaper), radial-gradient(ellipse at 84% 18%, #423523, #15130f 65%, #10100f);
+  }
+}
+
+:is(#app-mount, [id^="app-mount_"])::after {
+  z-index: -1;
+  background-image:
+    radial-gradient(ellipse at 69% 38%, transparent 25%, rgb(9 8 6 / var(--gr-vignette)) 100%),
+    linear-gradient(rgb(12 11 9 / var(--gr-dim)), rgb(12 11 9 / var(--gr-dim)));
+}
+
+:is(#app-mount, [id^="app-mount_"]) :is(.app_QbT-Jy, .bg_Fd0FEH) {
+  background: transparent;
+}
+
+.bg_Fd0FEH {
+  pointer-events: none;
+}

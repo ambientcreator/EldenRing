@@ -1,0 +1,68 @@
+:root {
+  /* Wallpaper */
+  --gr-wallpaper-x: 50%;
+  --gr-wallpaper-y: 50%;
+  --gr-wallpaper-size: cover;
+  --gr-dim: 0.18;
+  --gr-vignette: 0.45;
+
+  /* Surfaces and typography */
+  --gr-bg-base: #10100f;
+  --gr-surface: #1a1916;
+  --gr-surface-raised: #26231e;
+  --gr-channels-opacity: 0.86;
+  --gr-chat-opacity: 0.78;
+  --gr-members-opacity: 0.76;
+  --gr-popout-opacity: 0.97;
+  --gr-gold: #c4a46c;
+  --gr-gold-bright: #e7c994;
+  --gr-gold-dim: #8c744c;
+  --gr-bronze: #65523a;
+  --gr-text: #e7dfd1;
+  --gr-text-muted: #bdb4a5;
+  --gr-link: #bdd3e9;
+  --gr-success: #a3b69c;
+  --gr-warning: #e5be78;
+  --gr-danger: #e1988d;
+  --gr-radius: 3px;
+  --gr-border-width: 1px;
+  --gr-channel-row-height: 32px;
+  --gr-font-heading: "Golden Ruins Forum", "Palatino Linotype", Georgia, serif;
+  --gr-font-body: var(--font-primary, system-ui, sans-serif);
+  --gr-heading-scale: 1;
+
+  /* Balanced visual effects */
+  --gr-glass-blur: 2px;
+  --gr-popout-filter: blur(var(--gr-glass-blur));
+  --gr-ornament-opacity: 0.72;
+  --gr-corner-opacity: 0.40;
+  --gr-glow-opacity: 0.30;
+  --gr-shadow-opacity: 0.52;
+  --gr-motion: 1;
+  --gr-hover-duration: 150ms;
+  --gr-popout-duration: 165ms;
+  --gr-effects: block;
+  --gr-particles-opacity: 0.34;
+  --gr-particles-play-state: running;
+  --gr-canopy-opacity: 0.22;
+
+  --gr-corner: url("../assets/ornament-corner.svg");
+  --gr-divider: url("../assets/ornament-divider.svg");
+  --gr-grace: url("../assets/grace-marker.svg");
+  --gr-emblem: url("../assets/rune-emblem.svg");
+
+  --gr-channels-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-channels-opacity) * 100%), transparent);
+  --gr-chat-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-chat-opacity) * 100%), transparent);
+  --gr-members-bg: color-mix(in srgb, var(--gr-surface) calc(var(--gr-members-opacity) * 100%), transparent);
+  --gr-popout-bg: color-mix(in srgb, var(--gr-surface-raised) calc(var(--gr-popout-opacity) * 100%), transparent);
+  --gr-line: color-mix(in srgb, var(--gr-bronze) 75%, transparent);
+  --gr-line-strong: color-mix(in srgb, var(--gr-gold-dim) 85%, transparent);
+  --gr-hover: color-mix(in srgb, var(--gr-gold) 12%, transparent);
+  --gr-selected: color-mix(in srgb, var(--gr-gold) 19%, transparent);
+  --gr-hover-time: calc(var(--gr-motion) * var(--gr-hover-duration));
+  --gr-popout-time: calc(var(--gr-motion) * var(--gr-popout-duration));
+  --gr-shadow: 0 10px 28px rgb(0 0 0 / var(--gr-shadow-opacity));
+  --gr-focus-glow: inset 0 0 10px color-mix(in srgb, var(--gr-gold) calc(var(--gr-glow-opacity) * 35%), transparent);
+  --gr-selection-fill: linear-gradient(90deg, var(--gr-selected), var(--gr-hover) 56%, transparent);
+  --gr-ink: #17130e;
+}

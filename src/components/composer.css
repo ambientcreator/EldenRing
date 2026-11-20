@@ -1,0 +1,36 @@
+.form_z_gUBg {
+  background: transparent;
+}
+
+.channelTextArea_2x8-Qn {
+  --chat-input-background: var(--gr-surface-raised);
+  --channeltextarea-background: var(--gr-surface-raised);
+  background: var(--gr-surface-raised);
+  border: var(--gr-border-width) solid var(--gr-line);
+  border-radius: var(--gr-radius);
+  caret-color: var(--gr-gold-bright);
+  transition: border-color var(--gr-hover-time);
+}
+
+.channelTextArea_2x8-Qn:focus-within {
+  border-color: var(--gr-gold);
+  box-shadow: var(--gr-focus-glow);
+}
+
+.channelTextArea_2x8-Qn :is(.themedBackground_2x8-Qn, .scrollableContainer_2x8-Qn) {
+  background: transparent;
+  border-radius: inherit;
+}
+
+.channelTextArea_2x8-Qn .button_2x8-Qn:hover {
+  color: var(--gr-gold-bright);
+}
+
+.autocomplete_CAMiwx,
+.autocompletePopout_rg6La1,
+.emojiPicker_-sZhZn,
+.upload_JyxBSo {
+  background: var(--gr-popout-bg);
+  border: var(--gr-border-width) solid var(--gr-line);
+  border-radius: var(--gr-radius);
+}

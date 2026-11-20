@@ -1,0 +1,34 @@
+.guilds_pog62O:is(.wrapper_5dqHTG, nav),
+.guilds_pog62O .wrapper_5dqHTG {
+  background-color: color-mix(in srgb, var(--gr-bg-base) 88%, transparent);
+}
+
+.guilds_pog62O :is(.folderGroupBackground_RTMSuZ, .folderButton_RTMSuZ, .folderPreview_RTMSuZ) {
+  background-color: var(--gr-hover);
+}
+
+.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w) {
+  background-color: var(--gr-surface);
+  color: var(--gr-gold);
+  box-shadow: inset 0 0 0 1px var(--gr-line);
+  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
+}
+
+.guilds_pog62O :is(.circleIconButton_g8YUxD, .circleIconButton_1czW-w):is(:hover, :focus-visible) {
+  background-color: var(--gr-selected);
+  color: var(--gr-gold-bright);
+}
+
+.guilds_pog62O :is([class^="pill_"], [class*=" pill_"]) > :is([class^="item_"], [class*=" item_"]) {
+  background-color: var(--gr-gold);
+}
+
+.guilds_pog62O [data-list-item-id^="guildsnav___"]:is([aria-selected="true"], [aria-current="page"], .selected_tQErD4) {
+  outline: 1px solid var(--gr-line-strong);
+  outline-offset: -1px;
+}
+
+.guilds_pog62O :is(.unreadMentionsBar_5dqHTG, .badge_nFH31_) {
+  background-color: var(--gr-gold);
+  color: var(--gr-ink);
+}

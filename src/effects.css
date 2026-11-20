@@ -1,0 +1,46 @@
+/* Static grain is unnecessary with this wallpaper. Only two small layers move. */
+.bg_Fd0FEH::before,
+.bg_Fd0FEH::after {
+  content: "";
+  position: absolute;
+  display: var(--gr-effects);
+  pointer-events: none;
+}
+
+.bg_Fd0FEH::before {
+  top: 2%;
+  right: 2%;
+  width: min(34vw, 530px);
+  height: min(32vh, 340px);
+  background: radial-gradient(ellipse at center, rgb(248 189 104 / 32%), transparent 69%);
+  opacity: var(--gr-canopy-opacity);
+  animation: gr-canopy calc(16s * var(--gr-motion)) ease-in-out infinite alternate;
+}
+
+.bg_Fd0FEH::after {
+  top: 12%;
+  right: 5%;
+  width: min(31vw, 440px);
+  height: min(28vh, 270px);
+  background:
+    radial-gradient(circle at 11% 47%, #f5d69b 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 29%, #efd29a 0 1px, transparent 2px),
+    radial-gradient(circle at 43% 72%, #d9b17a 0 1px, transparent 2px),
+    radial-gradient(circle at 55% 34%, #f8dcac 0 1.3px, transparent 2.4px),
+    radial-gradient(circle at 68% 67%, #e5b97c 0 1px, transparent 2px),
+    radial-gradient(circle at 77% 18%, #f5d69b 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 82%, #e2b579 0 1px, transparent 2px);
+  opacity: var(--gr-particles-opacity);
+  animation: gr-embers calc(19s * var(--gr-motion)) ease-in-out infinite alternate;
+  animation-play-state: var(--gr-particles-play-state);
+}
+
+@keyframes gr-canopy {
+  from { opacity: calc(var(--gr-canopy-opacity) * 0.4); }
+  to { opacity: var(--gr-canopy-opacity); }
+}
+
+@keyframes gr-embers {
+  from { transform: translateY(8px); opacity: calc(var(--gr-particles-opacity) * 0.4); }
+  to { transform: translateY(-10px); opacity: var(--gr-particles-opacity); }
+}

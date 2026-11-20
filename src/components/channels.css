@@ -1,0 +1,65 @@
+.sidebar_pog62O,
+.privateChannels_u88IQl {
+  background: transparent;
+}
+
+.sidebar_pog62O::after {
+  background-color: transparent;
+}
+
+.sidebarList_pog62O {
+  background: var(--gr-channels-bg);
+  border-color: var(--gr-line);
+  border-inline-end: var(--gr-border-width) solid var(--gr-line);
+  border-radius: var(--gr-radius) 0 0 0;
+}
+
+.sidebarList_pog62O [data-list-item-id^="channels___"],
+.privateChannels_u88IQl .interactive_zln_tS {
+  min-block-size: var(--gr-channel-row-height);
+  border-radius: var(--gr-radius);
+  transition: background-color var(--gr-hover-time), color var(--gr-hover-time);
+}
+
+.sidebarList_pog62O [data-list-item-id^="channels___"]:hover,
+.privateChannels_u88IQl .interactive_zln_tS:hover {
+  background-color: var(--gr-hover);
+}
+
+.sidebarList_pog62O [data-list-item-id^="channels___"]:is([aria-selected="true"], [aria-current="page"]),
+.sidebarList_pog62O :is([class^="modeSelected_"], [class*=" modeSelected_"]) [data-list-item-id^="channels___"],
+.privateChannels_u88IQl .interactiveSelected_zln_tS {
+  background: var(--gr-selection-fill);
+  box-shadow: inset 2px 0 var(--gr-gold);
+  color: var(--gr-gold-bright);
+}
+
+.sidebarList_pog62O :is([class^="modeUnread_"], [class*=" modeUnread_"]) [data-list-item-id^="channels___"],
+.privateChannels_u88IQl .unreadPill_zln_tS {
+  color: var(--gr-text);
+}
+
+.sidebarList_pog62O :is([class^="unread_"], [class*=" unread_"]),
+.privateChannels_u88IQl .unreadPill_zln_tS {
+  background-color: var(--gr-gold);
+}
+
+.sidebarList_pog62O :is([class^="name_"], [class*=" name_"])[class*="header"],
+.sidebarList_pog62O :is([class^="name_"], [class*=" name_"])[role="heading"],
+.sidebarList_pog62O :is([class^="headerText_"], [class*=" headerText_"]),
+.sidebarList_pog62O :is([class^="privateChannelsHeaderContainer_"], [class*=" privateChannelsHeaderContainer_"]) h2 {
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.065em;
+  color: var(--gr-gold);
+}
+
+.privateChannels_u88IQl .sectionDivider_u88IQl {
+  background: var(--gr-line);
+}
+
+.panels_pog62O {
+  background: var(--gr-popout-bg);
+  border: var(--gr-border-width) solid var(--gr-line-strong);
+  border-radius: var(--gr-radius);
+}

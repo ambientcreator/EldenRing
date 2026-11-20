@@ -1,0 +1,33 @@
+/* Only the card frame is themed, so profile banners and accents can render normally. */
+.profilePopout_iar92T,
+.accountPopout_g6VwXp,
+:is([class^="userPopoutOuter_"], [class*=" userPopoutOuter_"]),
+:is([class^="userProfileModalOuter_"], [class*=" userProfileModalOuter_"]) {
+  --profile-body-background-color: var(--gr-popout-bg);
+  border-radius: var(--gr-radius);
+  box-shadow: 0 0 0 var(--gr-border-width) var(--gr-line-strong), var(--gr-shadow);
+}
+
+.profilePopout_iar92T .profileContent_iar92T {
+  position: relative;
+  background-color: var(--gr-popout-bg);
+}
+
+.profilePopout_iar92T .profileContent_iar92T::before {
+  content: "";
+  position: absolute;
+  inset: 12px 8px auto auto;
+  width: 120px;
+  height: 120px;
+  background: var(--gr-emblem) center / contain no-repeat;
+  opacity: calc(var(--gr-ornament-opacity) * 0.22);
+  pointer-events: none;
+}
+
+.profilePopout_iar92T .profileHeader_iar92T :is(h1, h2, h3),
+:is([class^="userPopoutOuter_"], [class*=" userPopoutOuter_"]) :is(h1, h2, h3),
+:is([class^="userProfileModalOuter_"], [class*=" userProfileModalOuter_"]) :is(h1, h2, h3) {
+  font-family: var(--gr-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}

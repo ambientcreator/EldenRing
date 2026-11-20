@@ -1,0 +1,47 @@
+/* Older desktop builds can still consume the pre-refresh color tokens. */
+:is(.theme-dark, .theme-light, .theme-darker, .theme-midnight, .theme-amoled) {
+  --background-primary: var(--gr-surface);
+  --background-secondary: var(--gr-surface);
+  --background-secondary-alt: var(--gr-surface-raised);
+  --background-tertiary: var(--gr-bg-base);
+  --background-floating: var(--gr-popout-bg);
+  --background-modifier-hover: var(--gr-hover);
+  --background-modifier-active: var(--gr-selected);
+  --background-modifier-selected: var(--gr-selected);
+  --background-mentioned: color-mix(in srgb, var(--gr-gold) 12%, transparent);
+  --background-mentioned-hover: var(--gr-selected);
+  --header-primary: var(--gr-text);
+  --header-secondary: var(--gr-text-muted);
+  --text-normal: var(--gr-text);
+  --interactive-normal: var(--gr-text-muted);
+  --interactive-hover: var(--gr-text);
+  --interactive-active: var(--gr-gold-bright);
+}
+
+/* The scope is the classic mount ID, which also constrains the stem matches. */
+#app-mount :where([class^="bg_"], [class*=" bg_"]),
+#app-mount > :where([class^="app_"], [class*=" app_"]),
+#app-mount :where([class^="chat_"], [class*=" chat_"]) {
+  background: transparent;
+}
+
+#app-mount :where([class^="chatContent_"], [class*=" chatContent_"]) {
+  background: var(--gr-chat-bg);
+}
+
+#app-mount :where([class^="sidebarList_"], [class*=" sidebarList_"]) {
+  background: var(--gr-channels-bg);
+}
+
+#app-mount :where([class^="membersWrap_"], [class*=" membersWrap_"]) {
+  background: var(--gr-members-bg);
+}
+
+#app-mount :where([class^="members_"], [class*=" members_"]) {
+  background: transparent;
+}
+
+:is(.bd-addon-card, .vc-addon-card) {
+  border-color: var(--gr-line);
+  border-radius: var(--gr-radius);
+}

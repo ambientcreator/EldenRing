@@ -1,0 +1,44 @@
+:is(#app-mount, [id^="app-mount_"]) :where(
+  button, a[href], input, select, textarea, [tabindex], [contenteditable="true"]
+):focus-visible {
+  outline: 2px solid var(--gr-gold-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --gr-motion: 0;
+  }
+
+  .bg_Fd0FEH::before,
+  .bg_Fd0FEH::after {
+    display: none;
+    animation: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --gr-dim: 0.40;
+    --gr-channels-opacity: 0.96;
+    --gr-chat-opacity: 0.95;
+    --gr-members-opacity: 0.94;
+    --gr-popout-opacity: 1;
+    --gr-text: #fff5e7;
+    --gr-text-muted: #d8ccbd;
+    --gr-bronze: #a18a64;
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --gr-wallpaper: none;
+    --gr-effects: none;
+    --gr-ornament-opacity: 0;
+    --gr-corner-opacity: 0;
+  }
+
+  :is(#app-mount, [id^="app-mount_"]) :focus-visible {
+    outline-color: Highlight;
+  }
+}

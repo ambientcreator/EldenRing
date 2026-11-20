@@ -1,0 +1,36 @@
+.tabBody_zrUwGA,
+.page_iar92T {
+  background: var(--gr-chat-bg);
+}
+
+.peopleColumn_zrUwGA,
+.nowPlayingColumn_zrUwGA {
+  border-color: var(--gr-line);
+}
+
+.nowPlayingColumn_zrUwGA .outer_ERB-Vv,
+.recentsPopoutContainer_iar92T,
+.searchHeader_rfDq2B,
+.header_LSviKk,
+.bannerForumChannel_gmkdZC,
+.threadSuggestionBar_rE8-46,
+.toast_W6gbBa {
+  background-color: var(--gr-popout-bg);
+  border-color: var(--gr-line);
+  border-radius: var(--gr-radius);
+}
+
+:is([class^="searchResultsWrap_"], [class*=" searchResultsWrap_"],
+    [class^="messagesPopoutWrap_"], [class*=" messagesPopoutWrap_"],
+    [class^="threadSidebar_"], [class*=" threadSidebar_"]) {
+  background: var(--gr-popout-bg);
+  border-color: var(--gr-line);
+}
+
+.inboxTitle_LSviKk,
+.searchHeader_rfDq2B :is(h1, h2, h3),
+.title_iar92T,
+.nowPlayingTitle_iar92T {
+  font-family: var(--gr-font-heading);
+  letter-spacing: 0.035em;
+}

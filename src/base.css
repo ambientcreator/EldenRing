@@ -1,0 +1,98 @@
+/* Keep Discord's semantic colors for error, success, warning and links distinct. */
+:is(.theme-dark, .theme-light, .theme-darker, .theme-midnight, .theme-amoled),
+:is(#app-mount, [id^="app-mount_"]) {
+  color-scheme: dark;
+  --background-base-lowest: var(--gr-bg-base);
+  --background-base-lower: var(--gr-surface);
+  --background-base-low: var(--gr-surface);
+  --background-surface-high: var(--gr-surface-raised);
+  --background-surface-higher: var(--gr-surface-raised);
+  --background-surface-highest: #302a23;
+  --background-code: #211e19;
+  --background-brand: var(--gr-gold);
+  --background-feedback-notification: var(--gr-gold);
+  --background-feedback-mod-critical: color-mix(in srgb, var(--gr-danger) 16%, var(--gr-surface));
+  --background-feedback-mod-positive: color-mix(in srgb, var(--gr-success) 15%, var(--gr-surface));
+  --background-feedback-mod-warning: color-mix(in srgb, var(--gr-warning) 15%, var(--gr-surface));
+  --background-mod-muted: var(--gr-hover);
+  --background-mod-subtle: var(--gr-hover);
+  --background-mod-normal: var(--gr-selected);
+  --background-mod-strong: color-mix(in srgb, var(--gr-gold) 26%, transparent);
+
+  --app-frame-background: var(--gr-bg-base);
+  --app-frame-border: var(--gr-line);
+  --home-background: var(--gr-chat-bg);
+  --chat-background-default: var(--gr-chat-bg);
+  --chat-text-muted: var(--gr-text-muted);
+  --chat-input-background: var(--gr-surface-raised);
+  --channeltextarea-background: var(--gr-surface-raised);
+  --modal-background: var(--gr-popout-bg);
+  --modal-footer-background: var(--gr-surface);
+  --input-background: var(--gr-bg-base);
+  --input-placeholder-text: var(--gr-text-muted);
+  --scrollbar-thin-thumb: var(--gr-bronze);
+  --scrollbar-thin-track: transparent;
+  --scrollbar-auto-thumb: var(--gr-bronze);
+  --scrollbar-auto-track: transparent;
+
+  --border-muted: var(--gr-line);
+  --border-subtle: var(--gr-line);
+  --border-normal: var(--gr-line-strong);
+  --border-strong: var(--gr-gold-dim);
+  --border-focus: var(--gr-gold-bright);
+  --text-strong: var(--gr-text);
+  --text-default: var(--gr-text);
+  --text-subtle: var(--gr-text-muted);
+  --text-muted: var(--gr-text-muted);
+  --text-link: var(--gr-link);
+  --text-brand: var(--gr-gold-bright);
+  --text-feedback-critical: var(--gr-danger);
+  --text-feedback-positive: var(--gr-success);
+  --text-feedback-warning: var(--gr-warning);
+  --icon-default: var(--gr-text-muted);
+  --icon-strong: var(--gr-text);
+  --icon-subtle: var(--gr-text-muted);
+  --icon-feedback-critical: var(--gr-danger);
+  --icon-feedback-positive: var(--gr-success);
+  --icon-feedback-warning: var(--gr-warning);
+  --interactive-background-hover: var(--gr-hover);
+  --interactive-background-active: var(--gr-selected);
+  --interactive-background-selected: var(--gr-selected);
+  --interactive-icon-default: var(--gr-text-muted);
+  --interactive-icon-hover: var(--gr-text);
+  --interactive-icon-active: var(--gr-gold-bright);
+  --interactive-text-default: var(--gr-text-muted);
+  --interactive-text-hover: var(--gr-text);
+  --interactive-text-active: var(--gr-text);
+  --interactive-muted: #827868;
+  --mention-foreground: var(--gr-gold-bright);
+  --mention-background: var(--gr-selected);
+
+  --control-primary-background-default: var(--gr-gold);
+  --control-primary-background-hover: var(--gr-gold-bright);
+  --control-primary-background-active: var(--gr-gold);
+  --control-primary-text-default: var(--gr-ink);
+  --control-primary-text-hover: var(--gr-ink);
+  --control-primary-text-active: var(--gr-ink);
+  --control-secondary-background-default: var(--gr-hover);
+  --control-secondary-background-hover: var(--gr-selected);
+  --control-secondary-background-active: var(--gr-selected);
+  --control-secondary-border-default: var(--gr-line);
+  --control-secondary-border-hover: var(--gr-gold-dim);
+  --control-secondary-text-default: var(--gr-text);
+  --control-secondary-text-hover: var(--gr-text);
+  --control-secondary-text-active: var(--gr-gold-bright);
+  --control-critical-primary-background-default: #833d34;
+  --control-critical-primary-background-hover: #9b4e43;
+  --control-critical-primary-background-active: #71362f;
+  --control-critical-secondary-text-default: var(--gr-danger);
+  --control-critical-secondary-text-hover: var(--gr-danger);
+  --control-critical-secondary-text-active: var(--gr-danger);
+  --control-brand-foreground: var(--gr-gold-bright);
+  --control-brand-foreground-new: var(--gr-gold-bright);
+}
+
+:is(#app-mount, [id^="app-mount_"]) ::selection {
+  color: var(--gr-ink);
+  background: var(--gr-gold-bright);
+}
