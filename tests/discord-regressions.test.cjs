@@ -435,40 +435,59 @@ test('keeps Discord layout and themes Home, unread bars, message highlights and 
     assert.equal(await disconnect.evaluate(element => element.matches(':focus-visible')), true);
     assert.notEqual(await computedStyle(disconnect, 'boxShadow'), idleFrame);
 
-    const hasFullscreenWallpaper = await page.locator('.wrapper_hbKzX7').evaluate(async element => {
-      await element.requestFullscreen();
-      const visible = getComputedStyle(element).backgroundImage.includes('data:image/webp;base64,');
-      await document.exitFullscreen();
-      return visible;
-    });
-    assert.equal(hasFullscreenWallpaper, true);
-
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     const app = '#app-mount_gEkNtR';
     assert.equal(await style(app, 'animationName', '::before'), 'none');
     assert.equal(await style(app, 'animationName', '::after'), 'none');
+    assert.equal(await style('body', 'animationName', '::after'), 'none');
+
+    await page.addStyleTag({ content: ':root { --gr-ambient-motion: running; }' });
+    assert.equal(await style(app, 'animationName', '::before'), 'gr-canopy');
+    assert.equal(await style(app, 'animationName', '::after'), 'gr-embers');
+    assert.equal(await style('body', 'animationName', '::after'), 'gr-cloud-lightning');
+    assert.equal(await style('body', 'pointerEvents', '::after'), 'none');
+
+    const fullscreenBackdrop = await page.locator('.wrapper_hbKzX7').evaluate(async element => {
+      await element.requestFullscreen();
+      const visible = getComputedStyle(element).backgroundImage.includes('data:image/webp;base64,');
+      const motion = getComputedStyle(element, '::after').animationName;
+      await document.exitFullscreen();
+      return [visible, motion];
+    });
+    assert.deepEqual(fullscreenBackdrop, [true, 'gr-cloud-lightning']);
+
     await page.addStyleTag({ content: `
       :root {
-        --gr-wallpaper: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'/%3E");
         --gr-wallpaper-size: contain;
         --gr-wallpaper-x: 30%;
         --gr-wallpaper-y: 70%;
       }
     ` });
+    assert.equal(await style('body', 'backgroundSize', '::after'), 'contain');
+    assert.equal(await style('body', 'backgroundPosition', '::after'), '30% 70%');
+
+    const customWallpaper = await page.addStyleTag({ content: `
+      :root { --gr-wallpaper: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'/%3E"); }
+    ` });
     assert.match(await style('body', 'backgroundImage'), /data:image\/svg\+xml/);
-    assert.equal((await style('body', 'backgroundSize')).split(', ').at(-1), 'contain');
-    assert.equal((await style('body', 'backgroundPosition')).split(', ').at(-1), '30% 70%');
-    await page.addStyleTag({ content: ':root { --gr-ambient-motion: running; --gr-wallpaper: none; }' });
+    assert.equal(await style('body', 'backgroundSize'), 'contain');
+    assert.equal(await style('body', 'backgroundPosition'), '30% 70%');
+    assert.equal(await style('body', 'animationName', '::after'), 'none');
+
+    await customWallpaper.evaluate(element => { element.textContent = ':root { --gr-wallpaper: none; }'; });
     assert.equal(await style('body', 'backgroundImage'), 'none');
     assert.equal(await style('body', 'display', '::before'), 'none');
-    assert.equal(await style(app, 'animationName', '::before'), 'gr-canopy');
-    assert.equal(await style(app, 'animationName', '::after'), 'gr-embers');
+    assert.equal(await style('body', 'animationName', '::after'), 'none');
+    await customWallpaper.evaluate(element => element.remove());
+
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await style(app, 'animationName', '::after'), 'none');
+    assert.equal(await style('body', 'animationName', '::after'), 'none');
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.addStyleTag({ content: ':root { --gr-effects: none; --gr-motion: 0; }' });
     assert.equal(await style(app, 'display', '::before'), 'none');
     assert.equal(await style(app, 'display', '::after'), 'none');
+    assert.equal(await style('body', 'animationName', '::after'), 'none');
   } finally {
     await browser.close();
   }
