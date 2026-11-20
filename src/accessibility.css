@@ -7,6 +7,31 @@
   outline-offset: -2px;
 }
 
+/* Composite inputs put the focus border on the field, including its accessories. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & :is(.wrapper_UcGqzv, .searchBar_i16Ad0, .bd-search-wrapper)
+    :where(input, textarea, [contenteditable="true"]):focus-visible {
+    outline: none;
+  }
+
+  & .wrapper_UcGqzv:focus-within {
+    border-color: var(--custom-input-focus-border-color, var(--gr-gold));
+    outline: none;
+  }
+
+  & .bd-search-wrapper:focus-within {
+    outline: 1px solid var(--gr-gold);
+    outline-offset: -1px;
+  }
+}
+
+@media (forced-colors: none) {
+  body .focus-rings-ring {
+    --focus-primary: var(--gr-gold-bright);
+    box-shadow: 0 0 0 2px var(--__adaptive-focus-ring-color, var(--focus-primary));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --gr-motion: 0;
@@ -48,5 +73,11 @@
 
   :is(#app-mount, [id^="app-mount_"], [data-popout-root]) :focus-visible {
     outline-color: Highlight;
+  }
+
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root])
+    :is(.wrapper_UcGqzv, .searchBar_i16Ad0, .bd-search-wrapper):focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
   }
 }

@@ -14,7 +14,10 @@
 | Упоминание и переход к сообщению | `.wrapper_NDaLCQ.interactive`, `--message-highlight-background-default`, `--message-highlight-background-hover` | `chat.css`, `base.css` |
 | Участники и профиль | `.membersWrap_86es0b`, `.outer_P1YEjQ`, `.themeContainer_nitlyF`, `.overlay_P1YEjQ` | `members.css`, `profiles.css` |
 | Меню и настройки | `.menu_M3qk4j`, `.root__KoJTP`, `.container_XtY2mm` | `menus.css`, `settings.css` |
+| Поля и элементы управления | `.wrapper_UcGqzv`, `.focus-rings-ring`, `.checkboxOption_vTUVyc`, `.radioGroupOption_oJuRbG`, `.switchIndicator_9AraPt`, `.slider_OnqacX`, `.slider_p3RiOL` | `controls.css`, `accessibility.css` |
+| Громкость и чувствительность | `.micTest_lUTBfB`, `.inputSensitivityToggle_d-Ihb0`, `.inputSensitivitySlider_d-Ihb0` | `controls.css` |
 | Кнопки | `[data-mana-component="button"]`, `.button_F7qvhY`, `.button_9OQtot`, `.colorable_K9Xq13`, `.buttonColor_9U6LUN` | `buttons.css`, `base.css` |
+| BetterDiscord | `.bd-store-card`, `.bd-addon-controls`, `.bd-search-wrapper`, `.bd-switch-body` | `compatibility.css`, `buttons.css`, `accessibility.css` |
 | Голос | `.wrapper_hbKzX7`, `.callContainer_hbKzX7`, `.root_rTsZa_`, `.tile_7NOr2f`, `.videoWrapper_7NOr2f`, `.gradientContainer_rTsZa_`, `--status-speaking` на `.border_7NOr2f` | `voice.css`, `background.css` |
 | Голос в списке каналов | `--status-speaking` на `.voiceUser_YUoOxm`, `.iconLive_Wx6SnQ`, `.channelInfo_Wx6SnQ`, `.voiceChannelHighlightBorder_Wx6SnQ` | `voice.css` |
 | Демонстрация экрана | `.root_oszuaw`, `.sourceOverlayCTA_4HfQya`, `.root_RmOtW7`, `#stream-options` | `screenshare.css` |

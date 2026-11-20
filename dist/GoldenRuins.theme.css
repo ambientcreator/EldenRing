@@ -1,7 +1,7 @@
 /**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.7.0
+ * @version 0.7.1
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */
@@ -197,7 +197,10 @@
   --input-border-default: var(--gr-line);
   --input-border-hover: var(--gr-line-strong);
   --input-border-focus: var(--gr-gold);
+  --input-border-active: var(--gr-gold);
   --input-placeholder-text: var(--gr-text-muted);
+  --input-placeholder-text-default: var(--gr-text-muted);
+  --input-text-default: var(--gr-text);
   --scrollbar-thin-thumb: var(--gr-bronze);
   --scrollbar-thin-track: transparent;
   --scrollbar-auto-thumb: var(--gr-bronze);
@@ -1048,9 +1051,138 @@ body {
   outline-offset: -1px;
 }
 
-:is(.container_XtY2mm, [class^="standardSidebarView_"], [class*=" standardSidebarView_"], .root__KoJTP)
-  :is(input[type="checkbox"], input[type="radio"], input[type="range"]) {
-  accent-color: var(--gr-gold);
+/* components/controls */
+/* Mana uses these tokens for both form controls and display-only menu indicators. */
+:is(.checkboxOption_vTUVyc, .checkbox_8b5Lkq, [data-mana-component="checkbox"], [role="menuitemcheckbox"]) {
+  --checkbox-background-default: var(--gr-control-bg);
+  --checkbox-background-hover: var(--gr-hover);
+  --checkbox-background-selected-default: var(--gr-gold);
+  --checkbox-background-selected-hover: var(--gr-gold-bright);
+  --checkbox-border-default: var(--gr-gold-dim);
+  --checkbox-border-hover: var(--gr-gold);
+  --checkbox-border-selected-default: var(--gr-gold);
+  --checkbox-border-selected-hover: var(--gr-gold-bright);
+  --checkbox-icon-active: var(--gr-ink);
+}
+
+:is(.radioGroupOption_oJuRbG, .standaloneRadioIndicator_oJuRbG, [role="radiogroup"]) {
+  --radio-background-default: var(--gr-control-bg);
+  --radio-background-hover: var(--gr-hover);
+  --radio-background-selected-default: var(--gr-gold);
+  --radio-background-selected-hover: var(--gr-gold-bright);
+  --radio-border-default: var(--gr-gold-dim);
+  --radio-border-hover: var(--gr-gold);
+  --radio-border-selected-default: var(--gr-gold);
+  --radio-border-selected-hover: var(--gr-gold-bright);
+  --radio-thumb-background-active: var(--gr-ink);
+}
+
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & input:is([type="checkbox"], [type="radio"], [type="range"]) {
+    accent-color: var(--gr-gold);
+  }
+
+  & .checkboxIndicator_vTUVyc,
+  & .box_8b5Lkq {
+    border-radius: max(3px, var(--gr-radius));
+  }
+}
+
+.wrapper_UcGqzv {
+  --input-border-active: var(--gr-gold);
+  --input-placeholder-text-default: var(--gr-text-muted);
+  --input-text-default: var(--gr-text);
+}
+
+@media (forced-colors: none) {
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+    & .colorDefault_M3qk4j :is(.checkbox_M3qk4j, .radioSelection_M3qk4j) {
+      color: var(--gr-gold);
+    }
+
+    & .colorDefault_M3qk4j .check_M3qk4j,
+    & .checkbox_8b5Lkq.checked_8b5Lkq svg path {
+      fill: var(--gr-ink);
+    }
+  }
+
+  /* Discord animates the switch palette as inline colors. Keep its thumb motion. */
+  :is(label.container_9AraPt, [role="menuitemcheckbox"] .container_9AraPt) {
+    --gr-switch-fill: var(--gr-control-bg);
+    --gr-switch-edge: var(--gr-gold-dim);
+    --gr-switch-thumb: var(--gr-text-muted);
+    --gr-switch-symbol: var(--gr-ink);
+
+    & > [data-mana-component="switch"] {
+      background-color: var(--gr-switch-fill) !important;
+      border-color: var(--gr-switch-edge) !important;
+      border-radius: 12px;
+    }
+
+    & .thumb_9AraPt > rect {
+      fill: var(--gr-switch-thumb);
+    }
+
+    & .thumb_9AraPt > svg path {
+      fill: var(--gr-switch-symbol);
+    }
+  }
+
+  :is(label.container_9AraPt:has(input:checked),
+    [role="menuitemcheckbox"][aria-checked="true"] .container_9AraPt) {
+    --gr-switch-fill: color-mix(in srgb, var(--gr-gold) 76%, var(--gr-ink));
+    --gr-switch-edge: var(--gr-gold);
+    --gr-switch-thumb: var(--gr-ink);
+    --gr-switch-symbol: var(--gr-gold-bright);
+  }
+
+  label.container_9AraPt:not([data-disabled]):hover > [data-mana-component="switch"],
+  [role="menuitemcheckbox"]:not([aria-disabled="true"]):hover [data-mana-component="switch"] {
+    --gr-switch-edge: var(--gr-gold-bright);
+  }
+
+  :is(.slider_OnqacX, .slider_p3RiOL, [role="slider"]) {
+    --slider-indicator-background: var(--gr-gold);
+    --slider-track-background: color-mix(in srgb, var(--gr-gold-dim) 52%, var(--gr-surface));
+    --background-brand: var(--slider-indicator-background);
+
+    & :is(.grabber_OnqacX, .grabber_p3RiOL) {
+      background-color: var(--gr-text);
+      border-color: var(--gr-gold-dim);
+      border-radius: 50%;
+      box-shadow: none;
+    }
+  }
+
+  /* The threshold slider sets its two zones inline and paints the live level above them. */
+  .inputSensitivityToggle_d-Ihb0 .bar_p3RiOL:not(.microphone_d-Ihb0) {
+    background-color: color-mix(in srgb, var(--gr-success) 56%, var(--gr-surface)) !important;
+  }
+
+  .inputSensitivityToggle_d-Ihb0 .barFill_p3RiOL {
+    background-color: var(--gr-gold) !important;
+  }
+
+  .inputSensitivitySlider_d-Ihb0 > .sliderBar_d-Ihb0.inputSensitivityBar_d-Ihb0 {
+    background-color: var(--gr-gold-dim);
+
+    &.speaking_d-Ihb0 {
+      background-color: var(--gr-success);
+    }
+  }
+
+  /* Replace the mic test gradient while the moving cover still tracks the level. */
+  .micTest_lUTBfB .container_0EQxEk[style*="linear-gradient"] {
+    background-image: linear-gradient(90deg, var(--gr-gold-dim), var(--gr-gold-bright)) !important;
+  }
+
+  .micTest_lUTBfB .progress_0EQxEk {
+    --gradient-progress-pill-background: color-mix(in srgb, var(--gr-gold-dim) 44%, var(--gr-surface));
+  }
+
+  .micTest_lUTBfB .notches_0EQxEk:is(.gray_0EQxEk, .black_0EQxEk) {
+    color: var(--gr-surface);
+  }
 }
 
 /* components/voice */
@@ -1256,6 +1388,7 @@ body {
   .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
   .button_2x8-Qn, .attachButton_2x8-Qn,
   .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
+  .bd-addon-controls :is(.bd-button, .bd-select),
   .wishlistButton_RmOtW7, [class^="reaction_"], [class*=" reaction_"],
   :where(button, [role="button"]):is(
     [class^="button_"], [class*=" button_"], [class^="iconButton_"], [class*=" iconButton_"],
@@ -1326,7 +1459,7 @@ body {
   &:is(
     [aria-pressed="true"], [aria-selected="true"], [aria-expanded="true"], [data-selected],
     .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
-    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
+    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"], .bd-view-button.selected
   ) {
     --gr-button-edge-strength: 64%;
     --gr-button-tint: 16%;
@@ -1442,6 +1575,31 @@ body {
   outline-offset: -2px;
 }
 
+/* Composite inputs put the focus border on the field, including its accessories. */
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & :is(.wrapper_UcGqzv, .searchBar_i16Ad0, .bd-search-wrapper)
+    :where(input, textarea, [contenteditable="true"]):focus-visible {
+    outline: none;
+  }
+
+  & .wrapper_UcGqzv:focus-within {
+    border-color: var(--custom-input-focus-border-color, var(--gr-gold));
+    outline: none;
+  }
+
+  & .bd-search-wrapper:focus-within {
+    outline: 1px solid var(--gr-gold);
+    outline-offset: -1px;
+  }
+}
+
+@media (forced-colors: none) {
+  body .focus-rings-ring {
+    --focus-primary: var(--gr-gold-bright);
+    box-shadow: 0 0 0 2px var(--__adaptive-focus-ring-color, var(--focus-primary));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --gr-motion: 0;
@@ -1484,6 +1642,12 @@ body {
   :is(#app-mount, [id^="app-mount_"], [data-popout-root]) :focus-visible {
     outline-color: Highlight;
   }
+
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root])
+    :is(.wrapper_UcGqzv, .searchBar_i16Ad0, .bd-search-wrapper):focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }
 
 /* compatibility */
@@ -1519,6 +1683,77 @@ body {
 :is(.bd-addon-card, .vc-addon-card) {
   border-color: var(--gr-line);
   border-radius: var(--gr-radius);
+}
+
+#app-mount,
+[id^="app-mount_"] {
+  --bd-brand: var(--gr-gold);
+  --bd-brand-hover: var(--gr-gold-bright);
+  --bd-brand-active: var(--gr-gold-dim);
+
+  & .bd-store-card {
+    background-color: var(--gr-card-bg);
+    border-color: var(--gr-line-strong);
+    border-radius: var(--gr-radius);
+  }
+
+  & .bd-store-card:hover {
+    background-color: color-mix(in srgb, var(--gr-gold) 13%, var(--gr-card-bg));
+  }
+
+  & .bd-store-card-icon {
+    background-color: var(--gr-selected);
+    border-radius: var(--gr-radius);
+    color: var(--gr-gold-bright);
+  }
+
+  & :is(.bd-store-card-caret, .bd-addon-controls .bd-view-button.selected svg) {
+    color: var(--gr-gold-bright);
+  }
+
+  & .bd-search-wrapper {
+    background-color: var(--gr-control-bg);
+    border-radius: var(--gr-radius);
+    box-shadow: inset 0 0 0 1px var(--gr-line);
+  }
+
+  & .bd-addon-controls .bd-select-transparent {
+    align-items: center;
+    min-height: 24px;
+    padding-inline: 6px;
+  }
+
+  & .bd-select-options {
+    background-color: var(--gr-popout-bg);
+    border-color: var(--gr-line-strong);
+  }
+
+  & .bd-select-option.selected {
+    background-color: var(--gr-selected);
+    color: var(--gr-gold-bright);
+  }
+
+  & .bd-switch-body {
+    --switch-color: var(--gr-control-bg);
+    box-shadow: inset 0 0 0 1px var(--gr-gold-dim);
+  }
+
+  & .bd-switch input:is(:active, :checked) + .bd-switch-body {
+    --switch-color: var(--gr-gold);
+  }
+
+  & .bd-switch-handle {
+    fill: var(--gr-text);
+  }
+
+  & .bd-switch input:checked + .bd-switch-body .bd-switch-handle {
+    fill: var(--gr-ink);
+  }
+
+  & .bd-switch input:focus-visible + .bd-switch-body {
+    outline: 2px solid var(--gr-gold-bright);
+    outline-offset: 2px;
+  }
 }
 
 /*

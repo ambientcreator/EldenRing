@@ -5,7 +5,7 @@ const modules = [
   'tokens', 'typography', 'base', 'background', 'components/servers',
   'components/channels', 'components/header', 'components/home', 'components/chat',
   'components/composer', 'components/members', 'components/profiles',
-  'components/menus', 'components/settings', 'components/voice', 'components/screenshare',
+  'components/menus', 'components/settings', 'components/controls', 'components/voice', 'components/screenshare',
   'components/misc', 'components/buttons', 'effects', 'accessibility', 'compatibility',
 ];
 const mimeTypes = {
@@ -16,7 +16,7 @@ const mimeTypes = {
 const header = `/**
  * @name Golden Ruins
  * @author Golden Ruins contributors
- * @version 0.7.0
+ * @version 0.7.1
  * @description Weathered gold and quiet, translucent panels over the Golden Ruins landscape.
  * @license MIT
  */

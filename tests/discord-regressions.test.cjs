@@ -10,6 +10,186 @@ const computedStyle = (locator, name, pseudo = null) => locator.evaluate(
 );
 const transparent = 'rgba(0, 0, 0, 0)';
 
+const controlsFixture = `
+  <div id="app-mount_gEkNtR" class="theme-dark">
+    <div class="menu_M3qk4j" role="menu">
+      <div class="item_M3qk4j" role="menuitemcheckbox" aria-checked="true" tabindex="0">
+        Табличный вид
+        <div class="checkboxOption_vTUVyc" data-selected="true">
+          <div class="checkboxIndicator_vTUVyc"><svg class="checkStroke_vTUVyc" width="20" height="20"><path fill="currentColor" d="M4 8l5 5 7-7v3l-7 7-5-5Z"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="container_UcGqzv">
+      <div class="wrapper_UcGqzv container_0PLWhS">
+        <svg width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor"/></svg>
+        <input role="searchbox" aria-label="Поиск настроек" class="input_0PLWhS" data-mana-component="text-input" placeholder="Поиск">
+      </div>
+    </div>
+    <div class="focus-rings-ring" style="--__adaptive-focus-ring-color:var(--focus-primary)"></div>
+    <label class="container_9AraPt">
+      <div class="switchIndicator_9AraPt" data-mana-component="switch" style="background-color:#5865f2;border:1px solid #5865f2">
+        <svg class="thumb_9AraPt" width="24" height="24"><rect width="16" height="16" rx="8" fill="white"/></svg>
+      </div>
+      <input type="checkbox" role="switch" aria-label="Эхоподавление" checked>
+    </label>
+    <div class="radioGroupOption_oJuRbG" data-selected="true">
+      <svg width="20" height="20"><circle class="outerRadioBase_oJuRbG" cx="10" cy="10" r="9"/><circle class="innerDotRadio_oJuRbG" cx="10" cy="10" r="4"/></svg>
+      Пользовательский
+    </div>
+    <div class="slider_OnqacX" role="slider" aria-label="Громкость микрофона" aria-valuenow="65" tabindex="0">
+      <div class="bar_OnqacX"><div class="barFill_OnqacX" style="width:65%"></div></div>
+      <div class="grabber_OnqacX" style="left:65%"></div>
+    </div>
+    <div class="inputSensitivityToggle_d-Ihb0 manual_d-Ihb0">
+      <div class="slider_p3RiOL" role="slider" aria-label="Чувствительность ввода" aria-valuenow="40" tabindex="0">
+        <div class="bar_p3RiOL" style="background:#248046"><div class="barFill_p3RiOL" style="background:#faa61a;width:40%"></div></div>
+        <div class="sliderBar_d-Ihb0 microphone_d-Ihb0 inputSensitivityBar_d-Ihb0 bar_p3RiOL">
+          <div class="fill_d-Ihb0 inputSensitivityBarFill_d-Ihb0" style="width:27%"></div>
+        </div>
+        <div class="grabber_p3RiOL" style="left:40%"></div>
+      </div>
+    </div>
+    <div class="micTest_lUTBfB">
+      <button data-mana-component="button">Проверка микрофона</button>
+      <div class="container_0EQxEk" style="background:linear-gradient(90deg, #faa61a, #248046)">
+        <div class="progress_0EQxEk" style="transform:translateX(80px)"></div>
+      </div>
+    </div>
+    <div class="bd-search-wrapper"><input class="bd-search" aria-label="Поиск тем" placeholder="Поиск тем"></div>
+    <div class="bd-addon-controls">
+      <button class="bd-button" aria-label="Открыть папку">Папка</button>
+      <button class="bd-select bd-select-transparent">Имя</button>
+      <button class="bd-button bd-view-button selected" aria-label="Список">Список</button>
+    </div>
+    <div class="bd-store-card">
+      <span class="bd-store-card-icon">◇</span>
+      <div class="bd-store-card-body">Открыть магазин тем <small>Официальные темы</small></div>
+    </div>
+    <label class="bd-switch">
+      <input type="checkbox" role="switch" aria-label="Включить тему" checked>
+      <div class="bd-switch-body"><svg class="bd-switch-slider" width="24" height="24"><rect class="bd-switch-handle" width="20" height="20" fill="white"/></svg></div>
+    </label>
+  </div>`;
+
+test('themes call checkboxes, search focus, voice controls and the BetterDiscord toolbar', { timeout: 15_000 }, async () => {
+  const browser = await chromium.launch({
+    executablePath: process.env.GOLDEN_RUINS_CHROMIUM || undefined,
+  });
+
+  try {
+    const page = await browser.newPage({ reducedMotion: 'reduce' });
+    await page.setContent(controlsFixture);
+    await page.addStyleTag({ content: theme });
+    await page.addStyleTag({ content: `
+      :root { --bd-brand: #3e82e5; --focus-primary: #5865f2; }
+      .theme-dark {
+        --checkbox-background-default: #333;
+        --checkbox-background-selected-default: #5865f2;
+        --checkbox-icon-active: white;
+        --radio-background-selected-default: #5865f2;
+        --radio-thumb-background-active: white;
+        --slider-track-background: #55555e;
+        --slider-indicator-background: #5865f2;
+      }
+      .checkboxIndicator_vTUVyc { background: var(--checkbox-background-default); width: 20px; height: 20px; }
+      .checkboxOption_vTUVyc[data-selected] .checkboxIndicator_vTUVyc { background: var(--checkbox-background-selected-default); }
+      .checkboxOption_vTUVyc[data-selected]:hover .checkboxIndicator_vTUVyc { background: var(--checkbox-background-selected-hover); }
+      .checkStroke_vTUVyc { color: var(--checkbox-icon-active); }
+      .outerRadioBase_oJuRbG { fill: var(--radio-background-selected-default); }
+      .innerDotRadio_oJuRbG { fill: var(--radio-thumb-background-active); }
+      .wrapper_UcGqzv { display: flex; align-items: center; border: 1px solid #333; }
+      .wrapper_UcGqzv:not([data-read-only=true]):has(input:focus) { outline: 2px solid #5865f2; outline-offset: -2px; }
+      .input_0PLWhS { background: none; border: 0; color: inherit; }
+      .focus-rings-ring { box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color); }
+      .switchIndicator_9AraPt { height: 24px; width: 48px; box-sizing: border-box; border-radius: 2px; }
+      .slider_OnqacX, .slider_p3RiOL { width: 320px; height: 24px; position: relative; }
+      .bar_OnqacX, .bar_p3RiOL { height: 4px; background: var(--slider-track-background); }
+      .barFill_OnqacX, .barFill_p3RiOL { height: 100%; background-color: var(--slider-indicator-background); }
+      .grabber_OnqacX { background-color: white; border: 1px solid #55555e; width: 16px; height: 16px; }
+      .inputSensitivityToggle_d-Ihb0.manual_d-Ihb0 .microphone_d-Ihb0 { background-color: transparent; }
+      .progress_0EQxEk { background-color: var(--gradient-progress-pill-background, #55555e); }
+      .bd-store-card { background-color: #383941; }
+      .bd-store-card:hover { background-color: #484952; }
+      .bd-addon-controls .bd-button { background: transparent; }
+      .bd-addon-controls .bd-button.selected { background: var(--bd-brand); }
+      .bd-switch-body { --switch-color: #72767d; background-color: var(--switch-color); }
+      .bd-switch input:checked + .bd-switch-body { --switch-color: var(--bd-brand); }
+    ` });
+
+    const style = (selector, name) => computedStyle(page.locator(selector), name);
+    const gold = 'rgb(196, 164, 108)';
+    const brightGold = 'rgb(231, 201, 148)';
+    const ink = 'rgb(23, 19, 14)';
+
+    const menuCheck = page.getByRole('menuitemcheckbox');
+    const indicator = '.checkboxIndicator_vTUVyc';
+    assert.equal(await style(indicator, 'backgroundColor'), gold);
+    assert.equal(await style('.checkStroke_vTUVyc', 'color'), ink);
+    assert.equal(await style(indicator, 'borderRadius'), '3px');
+    await menuCheck.locator(indicator).hover();
+    assert.equal(await style(indicator, 'backgroundColor'), brightGold);
+    await menuCheck.evaluate(element => {
+      element.setAttribute('aria-checked', 'false');
+      element.querySelector('[data-selected]').removeAttribute('data-selected');
+    });
+    await page.mouse.move(0, 0);
+    assert.match(await style(indicator, 'backgroundColor'), /\/ 0\.5\)/);
+
+    const search = page.getByRole('searchbox', { name: 'Поиск настроек' });
+    await menuCheck.press('Tab');
+    assert.equal(await search.evaluate(element => document.activeElement === element), true);
+    await search.fill('голос');
+    assert.equal(await search.inputValue(), 'голос');
+    assert.equal(await style('.wrapper_UcGqzv', 'borderTopColor'), gold);
+    assert.equal(await style('.wrapper_UcGqzv', 'outlineStyle'), 'none');
+    assert.equal(await computedStyle(search, 'outlineStyle'), 'none');
+    assert.match(await style('.focus-rings-ring', 'boxShadow'), /rgb\(231, 201, 148\) 0px 0px 0px 2px/);
+
+    const voiceSwitch = page.getByRole('switch', { name: 'Эхоподавление' });
+    const track = '.switchIndicator_9AraPt';
+    assert.equal(await style(track, 'borderRadius'), '12px');
+    assert.equal(await style(track, 'borderTopColor'), gold);
+    assert.equal(await style('.thumb_9AraPt > rect', 'fill'), ink);
+    assert.match(await style(track, 'backgroundColor'), /color\(srgb/);
+    await voiceSwitch.press('Space');
+    assert.equal(await voiceSwitch.isChecked(), false);
+    assert.match(await style(track, 'backgroundColor'), /\/ 0\.5\)/);
+    assert.equal(await style('.thumb_9AraPt > rect', 'fill'), 'rgb(232, 220, 200)');
+
+    assert.equal(await style('.outerRadioBase_oJuRbG', 'fill'), gold);
+    assert.equal(await style('.innerDotRadio_oJuRbG', 'fill'), ink);
+    assert.equal(await style('.barFill_OnqacX', 'backgroundColor'), gold);
+    assert.equal(await style('.grabber_OnqacX', 'backgroundColor'), 'rgb(240, 231, 216)');
+    assert.equal(await style('.barFill_OnqacX', 'width'), '208px');
+    assert.equal(await style('.barFill_p3RiOL', 'backgroundColor'), gold);
+    assert.match(await style('.bar_p3RiOL:not(.microphone_d-Ihb0)', 'backgroundColor'), /color\(srgb/);
+    assert.equal(await style('.microphone_d-Ihb0', 'backgroundColor'), transparent);
+    assert.match(await style('.container_0EQxEk', 'backgroundImage'), /rgb\(140, 116, 76\).*rgb\(231, 201, 148\)/);
+    assert.equal(await style('.progress_0EQxEk', 'transform'), 'matrix(1, 0, 0, 1, 80, 0)');
+
+    const bdSearch = page.getByRole('textbox', { name: 'Поиск тем' });
+    await bdSearch.focus();
+    assert.equal(await style('.bd-search-wrapper', 'outlineColor'), gold);
+    assert.equal(await computedStyle(bdSearch, 'outlineStyle'), 'none');
+    assert.match(await style('.bd-store-card', 'backgroundColor'), /\/ 0\.56\)/);
+    await page.locator('.bd-store-card').hover();
+    assert.match(await style('.bd-store-card', 'backgroundColor'), /\/ 0\.6/);
+    assert.equal(await style('.bd-store-card-icon', 'color'), brightGold);
+    assert.match(await style('.bd-select', 'fontFamily'), /Golden Ruins Forum/);
+    assert.notEqual(await style('.bd-addon-controls .bd-view-button', 'backgroundColor'), await style('.bd-addon-controls .bd-button:not(.selected)', 'backgroundColor'));
+    assert.equal(await style('.bd-switch-body', 'backgroundColor'), gold);
+    assert.equal(await style('.bd-switch-handle', 'fill'), ink);
+
+    await page.emulateMedia({ forcedColors: 'active' });
+    await search.focus();
+    assert.equal(await style('.wrapper_UcGqzv', 'outlineWidth'), '2px');
+    assert.equal(await style(track, 'borderRadius'), '2px');
+  } finally {
+    await browser.close();
+  }
+});
+
 // Model the Discord markup and default paint involved in the reported regressions.
 const fixture = `
   <style>

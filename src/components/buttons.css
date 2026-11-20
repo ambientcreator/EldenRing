@@ -6,6 +6,7 @@
   .iconWrapper_ybUK7Z.clickable_ybUK7Z, .searchBarComponent_u88IQl,
   .button_2x8-Qn, .attachButton_2x8-Qn,
   .item_zrUwGA, .pillItem_I4ubrz, .nativeSourceTypeButton_AtvFBu, .sourceOverlayCTA_4HfQya,
+  .bd-addon-controls :is(.bd-button, .bd-select),
   .wishlistButton_RmOtW7, [class^="reaction_"], [class*=" reaction_"],
   :where(button, [role="button"]):is(
     [class^="button_"], [class*=" button_"], [class^="iconButton_"], [class*=" iconButton_"],
@@ -76,7 +77,7 @@
   &:is(
     [aria-pressed="true"], [aria-selected="true"], [aria-expanded="true"], [data-selected],
     .pillItemSelected_I4ubrz, .selected_g8YUxD, .greyButtonActive_9U6LUN, .activeLight_K9Xq13,
-    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"]
+    .active_K9Xq13, .popoutOpen_K9Xq13, .selected_ybUK7Z, [class*=" reactionMe_"], .bd-view-button.selected
   ) {
     --gr-button-edge-strength: 64%;
     --gr-button-tint: 16%;

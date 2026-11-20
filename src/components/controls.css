@@ -1,0 +1,132 @@
+/* Mana uses these tokens for both form controls and display-only menu indicators. */
+:is(.checkboxOption_vTUVyc, .checkbox_8b5Lkq, [data-mana-component="checkbox"], [role="menuitemcheckbox"]) {
+  --checkbox-background-default: var(--gr-control-bg);
+  --checkbox-background-hover: var(--gr-hover);
+  --checkbox-background-selected-default: var(--gr-gold);
+  --checkbox-background-selected-hover: var(--gr-gold-bright);
+  --checkbox-border-default: var(--gr-gold-dim);
+  --checkbox-border-hover: var(--gr-gold);
+  --checkbox-border-selected-default: var(--gr-gold);
+  --checkbox-border-selected-hover: var(--gr-gold-bright);
+  --checkbox-icon-active: var(--gr-ink);
+}
+
+:is(.radioGroupOption_oJuRbG, .standaloneRadioIndicator_oJuRbG, [role="radiogroup"]) {
+  --radio-background-default: var(--gr-control-bg);
+  --radio-background-hover: var(--gr-hover);
+  --radio-background-selected-default: var(--gr-gold);
+  --radio-background-selected-hover: var(--gr-gold-bright);
+  --radio-border-default: var(--gr-gold-dim);
+  --radio-border-hover: var(--gr-gold);
+  --radio-border-selected-default: var(--gr-gold);
+  --radio-border-selected-hover: var(--gr-gold-bright);
+  --radio-thumb-background-active: var(--gr-ink);
+}
+
+:is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+  & input:is([type="checkbox"], [type="radio"], [type="range"]) {
+    accent-color: var(--gr-gold);
+  }
+
+  & .checkboxIndicator_vTUVyc,
+  & .box_8b5Lkq {
+    border-radius: max(3px, var(--gr-radius));
+  }
+}
+
+.wrapper_UcGqzv {
+  --input-border-active: var(--gr-gold);
+  --input-placeholder-text-default: var(--gr-text-muted);
+  --input-text-default: var(--gr-text);
+}
+
+@media (forced-colors: none) {
+  :is(#app-mount, [id^="app-mount_"], [data-popout-root]) {
+    & .colorDefault_M3qk4j :is(.checkbox_M3qk4j, .radioSelection_M3qk4j) {
+      color: var(--gr-gold);
+    }
+
+    & .colorDefault_M3qk4j .check_M3qk4j,
+    & .checkbox_8b5Lkq.checked_8b5Lkq svg path {
+      fill: var(--gr-ink);
+    }
+  }
+
+  /* Discord animates the switch palette as inline colors. Keep its thumb motion. */
+  :is(label.container_9AraPt, [role="menuitemcheckbox"] .container_9AraPt) {
+    --gr-switch-fill: var(--gr-control-bg);
+    --gr-switch-edge: var(--gr-gold-dim);
+    --gr-switch-thumb: var(--gr-text-muted);
+    --gr-switch-symbol: var(--gr-ink);
+
+    & > [data-mana-component="switch"] {
+      background-color: var(--gr-switch-fill) !important;
+      border-color: var(--gr-switch-edge) !important;
+      border-radius: 12px;
+    }
+
+    & .thumb_9AraPt > rect {
+      fill: var(--gr-switch-thumb);
+    }
+
+    & .thumb_9AraPt > svg path {
+      fill: var(--gr-switch-symbol);
+    }
+  }
+
+  :is(label.container_9AraPt:has(input:checked),
+    [role="menuitemcheckbox"][aria-checked="true"] .container_9AraPt) {
+    --gr-switch-fill: color-mix(in srgb, var(--gr-gold) 76%, var(--gr-ink));
+    --gr-switch-edge: var(--gr-gold);
+    --gr-switch-thumb: var(--gr-ink);
+    --gr-switch-symbol: var(--gr-gold-bright);
+  }
+
+  label.container_9AraPt:not([data-disabled]):hover > [data-mana-component="switch"],
+  [role="menuitemcheckbox"]:not([aria-disabled="true"]):hover [data-mana-component="switch"] {
+    --gr-switch-edge: var(--gr-gold-bright);
+  }
+
+  :is(.slider_OnqacX, .slider_p3RiOL, [role="slider"]) {
+    --slider-indicator-background: var(--gr-gold);
+    --slider-track-background: color-mix(in srgb, var(--gr-gold-dim) 52%, var(--gr-surface));
+    --background-brand: var(--slider-indicator-background);
+
+    & :is(.grabber_OnqacX, .grabber_p3RiOL) {
+      background-color: var(--gr-text);
+      border-color: var(--gr-gold-dim);
+      border-radius: 50%;
+      box-shadow: none;
+    }
+  }
+
+  /* The threshold slider sets its two zones inline and paints the live level above them. */
+  .inputSensitivityToggle_d-Ihb0 .bar_p3RiOL:not(.microphone_d-Ihb0) {
+    background-color: color-mix(in srgb, var(--gr-success) 56%, var(--gr-surface)) !important;
+  }
+
+  .inputSensitivityToggle_d-Ihb0 .barFill_p3RiOL {
+    background-color: var(--gr-gold) !important;
+  }
+
+  .inputSensitivitySlider_d-Ihb0 > .sliderBar_d-Ihb0.inputSensitivityBar_d-Ihb0 {
+    background-color: var(--gr-gold-dim);
+
+    &.speaking_d-Ihb0 {
+      background-color: var(--gr-success);
+    }
+  }
+
+  /* Replace the mic test gradient while the moving cover still tracks the level. */
+  .micTest_lUTBfB .container_0EQxEk[style*="linear-gradient"] {
+    background-image: linear-gradient(90deg, var(--gr-gold-dim), var(--gr-gold-bright)) !important;
+  }
+
+  .micTest_lUTBfB .progress_0EQxEk {
+    --gradient-progress-pill-background: color-mix(in srgb, var(--gr-gold-dim) 44%, var(--gr-surface));
+  }
+
+  .micTest_lUTBfB .notches_0EQxEk:is(.gray_0EQxEk, .black_0EQxEk) {
+    color: var(--gr-surface);
+  }
+}

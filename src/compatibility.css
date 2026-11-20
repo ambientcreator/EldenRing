@@ -31,3 +31,74 @@
   border-color: var(--gr-line);
   border-radius: var(--gr-radius);
 }
+
+#app-mount,
+[id^="app-mount_"] {
+  --bd-brand: var(--gr-gold);
+  --bd-brand-hover: var(--gr-gold-bright);
+  --bd-brand-active: var(--gr-gold-dim);
+
+  & .bd-store-card {
+    background-color: var(--gr-card-bg);
+    border-color: var(--gr-line-strong);
+    border-radius: var(--gr-radius);
+  }
+
+  & .bd-store-card:hover {
+    background-color: color-mix(in srgb, var(--gr-gold) 13%, var(--gr-card-bg));
+  }
+
+  & .bd-store-card-icon {
+    background-color: var(--gr-selected);
+    border-radius: var(--gr-radius);
+    color: var(--gr-gold-bright);
+  }
+
+  & :is(.bd-store-card-caret, .bd-addon-controls .bd-view-button.selected svg) {
+    color: var(--gr-gold-bright);
+  }
+
+  & .bd-search-wrapper {
+    background-color: var(--gr-control-bg);
+    border-radius: var(--gr-radius);
+    box-shadow: inset 0 0 0 1px var(--gr-line);
+  }
+
+  & .bd-addon-controls .bd-select-transparent {
+    align-items: center;
+    min-height: 24px;
+    padding-inline: 6px;
+  }
+
+  & .bd-select-options {
+    background-color: var(--gr-popout-bg);
+    border-color: var(--gr-line-strong);
+  }
+
+  & .bd-select-option.selected {
+    background-color: var(--gr-selected);
+    color: var(--gr-gold-bright);
+  }
+
+  & .bd-switch-body {
+    --switch-color: var(--gr-control-bg);
+    box-shadow: inset 0 0 0 1px var(--gr-gold-dim);
+  }
+
+  & .bd-switch input:is(:active, :checked) + .bd-switch-body {
+    --switch-color: var(--gr-gold);
+  }
+
+  & .bd-switch-handle {
+    fill: var(--gr-text);
+  }
+
+  & .bd-switch input:checked + .bd-switch-body .bd-switch-handle {
+    fill: var(--gr-ink);
+  }
+
+  & .bd-switch input:focus-visible + .bd-switch-body {
+    outline: 2px solid var(--gr-gold-bright);
+    outline-offset: 2px;
+  }
+}

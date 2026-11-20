@@ -39,7 +39,10 @@
   --input-border-default: var(--gr-line);
   --input-border-hover: var(--gr-line-strong);
   --input-border-focus: var(--gr-gold);
+  --input-border-active: var(--gr-gold);
   --input-placeholder-text: var(--gr-text-muted);
+  --input-placeholder-text-default: var(--gr-text-muted);
+  --input-text-default: var(--gr-text);
   --scrollbar-thin-thumb: var(--gr-bronze);
   --scrollbar-thin-track: transparent;
   --scrollbar-auto-thumb: var(--gr-bronze);
